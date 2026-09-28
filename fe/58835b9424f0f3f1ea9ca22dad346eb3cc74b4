@@ -1,0 +1,40 @@
+frontend/lib/app-nav.ts
+  s_6eb5c96253e5e6::t_1fa182b819fba6 1-8
+frontend/app/scan/dispatch/page.tsx
+  s_6eb5c96253e5e6::t_ebd00a221929bf 6-7,42,60-63,66-67,73,76,109,111-112,117,124,129-130,134,138-140
+frontend/app/orders/page.tsx
+  s_6eb5c96253e5e6::t_ef02eebac8b2ea 6-7,42-45,49-50,64,78,84,86
+frontend/app/dashboard/page.tsx
+  s_6eb5c96253e5e6::t_4a3f745ff56857 6-7,45-46,53-58,66-69,73-74,89,100
+frontend/app/parcels/[barcode]/page.tsx
+  s_6eb5c96253e5e6::t_0bbe90a724c844 3,5-6,26-27,29-43
+frontend/app/settings/tally/page.tsx
+  s_6eb5c96253e5e6::t_8317d819c60101 5-6,61,76-79,82-83,90,95-98,101,109,117,126,129,137,145,155,167-169,173,189,194
+frontend/app/exceptions/page.tsx
+  s_6eb5c96253e5e6::t_1ba944346c934c 7-8,67-70,73-74,80-81,99,119,125,127,131,154,158,172,190,198-201,204,209
+frontend/app/login/page.tsx
+  s_6eb5c96253e5e6::t_516fe3b9457aeb 45,48-49,55-57,61-63,65,67-68,75-78,95,109,133-134
+frontend/tests/dashboard.test.tsx
+  s_6eb5c96253e5e6::t_fd959354617df8 2-3,6-9,15-19
+  s_6eb5c96253e5e6::t_be17dd3454b9c9 20
+frontend/app/orders/[id]/page.tsx
+  s_6eb5c96253e5e6::t_43a6adc6b2273d 8-9,35-37,46,53-56,59,63,66,74-76,78-80,82-84,90-91,93,99,102-103,113-114
+frontend/app/scan/return/page.tsx
+  s_6eb5c96253e5e6::t_ceba8ebe9039ae 6-7,63-66,69-70,76,78,107-109,112,114-115,118-119,127,148,169
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "fe58835b9424f0f3f1ea9ca22dad346eb3cc74b4",
+  "prompts": {},
+  "sessions": {
+    "s_6eb5c96253e5e6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f198616cbffeMRyZGEbhyGJUeG",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
