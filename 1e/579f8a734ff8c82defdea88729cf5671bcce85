@@ -1,0 +1,22 @@
+frontend/app/globals.css
+  s_ae2bb84ed2d8d9::t_df9e3c6195a3a9 43-53
+frontend/components/TopNav.tsx
+  s_ae2bb84ed2d8d9::t_ba46b2907d7a4b 82
+  s_ae2bb84ed2d8d9::t_b9af0f4b7b84ea 58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "1e579f8a734ff8c82defdea88729cf5671bcce85",
+  "prompts": {},
+  "sessions": {
+    "s_ae2bb84ed2d8d9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f197e8a0fffexaFnc8S73ruqyY",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
