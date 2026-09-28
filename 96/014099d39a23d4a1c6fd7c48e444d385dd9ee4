@@ -1,0 +1,29 @@
+frontend/app/orders/page.tsx
+  s_391f1aeccc6fe5::t_bd2e38f53aec9c 14-15,17-18,21-26,33-37
+  s_391f1aeccc6fe5::t_6c24e6659fbf61 84-87
+  s_6eb5c96253e5e6::t_3d6b2a223a8014 38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "96014099d39a23d4a1c6fd7c48e444d385dd9ee4",
+  "prompts": {},
+  "sessions": {
+    "s_391f1aeccc6fe5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f1dca8204ffe95OQibSdLvIkE0",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_6eb5c96253e5e6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f198616cbffeMRyZGEbhyGJUeG",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
