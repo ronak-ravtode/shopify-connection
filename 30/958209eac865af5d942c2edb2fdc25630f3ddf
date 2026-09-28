@@ -1,0 +1,27 @@
+frontend/components/ClayScene.tsx
+  s_7a9963e021fc18::t_2c5760a664b48c 1-2
+  s_7a9963e021fc18::t_b4daa78adcd158 3-80
+frontend/tests/clay-scene.test.tsx
+  s_7a9963e021fc18::t_5542f75aff375e 1
+  s_7a9963e021fc18::t_5b39afb96d3630 2,4-17
+  s_7a9963e021fc18::t_9f306ef2ebe10c 3
+frontend/components/icons.tsx
+  s_7a9963e021fc18::t_0941bc0d12286c 1-2
+  s_7a9963e021fc18::t_82869429d627a9 3-113
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "30958209eac865af5d942c2edb2fdc25630f3ddf",
+  "prompts": {},
+  "sessions": {
+    "s_7a9963e021fc18": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f192c4203ffexsmE0Tz808yJqc",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
