@@ -1,0 +1,31 @@
+frontend/components/NavPillGroup.tsx
+  s_4d5e60fb62973b::t_77ba08256b6618 3
+  s_4d5e60fb62973b::t_e983fc77bc2cc2 1-2,4-43
+frontend/app/layout.tsx
+  s_4d5e60fb62973b::t_047cb3936d97cc 14-15
+  s_4d5e60fb62973b::t_2a071c639be8b5 3
+frontend/tests/nav.test.tsx
+  s_4d5e60fb62973b::t_350c5e20b8ddef 1-38
+frontend/components/TopNav.tsx
+  s_4d5e60fb62973b::t_d8c55c84fd5fbe 1-2,4-109
+  s_4d5e60fb62973b::t_3d7028150d1c1c 3
+frontend/components/Reveal.tsx
+  s_4d5e60fb62973b::t_5f7ac1830708c4 3
+  s_4d5e60fb62973b::t_6d6ce7ffff2806 1-2,4-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "da07848e266ec2f5c0b812053daf9d111d1da544",
+  "prompts": {},
+  "sessions": {
+    "s_4d5e60fb62973b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f199208c8ffeHd5QDaPHb134YC",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
