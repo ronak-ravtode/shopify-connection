@@ -1,0 +1,46 @@
+backend/alembic/versions/0004_sprint4.py
+  h_c5a3d01edfee72 1-53
+backend/app/api/reconciliation.py
+  h_c5a3d01edfee72 1-78
+backend/app/api/webhooks.py
+  h_c5a3d01edfee72 1-49
+backend/app/models/reconciliation.py
+  h_c5a3d01edfee72 1-24
+backend/app/models/refund.py
+  h_c5a3d01edfee72 1-16
+backend/app/services/reconciliation_service.py
+  h_c5a3d01edfee72 1-138
+backend/app/services/scanning_service.py
+  h_c5a3d01edfee72 1-45
+backend/app/services/webhook_service.py
+  h_c5a3d01edfee72 1-127
+backend/tests/test_exceptions.py
+  h_c5a3d01edfee72 1-174
+backend/tests/test_reconciliation.py
+  h_c5a3d01edfee72 1-60
+backend/tests/test_seed_matrix.py
+  h_c5a3d01edfee72 1-95
+backend/tests/test_webhooks.py
+  h_c5a3d01edfee72 1-65
+docs/superpowers/plans/2026-09-27-sprint4-reconciliation-implementation-plan.md
+  h_c5a3d01edfee72 1-813
+docs/superpowers/specs/2026-09-27-sprint4-reconciliation-design.md
+  h_c5a3d01edfee72 1-49
+frontend/app/exceptions/page.tsx
+  h_c5a3d01edfee72 1-242
+frontend/components/SeverityBadge.tsx
+  h_c5a3d01edfee72 1-5
+frontend/tests/exceptions.test.tsx
+  h_c5a3d01edfee72 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "324d270a152dcd86d16420982153318abe846e6a",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
