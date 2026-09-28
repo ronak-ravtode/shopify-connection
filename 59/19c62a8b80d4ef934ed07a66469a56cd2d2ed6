@@ -1,0 +1,20 @@
+docs/superpowers/specs/2026-09-28-recon-clay-design.md
+  s_dd1f0abbcc29d8::t_aa80270ab550fb 81
+  s_dd1f0abbcc29d8::t_d7770466a738a0 1-80,82-148
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5919c62a8b80d4ef934ed07a66469a56cd2d2ed6",
+  "prompts": {},
+  "sessions": {
+    "s_dd1f0abbcc29d8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f19a12eadffey6Lwxv4J0adPy8",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
