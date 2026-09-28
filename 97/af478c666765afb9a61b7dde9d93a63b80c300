@@ -1,0 +1,21 @@
+frontend/components/Timeline.tsx
+  s_391f1aeccc6fe5::t_8f9ef4142d7cfb 30
+  s_391f1aeccc6fe5::t_fa0c4ca938dd44 69
+  s_391f1aeccc6fe5::t_8e04dc1dbd2db6 17-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "97af478c666765afb9a61b7dde9d93a63b80c300",
+  "prompts": {},
+  "sessions": {
+    "s_391f1aeccc6fe5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f1dca8204ffe95OQibSdLvIkE0",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
