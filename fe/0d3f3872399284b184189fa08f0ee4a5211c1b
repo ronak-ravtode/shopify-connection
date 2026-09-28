@@ -1,0 +1,31 @@
+frontend/app/page.tsx
+  s_db3c1241dda72f::t_9e572784bcdcde 47
+frontend/components/NavPillGroup.tsx
+  s_db3c1241dda72f::t_852c3e1327a441 38-39
+  s_db3c1241dda72f::t_2b71d16242e2cb 21-22
+frontend/components/Footer.tsx
+  s_db3c1241dda72f::t_18b6c359d9873d 36
+frontend/components/Reveal.tsx
+  s_db3c1241dda72f::t_bc12ad3510c985 36
+frontend/app/globals.css
+  s_db3c1241dda72f::t_3870eb47f8e1a9 48
+  s_db3c1241dda72f::t_d0e4f0b8b37801 54
+.superpowers/sdd/2026-09-28-recon-calcom-refactor/task-fix-report.md
+  s_db3c1241dda72f::t_d78dc2d04c4285 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "fe0d3f3872399284b184189fa08f0ee4a5211c1b",
+  "prompts": {},
+  "sessions": {
+    "s_db3c1241dda72f": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f19792862ffefMajTszCIr7dGQ",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
