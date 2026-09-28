@@ -1,0 +1,29 @@
+frontend/components/OrderTable.tsx
+  s_d424345b99ee68::t_c91cc4ade98b24 5-7,11-14,40,44-49,74
+frontend/components/SeverityBadge.tsx
+  s_d424345b99ee68::t_2e3caf5cfec38e 4-7
+frontend/components/ScanBanner.tsx
+  s_d424345b99ee68::t_e0917522dc0770 2,5,10,20-22
+frontend/tests/timeline.test.tsx
+  s_d424345b99ee68::t_ec3759cdfadfab 15-18
+frontend/components/Timeline.tsx
+  s_d424345b99ee68::t_74198d8f2a6dc4 6-8,25-26,31,46
+frontend/components/MetricCard.tsx
+  s_d424345b99ee68::t_11cd312f02d1a7 14,45,54-56,60,66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "4baae65994aa0fe4e84a2376e03ad4b2db6f05be",
+  "prompts": {},
+  "sessions": {
+    "s_d424345b99ee68": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f191a8df9ffepG6x3CLeKuLdh4",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
