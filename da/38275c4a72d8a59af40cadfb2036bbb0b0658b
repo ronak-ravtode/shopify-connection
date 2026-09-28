@@ -1,0 +1,19 @@
+frontend/app/globals.css
+  s_4f934ca48b3e9c::t_55f0ee484229b6 10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "da38275c4a72d8a59af40cadfb2036bbb0b0658b",
+  "prompts": {},
+  "sessions": {
+    "s_4f934ca48b3e9c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f199634f4ffefuhpL6CMOkb1AL",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
