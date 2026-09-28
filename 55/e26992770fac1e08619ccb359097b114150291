@@ -1,0 +1,37 @@
+frontend/app/login/page.tsx
+  s_5a57420ceb9655::t_0808fcf8d8b2dc 6,49,57-58,76,78,85,124
+frontend/app/exceptions/page.tsx
+  s_5a57420ceb9655::t_36fca035121b2d 9,68,72-75,81,120-121,126,191,199,205
+frontend/app/orders/[id]/page.tsx
+  s_5a57420ceb9655::t_2c6e7c9be18e00 10,36,38-39,47,54,75,79,83,91,94-95,100,114
+frontend/app/scan/return/page.tsx
+  s_5a57420ceb9655::t_b1a034eed60f78 8,64,76-77,79,108,113,141-142
+frontend/app/dashboard/page.tsx
+  s_5a57420ceb9655::t_c81869476b1ca2 8-18,56,64,66-72,83,87-88,91,100-101,109-112,120-124
+frontend/app/settings/tally/page.tsx
+  s_5a57420ceb9655::t_1afb4ead56a041 7,77,81-84,91-92,97,158-159,162-163,170
+frontend/tests/dashboard.test.tsx
+  s_5a57420ceb9655::t_edf5692fe3e746 16,19-20
+frontend/app/scan/dispatch/page.tsx
+  s_5a57420ceb9655::t_aec7f20ce70e59 60,72-73,76,79,111,129,138,140
+frontend/app/orders/page.tsx
+  s_5a57420ceb9655::t_3be88adaf5f6cc 8,43,47-48,51,60-61,66,70,80-81,86
+frontend/app/parcels/[barcode]/page.tsx
+  s_5a57420ceb9655::t_0e6187d8a6b522 7,27-28,30,33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "55e26992770fac1e08619ccb359097b114150291",
+  "prompts": {},
+  "sessions": {
+    "s_5a57420ceb9655": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f1916022fffemNtDIz5ORHYB1l",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
