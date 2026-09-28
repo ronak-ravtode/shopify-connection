@@ -1,0 +1,24 @@
+frontend/components/Footer.tsx
+  s_145a152ab8e77e::t_38565ef74fbae9 1-73
+frontend/app/page.tsx
+  s_145a152ab8e77e::t_416174bdffbcc3 1-6,9-119,121-189
+  s_145a152ab8e77e::t_6edf418ec552cd 120
+frontend/tests/landing.test.tsx
+  s_145a152ab8e77e::t_1fef0a8e551ef0 1-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "043efc1349a0fb849f969cff959d790252166ce4",
+  "prompts": {},
+  "sessions": {
+    "s_145a152ab8e77e": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f198d8d48ffenkyXmV8iJT7bCz",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
