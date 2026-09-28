@@ -1,0 +1,19 @@
+frontend/app/page.tsx
+  s_8b3d7b500c201f::t_6eaaad025d2a8a 209
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "bed268ec1dab5efa0f2aed9cfa6316e059ec39b2",
+  "prompts": {},
+  "sessions": {
+    "s_8b3d7b500c201f": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f191d3d54ffeZSSNF52VevkV11",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
