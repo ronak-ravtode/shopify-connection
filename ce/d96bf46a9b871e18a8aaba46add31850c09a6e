@@ -1,0 +1,24 @@
+backend/app/services/timeline_service.py
+  s_391f1aeccc6fe5::t_d16d7dafea458a 2-8,11,13-14,16,20-37,41-43,45-46,48-63,67-68
+  s_391f1aeccc6fe5::t_96b515257e615d 64-66
+backend/tests/test_timeline.py
+  s_391f1aeccc6fe5::t_b2e367a51697d9 15-39
+frontend/components/Timeline.tsx
+  s_391f1aeccc6fe5::t_14c143ad1df5b9 6-8,12-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ced96bf46a9b871e18a8aaba46add31850c09a6e",
+  "prompts": {},
+  "sessions": {
+    "s_391f1aeccc6fe5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f1dca8204ffe95OQibSdLvIkE0",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
