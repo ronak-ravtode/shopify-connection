@@ -1,0 +1,27 @@
+frontend/components/OrderTable.tsx
+  s_b0b187c0eb54e7::t_c0ca29330d9c0f 73
+frontend/app/page.tsx
+  s_b0b187c0eb54e7::t_42aba6b67cbc3a 52
+  s_b0b187c0eb54e7::t_9bdd20c9ba88d0 70
+  s_b0b187c0eb54e7::t_54029c1d6abeb0 78
+  s_b0b187c0eb54e7::t_c2b0dfe2623c51 208
+frontend/app/globals.css
+  s_b0b187c0eb54e7::t_693037ffce00be 20
+  s_b0b187c0eb54e7::t_fb586fa80e8a04 53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "be50f0339b944a884420f77288d56ec2cd83dd83",
+  "prompts": {},
+  "sessions": {
+    "s_b0b187c0eb54e7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f19069b5cffeRbkRpaL439y7uH",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
