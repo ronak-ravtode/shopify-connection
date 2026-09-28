@@ -1,0 +1,21 @@
+frontend/tests/landing.test.tsx
+  s_b6760774171bf1::t_d1b9e54a927835 5,8-13
+frontend/app/page.tsx
+  s_b6760774171bf1::t_dfa7f3aaff2d6f 4,8-14,19-21,23,26,40-41,43,51-52,61-62,67,69,71-73,77,79-85,89,91-93,100-102,104-106,110,115-125,129-159,164,166-168,171,173,176,178,186-187,192-199,201,203-205,208-223,231,235-252
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6900231c36e19c0a99fb0b38b4944d31da0a485b",
+  "prompts": {},
+  "sessions": {
+    "s_b6760774171bf1": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f19222ce1ffe9LfIr7WKih6SJE",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
