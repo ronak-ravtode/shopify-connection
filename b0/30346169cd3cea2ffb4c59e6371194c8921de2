@@ -1,0 +1,21 @@
+backend/tests/test_p0.py
+  s_63d32a6a16bebd::t_a15dda9b3eac1e 1-76
+backend/app/api/tally.py
+  s_63d32a6a16bebd::t_c4b5e1f6b885e8 53-54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b030346169cd3cea2ffb4c59e6371194c8921de2",
+  "prompts": {},
+  "sessions": {
+    "s_63d32a6a16bebd": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f17c54feeffeGyBWltgEvSEYMx",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
