@@ -1,0 +1,23 @@
+frontend/components/Reveal.tsx
+  s_51d749e2af5671::t_c61c0199a2c3f8 22,35
+  s_51d749e2af5671::t_8f5c9f0cf7267e 28,36-42
+frontend/tests/nav.test.tsx
+  s_51d749e2af5671::t_3b5a4cb25f9fd3 57-73
+  s_51d749e2af5671::t_bb2f1fc7ed81cf 56
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0bab3ddb63ca486652663db02509fe68b99c8444",
+  "prompts": {},
+  "sessions": {
+    "s_51d749e2af5671": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f11a3ba73ffeX9SFj7wXYJ949U",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
