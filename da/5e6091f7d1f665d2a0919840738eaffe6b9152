@@ -1,0 +1,21 @@
+frontend/components/barcode/ParcelBarcode.tsx
+  s_391f1aeccc6fe5::t_f87a364dd2bddf 17
+frontend/app/globals.css
+  s_391f1aeccc6fe5::t_17d29c7eec2c8e 64-73
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "da5e6091f7d1f665d2a0919840738eaffe6b9152",
+  "prompts": {},
+  "sessions": {
+    "s_391f1aeccc6fe5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f1dca8204ffe95OQibSdLvIkE0",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
