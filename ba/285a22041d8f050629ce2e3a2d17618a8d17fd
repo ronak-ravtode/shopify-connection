@@ -1,0 +1,40 @@
+frontend/components/SeverityBadge.tsx
+  s_b8f2224b93c266::t_275968bd7fa640 3-9,11-14,18,21
+frontend/app/globals.css
+  s_b8f2224b93c266::t_a262fefc3109c6 46
+frontend/tests/timeline.test.tsx
+  s_b8f2224b93c266::t_6caf9a5a68f7aa 5
+  s_b8f2224b93c266::t_92bc543fe9104b 20-30
+frontend/components/Timeline.tsx
+  s_b8f2224b93c266::t_71021e763d9095 6-12
+  s_b8f2224b93c266::t_b47726d5bb8c9b 46
+  s_b8f2224b93c266::t_fcbd484be06aac 51
+frontend/components/OrderTable.tsx
+  s_b8f2224b93c266::t_32f706ec77a16a 5-7,11-14
+  s_b8f2224b93c266::t_7ed40a41a01883 40
+  s_b8f2224b93c266::t_dfd68fba3a2af8 66
+frontend/components/MetricCard.tsx
+  s_b8f2224b93c266::t_7274bc7e38d0fe 36
+  s_b8f2224b93c266::t_227144ebdb116e 55
+  s_b8f2224b93c266::t_94ffa23971678d 66
+frontend/components/ScanBanner.tsx
+  s_b8f2224b93c266::t_3e8025345d26bb 5
+frontend/components/EmptyState.tsx
+  s_b8f2224b93c266::t_7901e42554f0ce 1-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ba285a22041d8f050629ce2e3a2d17618a8d17fd",
+  "prompts": {},
+  "sessions": {
+    "s_b8f2224b93c266": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f11a0b005ffe1H91vXduCS05OH",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
