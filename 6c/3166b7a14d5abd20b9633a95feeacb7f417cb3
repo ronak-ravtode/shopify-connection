@@ -1,0 +1,25 @@
+frontend/app/globals.css
+  s_d9af4689a8db57::t_e2419227cde0e0 93-95
+frontend/lib/app-nav.ts
+  s_d9af4689a8db57::t_ddcc14e87d615b 1-3,5-22,24-32,34-38
+frontend/tests/nav.test.tsx
+  s_d9af4689a8db57::t_a3990e219afefc 36-44
+frontend/components/TopNav.tsx
+  s_d9af4689a8db57::t_103500d380e861 7,14-27,30-31,33-35,76-90,92-97,100-155,184-206,208-253
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6c3166b7a14d5abd20b9633a95feeacb7f417cb3",
+  "prompts": {},
+  "sessions": {
+    "s_d9af4689a8db57": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f11a83c7cffeZruaZfBbeyQNbC",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
