@@ -1,0 +1,21 @@
+frontend/app/globals.css
+  s_e4f8bbdf8065f4::t_e17ff941a24f01 1,3-8,12-14,17,19-33,36-42,44,59,61
+frontend/tests/tokens.test.tsx
+  s_e4f8bbdf8065f4::t_7a3297a5e4f92f 5-8,10-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "78860cf2b1b7978e2440471eb87848c2257e20fe",
+  "prompts": {},
+  "sessions": {
+    "s_e4f8bbdf8065f4": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f11abba6bffetUq12Y222HGkR4",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
