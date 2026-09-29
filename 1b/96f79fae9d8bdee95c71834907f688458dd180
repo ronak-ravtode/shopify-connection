@@ -1,0 +1,26 @@
+frontend/components/Footer.tsx
+  s_4e363e15374f78::t_396d71805c0348 24-30,44,64-66
+  s_4e363e15374f78::t_909aa2a8b9ee1d 43
+  s_4e363e15374f78::t_397976def92a83 23
+frontend/app/page.tsx
+  s_4e363e15374f78::t_ddf25b83e24fe1 5,8-9,11,13-14,17-63,67,71-74,90-123,129-137,139,141,145-146,149-156,158-159,164-165,193,197,200-214,219,223,226,228,230-231,235,243-244,247-248,250-251,256-257,260-264,267,279,283-285
+  s_4e363e15374f78::t_1432f0dcbdc9a1 10
+frontend/tests/landing.test.tsx
+  s_4e363e15374f78::t_0861fb4f52de5f 5,9,11-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "1b96f79fae9d8bdee95c71834907f688458dd180",
+  "prompts": {},
+  "sessions": {
+    "s_4e363e15374f78": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f119b76f9ffejg3xnLjW6JR5rA",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
