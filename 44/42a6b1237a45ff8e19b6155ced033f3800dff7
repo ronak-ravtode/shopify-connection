@@ -1,0 +1,109 @@
+frontend/app/shipments/outstanding/page.tsx
+  s_b5c0424517f1cf::t_8fd589b183d644 37
+  s_b5c0424517f1cf::t_2b9e029b32b709 49
+  s_b5c0424517f1cf::t_be2981b09253ac 9
+  s_b5c0424517f1cf::t_9812d6cd4bcb62 25
+frontend/app/scan/page.tsx
+  s_b5c0424517f1cf::t_5b06b9f3705850 12
+  s_b5c0424517f1cf::t_0ece000f23cf28 14
+frontend/app/settings/carriers/page.tsx
+  s_b5c0424517f1cf::t_b19def813bc749 22-33
+frontend/tests/dashboard.test.tsx
+  s_b5c0424517f1cf::t_c887bbe7635430 16,18-20
+frontend/app/parcels/labels/page.tsx
+  s_b5c0424517f1cf::t_07fa6adfa0c64a 48,51-71,79,81-82,88-89
+  s_b5c0424517f1cf::t_d90043f54f2cb7 4
+frontend/app/parcels/test-sheet/page.tsx
+  s_b5c0424517f1cf::t_d84974b111968e 11
+frontend/app/reports/monthly/page.tsx
+  s_b5c0424517f1cf::t_2926e651edd869 51,53-54
+  s_b5c0424517f1cf::t_88e23dada0b527 73-78
+  s_b5c0424517f1cf::t_384e535920eafc 6
+frontend/app/settings/tally/page.tsx
+  s_b5c0424517f1cf::t_cc8f8817d46287 196
+  s_b5c0424517f1cf::t_58eb9f370840b5 79-82,89
+frontend/app/statements/[id]/page.tsx
+  s_b5c0424517f1cf::t_3e06f2cb7c8354 50
+  s_b5c0424517f1cf::t_0d025c003ecc1f 75
+  s_b5c0424517f1cf::t_7be881e3da2a8f 67
+frontend/app/orders/[id]/page.tsx
+  s_b5c0424517f1cf::t_e6fe727af99217 102
+  s_b5c0424517f1cf::t_78ecfcee9cb28c 65-66,69
+  s_b5c0424517f1cf::t_1db8a4b9da0a34 93,96
+frontend/app/import/page.tsx
+  s_b5c0424517f1cf::t_b8568d71fe0df3 32-45
+frontend/app/scan/dispatch/page.tsx
+  s_b5c0424517f1cf::t_f9108e20a19e18 79-80
+  s_b5c0424517f1cf::t_01e09237b14d93 73
+  s_b5c0424517f1cf::t_ce9afe579bc8b5 163,165
+frontend/app/scan/rto/page.tsx
+  s_b5c0424517f1cf::t_eb834687301323 78
+  s_b5c0424517f1cf::t_ba043ff4488e9a 71
+frontend/app/dashboard/page.tsx
+  s_b5c0424517f1cf::t_45aedf46a0e812 65-67,71-77
+  s_b5c0424517f1cf::t_fe4a62d5516c86 89,91-92
+  s_b5c0424517f1cf::t_d0c4bfcb0fd028 6
+frontend/app/orders/page.tsx
+  s_b5c0424517f1cf::t_1308a2e3015853 103,108-115
+  s_b5c0424517f1cf::t_a1b72b7bdc9ab5 7
+  s_b5c0424517f1cf::t_bd693c07e444d6 58,60-61
+  s_6eb5c96253e5e6::t_b65dfc40d581fd 116
+frontend/app/exceptions/page.tsx
+  s_b5c0424517f1cf::t_75661d5074c98f 143
+  s_b5c0424517f1cf::t_0ab42dd82c5bb5 208
+  s_b5c0424517f1cf::t_0160e0b0c5b81d 222
+  s_b5c0424517f1cf::t_cabd07361753c5 71-74
+  s_b5c0424517f1cf::t_3ac69d0352a321 216
+frontend/app/scan/return/page.tsx
+  s_b5c0424517f1cf::t_8d5d8cb70a2713 83-84
+  s_b5c0424517f1cf::t_a0f5e4a2279ecc 138
+  s_b5c0424517f1cf::t_fabe3d66d89374 77
+frontend/app/shipments/page.tsx
+  s_b5c0424517f1cf::t_43db883559b7ec 46,48-55
+  s_b5c0424517f1cf::t_304e17eb075c5f 6
+  s_b5c0424517f1cf::t_f8e15346cb18ae 27
+frontend/app/statements/page.tsx
+  s_b5c0424517f1cf::t_4f8cdb5c82d888 61
+  s_b5c0424517f1cf::t_6ded6ca4f1351e 45
+  s_b5c0424517f1cf::t_1f230166e62e80 70
+frontend/app/settings/costs/page.tsx
+  s_b5c0424517f1cf::t_985be122c54a97 24-39,41-42
+frontend/app/parcels/[barcode]/page.tsx
+  s_b5c0424517f1cf::t_cb23367ef01c1d 88
+  s_b5c0424517f1cf::t_fc226cd8e0ab83 81
+  s_b5c0424517f1cf::t_83e8cb4ace251e 119
+frontend/app/shipments/[id]/page.tsx
+  s_b5c0424517f1cf::t_091d5fd899d537 38
+frontend/app/settings/sla/page.tsx
+  s_b5c0424517f1cf::t_f3947eb5244019 24-40
+frontend/app/login/page.tsx
+  s_b5c0424517f1cf::t_83ae81763358ee 48,53-58
+frontend/app/parcels/page.tsx
+  s_b5c0424517f1cf::t_27ba977fc7d37c 5
+  s_b5c0424517f1cf::t_f9eb2a243a6751 84-85,87-94
+  s_b5c0424517f1cf::t_e8c36a524d40be 67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "4442a6b1237a45ff8e19b6155ced033f3800dff7",
+  "prompts": {},
+  "sessions": {
+    "s_6eb5c96253e5e6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f198616cbffeMRyZGEbhyGJUeG",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_b5c0424517f1cf": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f11973fd8ffezQ7P1J1N1yoBB0",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
