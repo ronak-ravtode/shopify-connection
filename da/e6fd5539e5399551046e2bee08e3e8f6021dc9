@@ -1,0 +1,21 @@
+frontend/components/scanner/BarcodeScanner.tsx
+  s_dd1f0abbcc29d8::t_2c17dc243cfeef 28-48
+frontend/tests/barcode-scanner.test.tsx
+  s_dd1f0abbcc29d8::t_77d4bf4aada04a 1-55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "dae6fd5539e5399551046e2bee08e3e8f6021dc9",
+  "prompts": {},
+  "sessions": {
+    "s_dd1f0abbcc29d8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f19a12eadffey6Lwxv4J0adPy8",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
