@@ -1,0 +1,20 @@
+frontend/app/parcels/page.tsx
+  s_391f1aeccc6fe5::t_7d58882bef57b8 106
+  s_391f1aeccc6fe5::t_4ad34d01de4e12 40-51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e7494be05aecd57f92f3f68f59eadade09b89fa4",
+  "prompts": {},
+  "sessions": {
+    "s_391f1aeccc6fe5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f1dca8204ffe95OQibSdLvIkE0",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
