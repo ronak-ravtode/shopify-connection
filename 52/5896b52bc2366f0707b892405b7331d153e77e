@@ -1,0 +1,26 @@
+frontend/app/settings/tally/page.tsx
+  s_391f1aeccc6fe5::t_a5a080d5f3ee0e 107
+  s_391f1aeccc6fe5::t_04d07d83a34cca 135,143
+  s_391f1aeccc6fe5::t_8a352fa8784e11 4
+  s_391f1aeccc6fe5::t_334db61486d671 126-127
+  s_391f1aeccc6fe5::t_9e865297ac419d 115
+  s_391f1aeccc6fe5::t_88610930e6f46b 98-99
+  s_391f1aeccc6fe5::t_c34869e78f6383 46
+  s_391f1aeccc6fe5::t_90cc8b4fe8774f 153-180
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "525896b52bc2366f0707b892405b7331d153e77e",
+  "prompts": {},
+  "sessions": {
+    "s_391f1aeccc6fe5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f1dca8204ffe95OQibSdLvIkE0",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
