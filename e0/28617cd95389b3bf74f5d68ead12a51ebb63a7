@@ -1,0 +1,44 @@
+backend/alembic/versions/0011_parcel_status.py
+  s_391f1aeccc6fe5::t_2aef1c171f4fb0 1-15
+backend/tests/test_lifecycle.py
+  s_391f1aeccc6fe5::t_058ccdc0e4fa42 1-18,20-88
+  s_391f1aeccc6fe5::t_8976edff4f8025 19
+backend/app/services/scanning_service.py
+  s_391f1aeccc6fe5::t_7cb9caaf1b41f6 32-33
+frontend/app/parcels/[barcode]/page.tsx
+  s_391f1aeccc6fe5::t_8ff381453d29b8 53-54,56
+  s_391f1aeccc6fe5::t_4021c7eac96b78 100-104,106-119
+  s_391f1aeccc6fe5::t_6ccd4a7368a93e 18-19,50-52,55,60-72
+  s_6eb5c96253e5e6::t_340dc0c34ffddd 73
+backend/app/api/returns.py
+  s_391f1aeccc6fe5::t_85345616f97587 2,33-60
+backend/app/api/parcels.py
+  s_391f1aeccc6fe5::t_946c22aeba46c0 44-71
+  s_391f1aeccc6fe5::t_eb6049c053ed3b 3
+backend/app/services/return_service.py
+  s_391f1aeccc6fe5::t_c1379db721d496 46-47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e028617cd95389b3bf74f5d68ead12a51ebb63a7",
+  "prompts": {},
+  "sessions": {
+    "s_391f1aeccc6fe5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f1dca8204ffe95OQibSdLvIkE0",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_6eb5c96253e5e6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f198616cbffeMRyZGEbhyGJUeG",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
