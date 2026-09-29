@@ -1,0 +1,23 @@
+frontend/tests/scan-sound.test.tsx
+  s_dd1f0abbcc29d8::t_ae0f43fdeaf9f6 1-31
+frontend/components/scanner/BarcodeScanner.tsx
+  s_dd1f0abbcc29d8::t_4d3282dc803431 6,65
+frontend/lib/scan-sound.ts
+  s_dd1f0abbcc29d8::t_f12e3a6f59a2c2 1-47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "74f1445977acf63807c245dc7342f8133c20e078",
+  "prompts": {},
+  "sessions": {
+    "s_dd1f0abbcc29d8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f19a12eadffey6Lwxv4J0adPy8",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
