@@ -1,0 +1,20 @@
+docs/superpowers/plans/2026-09-29-recon-enterprise-plan.md
+  s_dd1f0abbcc29d8::t_971ae7405adad9 118-130,134-140
+  s_dd1f0abbcc29d8::t_6058b8ecd0199f 1-117,131-133,141-394
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "516fcf136a559bc0da3a4857f0bfdaf24186627c",
+  "prompts": {},
+  "sessions": {
+    "s_dd1f0abbcc29d8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f19a12eadffey6Lwxv4J0adPy8",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
