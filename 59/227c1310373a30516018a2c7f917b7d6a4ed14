@@ -1,0 +1,19 @@
+.gitignore
+  s_a3ed333f47be2c::t_7fb7cfc760b9a1 34-36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "59227c1310373a30516018a2c7f917b7d6a4ed14",
+  "prompts": {},
+  "sessions": {
+    "s_a3ed333f47be2c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0ce3f95fffegqN60DuM6gqc8n",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
