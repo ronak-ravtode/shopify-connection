@@ -1,0 +1,30 @@
+frontend/app/finance/ledger/page.tsx
+  s_f27bbfd86da8ab::t_046647dcde7b9b 94
+  s_f27bbfd86da8ab::t_6a7913c4dac192 3,39,42-43,54-56,59-64,66-75
+  s_f27bbfd86da8ab::t_4794663a67ceb7 157
+  s_f27bbfd86da8ab::t_e4a5f878c3365e 24
+  s_f27bbfd86da8ab::t_4a2a4d9320cd59 199
+  s_f27bbfd86da8ab::t_fd3ba9286f4224 25,145
+  s_f27bbfd86da8ab::t_9c2a6243e7749c 23
+frontend/tests/ledger.test.tsx
+  s_f27bbfd86da8ab::t_189f531f18e0a2 100
+  s_f27bbfd86da8ab::t_1c850d3d726e1c 101-102,104-105,117-144
+  s_f27bbfd86da8ab::t_1604d6e06bba0a 2-3,8-9,103
+  s_f27bbfd86da8ab::t_cedac043cd9d39 145
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ca573f0f21ac515d57aee0f9b4e48bb3b5889fa6",
+  "prompts": {},
+  "sessions": {
+    "s_f27bbfd86da8ab": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0c484904ffe5V9zhIyYIh2Okx",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
