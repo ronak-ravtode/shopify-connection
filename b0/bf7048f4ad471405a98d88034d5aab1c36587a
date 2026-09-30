@@ -1,0 +1,142 @@
+frontend/app/shipments/tracking/page.tsx
+  s_227260e2e61ec3::t_be6ed526f8c6fc 84-86,91
+  s_227260e2e61ec3::t_921ed28d891d60 43,46-50,52-57,64
+  s_227260e2e61ec3::t_ed390a2721f1d5 103-109
+  s_5ebfb11c060ade::t_f48cba2d85f969 1-42,44-45,51,58-63,65-83,87-90,92-102,110-201
+frontend/app/shipments/[id]/page.tsx
+  s_5ebfb11c060ade::t_b8fb1ecae4c3fd 5,15-16
+  s_5ebfb11c060ade::t_1f161fb9f443d2 61-66
+  s_5ebfb11c060ade::t_1e131e258b8b47 36-50
+backend/tests/test_p0.py
+  s_391f1aeccc6fe5::t_7fcdf24eb62518 73-75,77-78
+frontend/lib/tracking.ts
+  s_5ebfb11c060ade::t_621c96d013539a 1-24
+backend/app/models/courier_meta.py
+  s_b95971ee6375fc::t_840d43b3956e02 1-50
+backend/app/models/__init__.py
+  s_b95971ee6375fc::t_6885c84d3e0e3b 24-29
+docs/superpowers/specs/2026-09-29-courier-phase-design.md
+  s_391f1aeccc6fe5::t_d85a0a2d2eef42 1-32
+backend/app/api/carriers.py
+  s_1bb3e5e050aedb::t_9e9ad7171daa95 29-45
+frontend/app/settings/carriers/page.tsx
+  s_5ebfb11c060ade::t_4b1e8d31e42c7f 8-17,21-28
+  s_5ebfb11c060ade::t_3182133a4528bb 52-80
+backend/tests/test_normalizer_sweep.py
+  s_1bb3e5e050aedb::t_b8dcc6b90ec273 1-99
+backend/alembic/versions/0012_courier.py
+  s_b95971ee6375fc::t_aaefdda3b01af2 40
+  s_b95971ee6375fc::t_a0b283969b2ba7 1-39,41-64
+backend/app/services/shipment_service.py
+  s_b95971ee6375fc::t_8a0becf46cab25 8
+  s_1bb3e5e050aedb::t_5ecff5fdd28b71 24
+  s_1bb3e5e050aedb::t_de2b60339424bb 30-33
+backend/tests/test_shipments_search.py
+  s_6c8a697dea83fb::t_4ade8777784d69 1-132
+docs/superpowers/plans/2026-09-29-courier-phase-implementation-plan.md
+  s_391f1aeccc6fe5::t_a899e2cc631488 358-414,416-439,441-448,450-456
+  s_391f1aeccc6fe5::t_0021d379f8bd61 151-165,167-227,229-232,234,236-249
+  s_391f1aeccc6fe5::t_bd59727f7303c9 1-150,166,228,233,235,250-357,415,440,449,457-545
+backend/app/api/shipments.py
+  s_6c8a697dea83fb::t_9413b0ba691a70 86,89-91,93,95,97,99-106
+  s_79891a7917b7fc::t_0fd251632a2403 372-376
+  s_79891a7917b7fc::t_75e545a6ee8e7a 449-452
+  s_f22474e4c198e9::t_1d956f5b11f47d 1,3,476
+  s_f22474e4c198e9::t_039357995acff8 416-417,462
+  s_f22474e4c198e9::t_dde2021bfbf777 297-371,377-392,395-415,418-441,443-444,446-448,453-461,463-475
+  s_1bb3e5e050aedb::t_c3642fbc74ddd0 199,209-223,228-229,239-296
+  s_f22474e4c198e9::t_bea9adfdc22b22 393-394,442,445
+  s_6c8a697dea83fb::t_ac1a8055d3b767 107-108
+backend/app/api/sla.py
+  s_1bb3e5e050aedb::t_43a6c4ec9b397d 172-211,213-235,237-238,240-272
+  s_1bb3e5e050aedb::t_697f083becd4e2 212
+  s_1bb3e5e050aedb::t_6a2c024d255cf6 236,239
+frontend/tests/tracking.test.tsx
+  s_5ebfb11c060ade::t_603170e84527fb 1-16
+frontend/app/scan/dispatch/page.tsx
+  s_5ebfb11c060ade::t_922b58ae2c702a 11-18,25-31
+  s_5ebfb11c060ade::t_413fd6c43d026d 98-119
+  s_5ebfb11c060ade::t_b7755b9b056560 186-242
+  s_5ebfb11c060ade::t_1071871992f30d 51-54,56-69
+backend/tests/test_courier_schema.py
+  s_b95971ee6375fc::t_45ef06f9991ab5 1-25
+courier_integration_india_post_dtdc_implementation_plan.md
+  s_b95971ee6375fc::t_0f9f12b46c1975 1-3763
+backend/app/carriers/registry.py
+  s_1bb3e5e050aedb::t_4e0f90577a53f4 27-44
+backend/tests/test_booking.py
+  s_f22474e4c198e9::t_436869f41f2fbc 1-84,161-175
+  s_79891a7917b7fc::t_eb8e7e4ecccf54 85-160
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b0bf7048f4ad471405a98d88034d5aab1c36587a",
+  "prompts": {},
+  "sessions": {
+    "s_1bb3e5e050aedb": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0f006aa7ffeqVxxHZoBnfJ661",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_227260e2e61ec3": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0ebce000ffehL4FQoX968NSvu",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_391f1aeccc6fe5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f1dca8204ffe95OQibSdLvIkE0",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_5ebfb11c060ade": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0ef62eb0ffep6vHY9ulHXvHLc",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_6c8a697dea83fb": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0ef1f307ffevZhfyNy7j5vrxj",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_79891a7917b7fc": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0f06a036ffes4A4aJ3q2SUX1g",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_b95971ee6375fc": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0f174adcffeB9kdfBIrwEt08s",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_f22474e4c198e9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0f0f6e09ffeStCwKu193Kd0L9",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
