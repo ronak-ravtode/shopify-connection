@@ -1,0 +1,28 @@
+backend/app/api/tally.py
+  s_8042f0acff1b0a::t_7a7e7d2fd5911e 118-128
+backend/tests/test_tally_hardening.py
+  s_8042f0acff1b0a::t_0a6dd711a08aad 254-264
+  s_8042f0acff1b0a::t_738b5a2b6597fe 72-95
+backend/app/services/tally_service.py
+  s_8042f0acff1b0a::t_c3a701ce1fa048 497-502,507-514,518
+  s_8042f0acff1b0a::t_aaada1d41d6e60 568
+backend/alembic/versions/0015_tally_hardening.py
+  s_8042f0acff1b0a::t_4bcecc32d8cd67 51-53,59
+  s_8042f0acff1b0a::t_b7c26fe9587fd7 36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ca7df83c27d9c42d09d16e53d5c02ff166ce9c94",
+  "prompts": {},
+  "sessions": {
+    "s_8042f0acff1b0a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0cc1fe54ffeMfQN7nJzdAbXEw",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
