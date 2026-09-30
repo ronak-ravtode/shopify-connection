@@ -1,0 +1,29 @@
+frontend/lib/api.ts
+  s_2385e609e4d1e9::t_649559cce073ee 232-312
+frontend/app/settings/tally/page.tsx
+  s_2385e609e4d1e9::t_aa8e129d1c29a2 451,453-455,458-460,462-472,475-483,485-525
+  s_2385e609e4d1e9::t_d59d2dfd0d1ec3 222-227
+  s_2385e609e4d1e9::t_e97f087e94ea8c 3,5-14,17-35,461
+  s_2385e609e4d1e9::t_765cdb3f12d50e 52-87,93-192
+  s_2385e609e4d1e9::t_84ee69b175702d 259-347
+frontend/tests/tally-export.test.tsx
+  s_2385e609e4d1e9::t_2797d6f6267f06 128
+  s_2385e609e4d1e9::t_5fa60f55886616 139
+  s_2385e609e4d1e9::t_65a0586c75c89b 1-127,129-138,140-196
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5a209e7225aa9cf855908522b1c1cae56be210d8",
+  "prompts": {},
+  "sessions": {
+    "s_2385e609e4d1e9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0c38bda4ffeGps3UMG72VRwPV",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
