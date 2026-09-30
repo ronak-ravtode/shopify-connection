@@ -1,0 +1,52 @@
+backend/app/models/statement.py
+  s_128b900edc713a::t_04f35e6f4337ce 1
+  s_128b900edc713a::t_bbe72f255e2dd4 28-34,48,51-64
+backend/app/api/reconciliation.py
+  s_128b900edc713a::t_f2567d93a5769c 2-3,11-15
+  s_128b900edc713a::t_68406463301ac4 70
+  s_128b900edc713a::t_c9d155573c5a3a 90-168
+backend/alembic/versions/0014_bank_recon.py
+  s_128b900edc713a::t_efd67acf595199 1-63
+backend/app/services/statement_service.py
+  s_128b900edc713a::t_391ad929bb3a26 17
+  s_128b900edc713a::t_7427569941b310 11-15,18,22-24,31,37-39,156-157
+  s_128b900edc713a::t_6b014fdcc759a8 115-120,126-127,129-134,140-155
+backend/app/models/__init__.py
+  s_128b900edc713a::t_dfe703e4fd12c0 23
+backend/tests/test_bank_recon.py
+  s_128b900edc713a::t_e46145069efaf6 1-92,94-98,100-161,163-169,171-213
+  s_128b900edc713a::t_43c750b7d89442 162
+  s_128b900edc713a::t_582f2e2cdb4b9c 93
+  s_128b900edc713a::t_2bd4aa146cd9bb 99
+  s_128b900edc713a::t_a48d575669be20 170
+backend/app/models/bank_account.py
+  s_128b900edc713a::t_835199873d8c49 1-22
+backend/app/services/bank_recon_service.py
+  s_128b900edc713a::t_23f81b6eafe770 1-73,79-87,90-243
+  s_128b900edc713a::t_4e29f7d90ba1bb 74-78,88-89
+backend/app/api/statements.py
+  s_128b900edc713a::t_40450521e1238e 248-250,255-272
+  s_128b900edc713a::t_3108def0596c6d 2,11-15
+  s_128b900edc713a::t_ff33705462ba52 98-99,104-107,110,113-118,134-149
+  s_128b900edc713a::t_5ac718492d8d30 29-34,37-38,41-92
+  s_128b900edc713a::t_cd55ee11abc04d 340
+  s_128b900edc713a::t_7ec7f731714251 165-166,169-174,176-179,182-185
+  s_128b900edc713a::t_dcff1d07c517e6 216-233
+  s_128b900edc713a::t_1fad3398cd068c 310-311
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "31e642e67263a3afc2bec58a20ae4bb5a1255d6e",
+  "prompts": {},
+  "sessions": {
+    "s_128b900edc713a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0cd393b2ffe8VrzMXQILeHrf3",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
