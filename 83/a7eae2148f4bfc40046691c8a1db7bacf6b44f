@@ -1,0 +1,44 @@
+backend/tests/test_task6_reports.py
+  s_d3956f0cac2e66::t_0dadb6788035f7 164
+  s_d3956f0cac2e66::t_5612e9bbdb1304 57-68,73-78
+  s_d3956f0cac2e66::t_db7923d1eabe32 177-181
+  s_d3956f0cac2e66::t_1f3f805d8bdd24 1-53,69-72,80-97,99-163,165-176,182-184,186-187
+  s_d3956f0cac2e66::t_080d4da8ac4b33 79
+  s_d3956f0cac2e66::t_a9c1dccd900c9d 54-56
+  s_d3956f0cac2e66::t_dbe944c64df1b7 98,185
+backend/app/models/business.py
+  s_d3956f0cac2e66::t_4f501c1ebe3f6f 18
+backend/app/services/dashboard_service.py
+  s_d3956f0cac2e66::t_d1ac28dc4bd05d 11-14,19,22,26,29,36,56-60
+backend/app/api/dashboard.py
+  s_d3956f0cac2e66::t_73900771b5bada 2
+  s_d3956f0cac2e66::t_edea97a819ee61 11-24
+backend/alembic/versions/0018_gst_report_fields.py
+  s_d3956f0cac2e66::t_f9a455e835d00d 1-39
+backend/app/api/reports.py
+  s_d3956f0cac2e66::t_427695dd58d961 1-2,10-141
+backend/app/models/customer.py
+  s_d3956f0cac2e66::t_70692759b9715b 19-20
+backend/app/services/report_service.py
+  s_d3956f0cac2e66::t_67641c8c946b42 3-482
+backend/app/api/ledger.py
+  s_d3956f0cac2e66::t_c7872152acb723 103-119
+backend/app/models/order.py
+  s_d3956f0cac2e66::t_a0266ccc6f4575 39-41,58-64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "83a7eae2148f4bfc40046691c8a1db7bacf6b44f",
+  "prompts": {},
+  "sessions": {
+    "s_d3956f0cac2e66": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0c883025ffeXy4RC1kEJzGQxB",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
