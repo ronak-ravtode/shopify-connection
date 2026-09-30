@@ -1,0 +1,42 @@
+backend/tests/test_task6_reports.py
+  s_d3956f0cac2e66::t_d9beebf097d528 89-91,93,144-145,147,149,158-167,169-171,174,179-204,206-209,211,213-271
+  s_d3956f0cac2e66::t_bb5093b27ba973 205,210,212
+  s_d3956f0cac2e66::t_48c768b660ce1b 66-67
+  s_d3956f0cac2e66::t_ebebde6213206a 92
+  s_d3956f0cac2e66::t_0cd7e41aa85c48 272-273
+backend/app/services/ledger_service.py
+  s_d3956f0cac2e66::t_09592f6b7938d4 288-289,292-298,310-317,319
+backend/app/services/report_service.py
+  s_d3956f0cac2e66::t_b0b05c9dd10e86 352
+  s_d3956f0cac2e66::t_8c108db560b022 402
+  s_d3956f0cac2e66::t_b2c1edaad908fe 465-485,487,501-508,511-523
+  s_d3956f0cac2e66::t_55a3864bd1fb94 303
+  s_d3956f0cac2e66::t_4eeab9706b207c 243-248,250-251
+  s_a3ed333f47be2c::t_da2fee9ad5b27a 290-291,293
+backend/app/api/reports.py
+  s_d3956f0cac2e66::t_da5a3a2a043d2a 78-86,98-99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f92ebd2e803276228db5d3dc2b9544a0538d687d",
+  "prompts": {},
+  "sessions": {
+    "s_a3ed333f47be2c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0ce3f95fffegqN60DuM6gqc8n",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_d3956f0cac2e66": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0c883025ffeXy4RC1kEJzGQxB",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
