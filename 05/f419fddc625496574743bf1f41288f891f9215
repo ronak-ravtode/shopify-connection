@@ -1,0 +1,67 @@
+backend/alembic/versions/0017_accounting_controls.py
+  s_e6232fd770fbb9::t_375413ced6a06e 1-48
+backend/app/models/__init__.py
+  s_e6232fd770fbb9::t_b5ec4257b803bb 27
+backend/app/main.py
+  s_e6232fd770fbb9::t_2983f7314b9871 29
+  s_e6232fd770fbb9::t_6310c1ca32f3da 100
+backend/app/services/audit_service.py
+  s_e6232fd770fbb9::t_d9e59cac3e50ff 3,6-9,11-12,14-17
+backend/app/services/ledger_service.py
+  s_e6232fd770fbb9::t_9adc8a9b212924 154-158
+backend/app/services/rbac.py
+  s_e6232fd770fbb9::t_dddc92b34d1795 1-11
+backend/app/services/accounting_service.py
+  s_e6232fd770fbb9::t_0dbfa5d7d57ffc 1-210
+backend/app/api/accounting.py
+  s_e6232fd770fbb9::t_0c2bfd27cb4e64 1-112,114-115
+  s_e6232fd770fbb9::t_1421ec32148442 113,116-120
+backend/app/api/tally.py
+  s_e6232fd770fbb9::t_27d05a24045401 52-54,56-60
+  s_e6232fd770fbb9::t_e0aa84e6f7c67b 61-62
+  s_e6232fd770fbb9::t_76508061a6c6e4 181,183-189,191
+  s_e6232fd770fbb9::t_089260d4c3634a 190
+  s_e6232fd770fbb9::t_a325bb254a24d0 108-115
+  s_a3ed333f47be2c::t_2ee5e43fd3bff2 116
+backend/app/models/audit_log.py
+  s_e6232fd770fbb9::t_b1b016d2ef29d9 21-24
+  s_e6232fd770fbb9::t_b9c4f087e2096c 11
+backend/app/models/accounting_period.py
+  s_e6232fd770fbb9::t_56e45751637956 1-29
+backend/app/api/audit.py
+  s_e6232fd770fbb9::t_4875523bb02cfe 18-22
+backend/app/api/statements.py
+  s_e6232fd770fbb9::t_58f48a5cb90963 182-189
+  s_e6232fd770fbb9::t_19573d7a57e8b8 190
+backend/app/models/business.py
+  s_e6232fd770fbb9::t_f3992b98d78a1d 1
+  s_e6232fd770fbb9::t_79cef4f94dd023 17
+backend/tests/test_accounting_controls.py
+  s_e6232fd770fbb9::t_73e8d6ce2e706b 74-81,84
+  s_e6232fd770fbb9::t_a51a0346ae1942 191-198,209,214,222-223
+  s_e6232fd770fbb9::t_39c139e584c675 1-73,82-83,85-190,199-208,210-213,215-221,224-234
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "05f419fddc625496574743bf1f41288f891f9215",
+  "prompts": {},
+  "sessions": {
+    "s_a3ed333f47be2c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0ce3f95fffegqN60DuM6gqc8n",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_e6232fd770fbb9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0c9bd22effe2m5XhvwuGqsIFr",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
