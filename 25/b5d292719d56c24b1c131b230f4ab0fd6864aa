@@ -1,0 +1,29 @@
+backend/app/services/shipment_service.py
+  s_b95971ee6375fc::t_f5cfe763c0a35a 30-35
+frontend/lib/app-nav.ts
+  s_6eb5c96253e5e6::t_468c82f2022ba0 11,24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "25b5d292719d56c24b1c131b230f4ab0fd6864aa",
+  "prompts": {},
+  "sessions": {
+    "s_6eb5c96253e5e6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f198616cbffeMRyZGEbhyGJUeG",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_b95971ee6375fc": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0f174adcffeB9kdfBIrwEt08s",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
