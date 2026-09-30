@@ -1,0 +1,28 @@
+backend/app/services/accounting_service.py
+  s_e6232fd770fbb9::t_3cdf7685ee6679 100-101,104-112,117-119,124-138
+  s_e6232fd770fbb9::t_5ec0072b8a9be3 139-140,162-173
+  s_e6232fd770fbb9::t_c8412c5f79b0f2 141
+backend/app/api/accounting.py
+  s_e6232fd770fbb9::t_d9386965e4b04d 12,61
+  s_e6232fd770fbb9::t_dea3fab265f0ea 74
+  s_e6232fd770fbb9::t_e31f6ece9f4a2b 97
+backend/tests/test_accounting_controls.py
+  s_e6232fd770fbb9::t_60e97dcc676a3d 82-119,122-187
+  s_e6232fd770fbb9::t_da1518859bbb82 120-121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5c4351185f78a26f9b47e96f10aaf7a8ff6845b8",
+  "prompts": {},
+  "sessions": {
+    "s_e6232fd770fbb9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0c9bd22effe2m5XhvwuGqsIFr",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
