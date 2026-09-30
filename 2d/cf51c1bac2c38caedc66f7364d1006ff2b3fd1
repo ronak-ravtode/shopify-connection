@@ -1,0 +1,27 @@
+frontend/lib/app-nav.ts
+  s_f27bbfd86da8ab::t_eae2154d84a4fb 30
+frontend/tests/ledger.test.tsx
+  s_f27bbfd86da8ab::t_9810f35e7ecb54 1-108
+frontend/app/finance/ledger/page.tsx
+  s_f27bbfd86da8ab::t_fb790cd48eea95 67-68
+  s_f27bbfd86da8ab::t_5b08c3017dabcc 1-66,69-117,119-195
+  s_f27bbfd86da8ab::t_61ea224bea36b9 118
+frontend/lib/api.ts
+  s_f27bbfd86da8ab::t_1a99598c67be9c 38-152
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2dcf51c1bac2c38caedc66f7364d1006ff2b3fd1",
+  "prompts": {},
+  "sessions": {
+    "s_f27bbfd86da8ab": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0c484904ffe5V9zhIyYIh2Okx",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
