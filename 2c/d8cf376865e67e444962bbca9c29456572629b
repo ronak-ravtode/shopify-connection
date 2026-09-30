@@ -1,0 +1,19 @@
+frontend/components/TopNav.tsx
+  s_dd1f0abbcc29d8::t_307fa883563fcc 98,103,108-120,125,129-132,136,140
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "2cd8cf376865e67e444962bbca9c29456572629b",
+  "prompts": {},
+  "sessions": {
+    "s_dd1f0abbcc29d8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f19a12eadffey6Lwxv4J0adPy8",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
