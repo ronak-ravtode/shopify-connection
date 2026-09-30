@@ -1,0 +1,26 @@
+frontend/components/TopNav.tsx
+  s_dd1f0abbcc29d8::t_d06759881f0351 245
+  s_dd1f0abbcc29d8::t_854ef0244efb75 24-26
+  s_dd1f0abbcc29d8::t_3987065e4e6d21 14-17
+  s_dd1f0abbcc29d8::t_25b4899985a579 143
+  s_dd1f0abbcc29d8::t_2235e76ebc155c 202
+frontend/tests/nav.test.tsx
+  s_dd1f0abbcc29d8::t_c8faea4e41ccff 34-35,38
+  s_dd1f0abbcc29d8::t_014559db0ac611 30-33
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "33842f131419fd7386e67c38734ad37a9ada305b",
+  "prompts": {},
+  "sessions": {
+    "s_dd1f0abbcc29d8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f19a12eadffey6Lwxv4J0adPy8",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
