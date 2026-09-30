@@ -1,0 +1,29 @@
+frontend/tests/month-close.test.tsx
+  s_3dc39dbad26f5d::t_d328a8a791e320 135,138
+  s_3dc39dbad26f5d::t_0c1bce4afca96f 93-96
+  s_3dc39dbad26f5d::t_067c685c88bc97 1-92,97-134,136-137,139-212
+frontend/lib/api.ts
+  s_3dc39dbad26f5d::t_39c78bd3a9d43a 23-28,32-36
+  s_3dc39dbad26f5d::t_ad34981a9ddf5e 329-385
+frontend/app/finance/close/page.tsx
+  s_3dc39dbad26f5d::t_39012f89f69fc0 1-33,35-338
+  s_3dc39dbad26f5d::t_c428bed7bdfe14 34
+frontend/lib/app-nav.ts
+  s_3dc39dbad26f5d::t_e18a751b8bd6a4 31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "ef687e4aeece558973a55537572692ec2e605d9e",
+  "prompts": {},
+  "sessions": {
+    "s_3dc39dbad26f5d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0c32484fffeFobwyT27spZOan",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
