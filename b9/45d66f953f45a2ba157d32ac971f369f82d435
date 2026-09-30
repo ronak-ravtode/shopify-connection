@@ -1,0 +1,43 @@
+backend/app/api/ledger.py
+  s_612bc4d378e7fa::t_bec697d9021ab2 1-100
+backend/app/services/ledger_service.py
+  s_612bc4d378e7fa::t_c018a8a1569fea 1-298
+backend/app/services/webhook_service.py
+  s_612bc4d378e7fa::t_668f13e976fc54 77-83
+  s_612bc4d378e7fa::t_d6e9b06cc6b0e3 113-118
+backend/app/models/financial_transaction.py
+  s_612bc4d378e7fa::t_6ef1312088fa5c 1-51
+backend/alembic/versions/0013_financial_ledger.py
+  s_612bc4d378e7fa::t_665b691e35dd7b 1-53
+backend/tests/test_ledger.py
+  s_612bc4d378e7fa::t_e5acb83fb02dfa 64
+  s_612bc4d378e7fa::t_44d26e5170260f 78-85,87-93,95-130,132,134-141,143-156
+  s_612bc4d378e7fa::t_0d74fcd7665936 131,133
+  s_612bc4d378e7fa::t_04a0a909e93a8c 142
+  s_612bc4d378e7fa::t_1c50de201194fb 1-63,65-77,86,94
+backend/app/models/__init__.py
+  s_612bc4d378e7fa::t_e36567d4f9cc5b 24
+backend/app/main.py
+  s_612bc4d378e7fa::t_506342c045a260 27
+  s_612bc4d378e7fa::t_20d31bcb67e9fc 95
+backend/app/services/shopify_service.py
+  s_612bc4d378e7fa::t_466d98e2dfed27 226-232
+backend/app/schemas/ledger.py
+  s_612bc4d378e7fa::t_c7f8120dd895ae 1-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b945d66f953f45a2ba157d32ac971f369f82d435",
+  "prompts": {},
+  "sessions": {
+    "s_612bc4d378e7fa": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0cdfb193ffeX5xlRDPIwz0wKZ",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
