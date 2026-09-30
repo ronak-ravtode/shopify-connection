@@ -1,0 +1,47 @@
+backend/app/config.py
+  s_8eec0d915c3f6d::t_a3b8dd8c495dad 37-43
+backend/alembic/versions/0016_shipsagar.py
+  s_8eec0d915c3f6d::t_e8d2101ace8b82 1-66
+backend/app/main.py
+  s_8eec0d915c3f6d::t_888ec6d0aa45bc 92-93
+  s_8eec0d915c3f6d::t_9e4837d79a7379 23
+backend/app/models/shipment_event.py
+  s_8eec0d915c3f6d::t_08e950ab925877 1-49
+backend/app/api/shipments.py
+  s_8eec0d915c3f6d::t_c74ea970974746 241-267
+  s_8eec0d915c3f6d::t_5ee2406cca777b 25
+backend/app/services/shipsagar_service.py
+  s_8eec0d915c3f6d::t_649d8815520fea 1-53,57-62,64-69,74-96,99-394
+  s_8eec0d915c3f6d::t_f251da19b478ac 54-56,63,70,72-73,98
+  s_8eec0d915c3f6d::t_54b0275765bb97 71
+  s_8eec0d915c3f6d::t_c2f79999a21611 97
+backend/app/api/shipsagar.py
+  s_8eec0d915c3f6d::t_8ba834be21ead1 1-6,8-111,114-134
+  s_8eec0d915c3f6d::t_668845b81fc3fa 112
+  s_8eec0d915c3f6d::t_60a89ae495d2a4 113
+  s_8eec0d915c3f6d::t_c3fb7ca97c846e 7
+backend/app/models/__init__.py
+  s_8eec0d915c3f6d::t_79677cf1890cab 21
+backend/tests/test_shipsagar.py
+  s_8eec0d915c3f6d::t_e0dc26b370130f 282,286
+  s_8eec0d915c3f6d::t_85c14f279876fe 1-281,283-285,287-303
+backend/app/models/shipment.py
+  s_8eec0d915c3f6d::t_ed3c63e5ac153b 19-22
+  s_8eec0d915c3f6d::t_03190d414a1682 43,45,50-59
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "237af8ed9ae475249b338e675523a12c60622a53",
+  "prompts": {},
+  "sessions": {
+    "s_8eec0d915c3f6d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0cac903dffeiYuTNLf55glUr1",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
