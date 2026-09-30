@@ -1,0 +1,27 @@
+frontend/lib/api.ts
+  s_497678fd19eba3::t_78201d85a43447 386-510
+frontend/app/reports/monthly/page.tsx
+  s_497678fd19eba3::t_4473ca046b89f3 3,7-22,30-37,51-82,115,124-211,213
+frontend/tests/fe5-reports-shipments.test.tsx
+  s_497678fd19eba3::t_021815c5ec0b41 1-14,16-106,110-163
+  s_497678fd19eba3::t_e8186077062edc 15
+  s_497678fd19eba3::t_80008e7492f02b 107-109
+frontend/app/shipments/page.tsx
+  s_497678fd19eba3::t_4473ca046b89f3 3,7-13,15-22,29-33,35-36,40-41,43-68,84,93-111,124,128
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "14a48e9ce589fbf1d6f9a3ceb7a1fbb044572a48",
+  "prompts": {},
+  "sessions": {
+    "s_497678fd19eba3": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0c2cdcfeffee5t43N7LxPiplB",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
