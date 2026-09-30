@@ -1,0 +1,39 @@
+frontend/app/finance/ledger/page.tsx
+  s_783ec80f76d896::t_5368fc9e109791 60
+  s_783ec80f76d896::t_cba26db078ca6b 69
+  s_783ec80f76d896::t_e94858742abb8b 14-23
+frontend/app/shipments/page.tsx
+  s_783ec80f76d896::t_a999061564c505 59-63
+frontend/tests/tally-export.test.tsx
+  s_783ec80f76d896::t_e548be85c46fe5 166-182
+frontend/lib/api.ts
+  s_783ec80f76d896::t_070984bcf726ed 480-483
+frontend/app/settings/tally/page.tsx
+  s_783ec80f76d896::t_099f91f403c18b 138
+  s_783ec80f76d896::t_0e6784f2fb7bca 21-30
+  s_783ec80f76d896::t_9b86a02a598083 114
+  s_783ec80f76d896::t_8e114590679263 490
+frontend/tests/ledger.test.tsx
+  s_783ec80f76d896::t_dcbc79a928f141 88
+  s_783ec80f76d896::t_38cdbaebb38e17 64-78,87
+  s_783ec80f76d896::t_c57081ad2cdd62 79-86
+frontend/tests/fe5-reports-shipments.test.tsx
+  s_783ec80f76d896::t_e05c39bf176cc4 135
+  s_783ec80f76d896::t_5e6aad5c738180 149
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "146a59ff1a1c3b3ee9264c82d2549c359ed6f379",
+  "prompts": {},
+  "sessions": {
+    "s_783ec80f76d896": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0c23988dffeRJI9oA5WNz15pS",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
