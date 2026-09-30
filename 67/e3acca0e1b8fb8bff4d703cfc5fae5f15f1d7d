@@ -1,0 +1,30 @@
+backend/app/services/ledger_service.py
+  s_612bc4d378e7fa::t_438f8c68cbfe4e 144-146,155-180,184-185
+backend/app/api/ledger.py
+  s_612bc4d378e7fa::t_e083609228888e 41,47-51,56-57,62-63,67
+  s_612bc4d378e7fa::t_f2450d9e148a9a 4-6
+  s_612bc4d378e7fa::t_ee74f0e1d5182a 106,112-118
+  s_612bc4d378e7fa::t_5fa1d1b1a9b31d 77-78,80,82,91
+  s_612bc4d378e7fa::t_cae74dc5659f9d 18-22
+backend/tests/test_ledger.py
+  s_612bc4d378e7fa::t_63b81a620ecaa4 192-193
+  s_612bc4d378e7fa::t_03b193cd5782af 133
+  s_612bc4d378e7fa::t_a7e2549833c6a2 131
+  s_612bc4d378e7fa::t_fbb2744e46de55 157-191,194-231
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "67e3acca0e1b8fb8bff4d703cfc5fae5f15f1d7d",
+  "prompts": {},
+  "sessions": {
+    "s_612bc4d378e7fa": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0cdfb193ffeX5xlRDPIwz0wKZ",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
