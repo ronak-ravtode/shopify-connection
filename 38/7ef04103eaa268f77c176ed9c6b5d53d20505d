@@ -1,0 +1,23 @@
+frontend/app/globals.css
+  s_dd1f0abbcc29d8::t_7231be4a0198fc 45
+  s_dd1f0abbcc29d8::t_caa6590f34de68 44
+frontend/components/OrderTable.tsx
+  s_dd1f0abbcc29d8::t_b2b3350d8d8ee7 74-75
+  s_dd1f0abbcc29d8::t_4d6b3952c423b8 49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "387ef04103eaa268f77c176ed9c6b5d53d20505d",
+  "prompts": {},
+  "sessions": {
+    "s_dd1f0abbcc29d8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f19a12eadffey6Lwxv4J0adPy8",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
