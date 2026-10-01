@@ -1,0 +1,87 @@
+web/src/components/Reveal.tsx
+  s_f00990e89e9928::t_6261b20e9fadfe 1-47
+web/src/components/EmptyState.tsx
+  s_f00990e89e9928::t_71b52724f2a4be 1-57
+web/src/App.tsx
+  s_f00990e89e9928::t_a865a7c362c5f2 3,8
+web/src/main.tsx
+  s_f00990e89e9928::t_78595d80d0b60a 3
+web/src/components/OrderTable.tsx
+  s_f00990e89e9928::t_71b52724f2a4be 1-85
+web/src/styles/globals.css
+  s_f00990e89e9928::t_9fc40bf23e732a 1-95
+web/src/components/TopNav.tsx
+  s_f00990e89e9928::t_9a353839989f98 261
+  s_f00990e89e9928::t_9f3d95b18788f8 159
+  s_f00990e89e9928::t_38191b5197e8ee 87
+  s_f00990e89e9928::t_71b52724f2a4be 1-86,88-158,160-213,215-260,262-292
+  s_f00990e89e9928::t_85dc2278f5e887 214
+web/src/components/scanner/BarcodeScanner.tsx
+  s_f00990e89e9928::t_6261b20e9fadfe 1-114
+web/src/lib/api.ts
+  s_f00990e89e9928::t_71b52724f2a4be 1-514
+web/src/components/scanner/ManualBarcodeInput.tsx
+  s_f00990e89e9928::t_6261b20e9fadfe 1-10
+web/tests/barcode-scanner.test.tsx
+  s_f00990e89e9928::t_a5d19ebccf4d1d 18
+  s_f00990e89e9928::t_8495e139c21348 1-17,19-55
+web/src/components/barcode/ParcelBarcode.tsx
+  s_f00990e89e9928::t_6261b20e9fadfe 1-24
+web/src/components/barcode/LabelPreview.tsx
+  s_f00990e89e9928::t_6261b20e9fadfe 1-19
+web/tests/scan-sound.test.tsx
+  s_f00990e89e9928::t_77c1ddedc57b9a 3
+  s_f00990e89e9928::t_dcee103bb8f301 1-2,4-31
+web/src/components/Footer.tsx
+  s_f00990e89e9928::t_891fb0c396448a 55
+  s_f00990e89e9928::t_71b52724f2a4be 1-54,56-68
+web/tests/timeline.test.tsx
+  s_f00990e89e9928::t_599dcc783113f4 3
+  s_f00990e89e9928::t_95214f708945c3 5-6
+  s_f00990e89e9928::t_542a22bf76873f 23-29
+  s_f00990e89e9928::t_2a6ff8251bb8a4 1-2,4,7-22,30-33
+web/src/components/ImportResult.tsx
+  s_f00990e89e9928::t_4612c4394b5ea5 1-13
+web/src/components/Loading.tsx
+  s_f00990e89e9928::t_f9d0fff86cce0a 1-21
+web/src/components/MetricCard.tsx
+  s_f00990e89e9928::t_29fecf824d2988 1-78
+web/src/components/ScanBanner.tsx
+  s_f00990e89e9928::t_727c9015d25b2e 1-26
+web/src/components/SeverityBadge.tsx
+  s_f00990e89e9928::t_87c5211900051d 1-29
+web/src/components/Timeline.tsx
+  s_f00990e89e9928::t_8ca9f1315328bb 1-79
+web/src/components/icons.tsx
+  s_f00990e89e9928::t_8f2494aefb3cb4 1-113
+web/src/lib/app-nav.ts
+  s_f00990e89e9928::t_b8a6404f819f2e 1-51
+web/src/lib/barcode.ts
+  s_f00990e89e9928::t_9c407aea74590d 1-8
+web/src/lib/return-options.ts
+  s_f00990e89e9928::t_3ccdb1f285f5de 1-8
+web/src/lib/scan-debounce.ts
+  s_f00990e89e9928::t_38b19f800cced7 1-6
+web/src/lib/scan-sound.ts
+  s_f00990e89e9928::t_5759592bc190a5 1-47
+web/src/lib/sla.ts
+  s_f00990e89e9928::t_ecb754f1f4fdf8 1-5
+web/src/lib/tracking.ts
+  s_f00990e89e9928::t_a9f9f78a8f108a 1-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "5112fbe54e5181b8d3154c958e0ff9bc53e6b722",
+  "prompts": {},
+  "sessions": {
+    "s_f00990e89e9928": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0a9048a5ffeCk2RZL3rbe9SuU",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
