@@ -1,0 +1,19 @@
+frontend/app/settings/tally/page.tsx
+  s_a3ed333f47be2c::t_9d13499c2eb343 277-278,280,282,284
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e7b5df74e883770d5ee35f53823c1171de0a738a",
+  "prompts": {},
+  "sessions": {
+    "s_a3ed333f47be2c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0ce3f95fffegqN60DuM6gqc8n",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
