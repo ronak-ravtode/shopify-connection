@@ -1,0 +1,91 @@
+web/src/pages/StatementDetail.tsx
+  s_844b63daab3876::t_db5f1ea70147cd 17
+  s_844b63daab3876::t_bdceb576a749ea 3
+  s_844b63daab3876::t_d461fa559a3ebe 2,4-6
+  s_844b63daab3876::t_69f47f28376723 13,21-30
+  s_844b63daab3876::t_ba186914430729 1,7-12,14-16,18-20,31-89
+web/tests/ledger.test.tsx
+  s_844b63daab3876::t_1b727bed01560e 1-179
+web/src/pages/TallySettings.tsx
+  s_844b63daab3876::t_646cbf615a21ca 10-13
+  s_844b63daab3876::t_9a20b2ff998dac 2-9
+  s_844b63daab3876::t_7336b00d6a2c97 1,14-539
+web/src/pages/CostsSettings.tsx
+  s_844b63daab3876::t_ee67a927d4d793 2
+  s_844b63daab3876::t_ed377cedafeb9b 1,3-43
+web/tests/tokens.test.tsx
+  s_844b63daab3876::t_1f95096ecfbd93 1-17
+web/tests/statements-recon.test.tsx
+  s_844b63daab3876::t_916d33c3c307fc 1-194
+web/tests/fe5-reports-shipments.test.tsx
+  s_844b63daab3876::t_78094114209d81 1-181
+web/tests/tracking.test.tsx
+  s_844b63daab3876::t_156526894dc44b 1-16
+web/tests/tally.test.tsx
+  s_844b63daab3876::t_322daae5d45530 1-8
+web/tests/statements.test.tsx
+  s_844b63daab3876::t_48dfbd8c5a75c8 1-10
+web/src/pages/ShipmentsTracking.tsx
+  s_844b63daab3876::t_108863a8d0f665 189
+  s_844b63daab3876::t_6f2c28883721dc 3-4
+  s_844b63daab3876::t_72884b39766ab3 2
+  s_844b63daab3876::t_103f04ab1eea28 1,5-188,190-199
+web/tests/tally-export.test.tsx
+  s_844b63daab3876::t_04c733d26e028f 1-222
+web/src/pages/SlaSettings.tsx
+  s_844b63daab3876::t_b4dcd2fed879e2 2
+  s_844b63daab3876::t_4bf9bef1397e14 1,3-41
+web/src/pages/CarriersSettings.tsx
+  s_844b63daab3876::t_5ce515e9079d72 2
+  s_844b63daab3876::t_c30e3d183323fb 1,3-81
+web/src/pages/FinanceLedger.tsx
+  s_844b63daab3876::t_b0c8804e138796 4
+  s_844b63daab3876::t_951acdbe5070f2 2-3
+  s_844b63daab3876::t_43b21a821874b6 1,5-222
+web/tests/month-close.test.tsx
+  s_844b63daab3876::t_f28f3f89872e51 1-221
+web/src/pages/FinanceClose.tsx
+  s_844b63daab3876::t_cca6123991e885 2-4
+  s_844b63daab3876::t_e2a29d72cac1e3 12
+  s_844b63daab3876::t_37b4aa732289d3 1,5-11,13-336
+web/tests/loading.test.tsx
+  s_844b63daab3876::t_527a324eccddda 1-10
+web/src/pages/MonthlyReport.tsx
+  s_844b63daab3876::t_a4a13aa3a52763 4-6
+  s_844b63daab3876::t_2902b3e3670eeb 2-3,14
+  s_844b63daab3876::t_bd931ec78ec090 1,7-13,15-233
+web/tests/responsive.test.tsx
+  s_844b63daab3876::t_4b81fe45d22b95 1-32
+web/tests/import.test.tsx
+  s_844b63daab3876::t_e9ba63e230806d 1-8
+web/src/App.tsx
+  s_844b63daab3876::t_195cd743bf3cf7 21-31
+  s_844b63daab3876::t_14eb9eb5bc260c 63,65-67,69-75
+web/src/pages/StatementList.tsx
+  s_844b63daab3876::t_b67429a51a3e5f 169
+  s_844b63daab3876::t_c5c214da290b1e 12-14
+  s_844b63daab3876::t_9c18ba25c41afe 2-4
+  s_844b63daab3876::t_9c10ece6634264 1,5-11,15-168,170-337
+web/src/pages/Tracking.tsx
+  s_844b63daab3876::t_d6a0747fc685c5 282
+  s_844b63daab3876::t_829f7dc8cf8aca 2-4
+  s_844b63daab3876::t_60b8fd679c8445 1,5-281,283-361
+web/tests/nav.test.tsx
+  s_844b63daab3876::t_a54d412f6c0b76 1-85
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "500d311fe3a77149b183d80e483003394ae52c6c",
+  "prompts": {},
+  "sessions": {
+    "s_844b63daab3876": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0a569816ffewANKYOsvJO14gU",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
