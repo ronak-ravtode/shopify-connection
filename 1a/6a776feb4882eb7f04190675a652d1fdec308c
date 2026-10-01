@@ -1,0 +1,20 @@
+docs/superpowers/plans/2026-10-01-vite-react-port-plan.md
+  s_dd1f0abbcc29d8::t_cf6853ff77c52b 1-181,183-303
+  s_dd1f0abbcc29d8::t_a71b1390e004ba 182
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "1a6a776feb4882eb7f04190675a652d1fdec308c",
+  "prompts": {},
+  "sessions": {
+    "s_dd1f0abbcc29d8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f19a12eadffey6Lwxv4J0adPy8",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
