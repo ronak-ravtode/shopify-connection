@@ -1,0 +1,28 @@
+backend/tests/test_shipsagar.py
+  s_ce7f2904abec9d::t_afd64d3b7a0447 514-526
+backend/app/config.py
+  s_ce7f2904abec9d::t_799e16bc527496 38-43
+.env.example
+  s_ce7f2904abec9d::t_cc11f4882697fb 40-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e5a7d04877cf73fc0e57194ab3e8b8455493fedb",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_ce7f2904abec9d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efe6e8df8ffeASfwbAaEEFTNMn",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
