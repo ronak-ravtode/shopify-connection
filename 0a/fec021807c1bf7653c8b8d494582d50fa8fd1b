@@ -1,0 +1,32 @@
+backend/app/api/shipsagar.py
+  s_48ba930a48a5ab::t_05dba83459f32c 137-145,147,159-163,171
+backend/app/api/shipments.py
+  s_48ba930a48a5ab::t_0fa51d3dedb430 273-275
+backend/app/services/shipsagar_service.py
+  s_48ba930a48a5ab::t_210a6838d0e6cf 738-744
+  s_48ba930a48a5ab::t_7b337fee1cf1c2 710-714
+  s_48ba930a48a5ab::t_681021b781ddfc 510,516-531,533,715,745
+backend/tests/test_shipsagar.py
+  s_48ba930a48a5ab::t_f1d3a8d0c5fde1 1253,1267-1516
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0afec021807c1bf7653c8b8d494582d50fa8fd1b",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_48ba930a48a5ab": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efe0bef7dffe284Vl2K4yCDJxK",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
