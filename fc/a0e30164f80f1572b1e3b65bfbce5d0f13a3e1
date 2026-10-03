@@ -1,0 +1,25 @@
+docs/superpowers/specs/2026-10-03-shipsagar-push-track-design.md
+  s_3e6ca16e665ff1::t_7ab9df9c492d44 1-37,39-135
+  s_3e6ca16e665ff1::t_1d02fb84425569 38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "fca0e30164f80f1572b1e3b65bfbce5d0f13a3e1",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3e6ca16e665ff1": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efed3a8afffeIvbqeEKOhVZ2On",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
