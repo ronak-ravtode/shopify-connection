@@ -1,0 +1,32 @@
+docs/superpowers/plans/2026-10-03-shipsagar-push-track.md
+  s_3e6ca16e665ff1::t_0103a20b5d73a8 3449
+  s_3e6ca16e665ff1::t_467016a2f8d998 2052
+  s_3e6ca16e665ff1::t_0fa9b3cfd4862c 2951,2955-2957
+  s_3e6ca16e665ff1::t_ceee0836397bee 2403-2831,2833-2927,2929-2934,2936,2939-2950,2952-2954,2958-3448,3450-3615
+  s_3e6ca16e665ff1::t_2389a8f1e60805 2832
+  s_3e6ca16e665ff1::t_760c0e5d331154 2928,2935,2937-2938
+  s_3e6ca16e665ff1::t_04ee80222a2055 1-22,24-1102
+  s_3e6ca16e665ff1::t_8a5ba907274d64 1103-2051,2053-2402
+  s_3e6ca16e665ff1::t_e306cf365ab62a 23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "fb20b8d1f81c5b5d8dc7c73e7fcbc3eea42b1bd9",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3e6ca16e665ff1": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efed3a8afffeIvbqeEKOhVZ2On",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
