@@ -1,0 +1,26 @@
+backend/tests/test_shipsagar.py
+  s_48ba930a48a5ab::t_ea4d83e924bbc2 1191-1312
+backend/app/services/shipsagar_service.py
+  s_48ba930a48a5ab::t_d17f6b888569dd 473,475-481,490-504,506,508-514,517-518
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0590bd81a7bc3eb542f4a04e1091e92f96278e59",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_48ba930a48a5ab": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efe0bef7dffe284Vl2K4yCDJxK",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
