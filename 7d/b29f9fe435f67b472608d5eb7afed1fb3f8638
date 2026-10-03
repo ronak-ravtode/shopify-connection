@@ -1,0 +1,42 @@
+backend/tests/test_shipsagar.py
+  s_867980e1465f1f::t_a9a5fcd74525a4 1733-1734,1736,1738,1752,1760
+  s_867980e1465f1f::t_e5c6aec9c0c3a1 1912-1949,1951-1972
+  s_867980e1465f1f::t_586a8b43a7b57d 1794-1866
+  s_856f4096e7dca8::t_b3bf39c3206494 1707,1763-1766
+  s_867980e1465f1f::t_5bb8aa6322a492 1663,1679-1684,1698,1703-1706,1708,1726-1732,1735,1737,1739-1751,1753-1759,1761-1762
+backend/app/api/shipments.py
+  s_867980e1465f1f::t_7b70706072cb91 108-115,117-122
+  s_867980e1465f1f::t_e78abb2524e68c 11-12
+  s_867980e1465f1f::t_036d81eda76f3d 107,134-140
+  s_867980e1465f1f::t_327eec9f59e920 157
+  s_867980e1465f1f::t_fcfd20a3940f29 184
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7db29f9fe435f67b472608d5eb7afed1fb3f8638",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_856f4096e7dca8": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efdc7d9e3ffeaWENxcmADOTQco",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_867980e1465f1f": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efdda5342ffe7VdxljUjMXLqoM",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
