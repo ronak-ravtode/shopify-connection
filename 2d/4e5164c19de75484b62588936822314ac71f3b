@@ -1,0 +1,31 @@
+web/tests/shipments-page.test.tsx
+  s_2e9fd95f6d1e2b::t_852d4ea2aaf316 2,34,43,53-59,61-65,76,79,93-98,227-449
+  s_2e9fd95f6d1e2b::t_87ce98bfb42015 450
+web/src/pages/Shipments.tsx
+  s_2e9fd95f6d1e2b::t_5e7d2e1367a256 176
+  s_2e9fd95f6d1e2b::t_5c3ff403f78ea0 133,138
+  s_2e9fd95f6d1e2b::t_f7ba855779075e 1-2,11,19,24,42-45,67,72-73,85,94-95,98-99,104,113,135-137,139-143,149-165,189-197,204-206,209-212,216-225,245-247,252-254,278,282-283,300,306,316,322,352-365,367-378,381-444
+  s_2e9fd95f6d1e2b::t_87ce98bfb42015 476
+  s_2e9fd95f6d1e2b::t_498ef826a83103 166
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2d4e5164c19de75484b62588936822314ac71f3b",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_2e9fd95f6d1e2b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef3ea3c36ffezu3zSWpb3oYVWI",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
