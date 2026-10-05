@@ -1,0 +1,28 @@
+web/tests/fe5-reports-shipments.test.tsx
+  s_2e9fd95f6d1e2b::t_fe6019de74f070 154-165,168-169,172-174,184-189,192-194
+web/tests/shipments-page.test.tsx
+  s_2e9fd95f6d1e2b::t_bd87be7d798771 1-211
+web/src/pages/Shipments.tsx
+  s_2e9fd95f6d1e2b::t_2e8489ebe7a84f 1,6-8,10,12-31,33-35,37-42,49-59,61-65,67-68,70-74,77,79-106,108-110,112-114,116-136,140-142,145-151,155-171,173-241,244-275,277,279-288,290-300,302-371,373-381,384
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fa82b7963766b0c02eb20c74f7a77f4671a21760",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_2e9fd95f6d1e2b": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef3ea3c36ffezu3zSWpb3oYVWI",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
