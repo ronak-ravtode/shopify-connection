@@ -1,0 +1,30 @@
+web/src/lib/api.ts
+  s_79210dc8e0d6e5::t_21e1b237b5816b 517-618
+  s_79210dc8e0d6e5::t_5e9d07f9443f58 1-3
+web/tests/shipments-client.test.tsx
+  s_79210dc8e0d6e5::t_be68ff0c9df1da 1-22,24-125
+  s_79210dc8e0d6e5::t_8f662d9f14dca7 23
+web/src/lib/shipments.ts
+  s_79210dc8e0d6e5::t_5e1441e2dbe0a9 1-82
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2d54ada818c0086fd06d4e5c3bafc7e195ba69bb",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_79210dc8e0d6e5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef428be79ffekepRmtw5IUQy4b",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
