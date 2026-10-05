@@ -1,0 +1,24 @@
+web/tests/shipments-client.test.tsx
+  s_79210dc8e0d6e5::t_8c641d9423704e 217
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "317889cf6f0485a27644dd8d646af000e156e7b9",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_79210dc8e0d6e5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef428be79ffekepRmtw5IUQy4b",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
