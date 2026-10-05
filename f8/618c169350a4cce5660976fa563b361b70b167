@@ -1,0 +1,26 @@
+web/tests/push-shipment-dialog.test.tsx
+  s_10021401cafb8d::t_84adf8305a1c7d 1-110
+web/src/components/PushShipmentDialog.tsx
+  s_10021401cafb8d::t_7a28cdbde7fec7 1-291
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f8618c169350a4cce5660976fa563b361b70b167",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_10021401cafb8d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef4141b46ffe7aQr8cVFTo9TAM",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
