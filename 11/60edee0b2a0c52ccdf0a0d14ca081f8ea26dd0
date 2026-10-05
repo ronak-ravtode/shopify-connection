@@ -1,0 +1,58 @@
+backend/tests/test_shipsagar.py
+  s_1fcee5c356c6f2::t_77a9443d91226d 170-176,180-181
+  s_1fcee5c356c6f2::t_b0c7a8cddbab1d 2112
+  s_b4f2885c3d3a25::t_628ee10881c3aa 1985-2085,2114,2117-2370
+  s_1fcee5c356c6f2::t_1d16a6d9ec5d05 2088-2111,2113
+  s_a3ed333f47be2c::t_02fa7cd1925d9e 2086-2087,2115-2116
+backend/app/api/shipsagar.py
+  s_1fcee5c356c6f2::t_65f13ea53af664 158
+  s_1fcee5c356c6f2::t_c834485e319692 93-94
+  s_1fcee5c356c6f2::t_add6217dd7be07 81
+backend/app/api/shipments.py
+  s_b4f2885c3d3a25::t_b6b689b19e4076 86-89
+  s_b4f2885c3d3a25::t_d73d992be5d82f 21-59,294,300
+  s_1fcee5c356c6f2::t_12560796e8d8e8 255-258
+  s_b4f2885c3d3a25::t_e05210f96162e5 242-243,246-254,259-263,267-269,276-290,292-293,295-299,301-315,320,322-326,328-329
+  s_1fcee5c356c6f2::t_0acc6d10c866c6 271,273,275
+backend/app/services/shipsagar_service.py
+  s_1fcee5c356c6f2::t_e36c8923b9d78c 31-53
+  s_1fcee5c356c6f2::t_535f32d421e67d 205-209,214
+  s_1fcee5c356c6f2::t_dd26c6a6d1cc74 512-515,518-519
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1160edee0b2a0c52ccdf0a0d14ca081f8ea26dd0",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_1fcee5c356c6f2": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef449e9dfffe7sYGV8iw4WLrn4",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_a3ed333f47be2c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0ce3f95fffegqN60DuM6gqc8n",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_b4f2885c3d3a25": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efdaf4d74ffeLX1N23xXyWRDZo",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
