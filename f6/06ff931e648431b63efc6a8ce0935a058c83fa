@@ -1,0 +1,26 @@
+README.md
+  s_3e6ca16e665ff1::t_2cae27f0b4af90 80
+  s_3e6ca16e665ff1::t_b12a1844540c22 149-167
+  s_3e6ca16e665ff1::t_99aad02cb99e2d 139
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f606ff931e648431b63efc6a8ce0935a058c83fa",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3e6ca16e665ff1": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efed3a8afffeIvbqeEKOhVZ2On",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
