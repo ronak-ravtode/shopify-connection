@@ -1,0 +1,83 @@
+web/src/components/PushShipmentDialog.tsx
+  s_8353ff3c83a50d::t_12e142a38953fa 46
+  s_8353ff3c83a50d::t_2ed96122fe457d 16-22
+  s_8353ff3c83a50d::t_9af380a45e9288 1
+  s_8353ff3c83a50d::t_a0fa7c7f9fcbc3 59-70,82-83
+  s_8353ff3c83a50d::t_c42d301711f6dc 121-122
+  s_8353ff3c83a50d::t_5561975e076f50 123
+web/src/lib/api.ts
+  s_8353ff3c83a50d::t_c072296c4be299 1
+backend/app/api/shipments.py
+  s_8353ff3c83a50d::t_f1f7c5722e621f 1
+  s_8353ff3c83a50d::t_a311cc085d8497 40-48,57-60,63-67,70
+web/tests/push-shipment-dialog.test.tsx
+  s_8353ff3c83a50d::t_aaa72dd2001dfe 206
+  s_8353ff3c83a50d::t_5ff46196bdd610 13-59,62-71,86,99
+  s_8353ff3c83a50d::t_a6ac4303f07fb5 252-256,262,264-270,285
+web/tests/shipments-client.test.tsx
+  s_8353ff3c83a50d::t_8385c251aa5b6a 42-51,54-55
+web/tests/shipments-page.test.tsx
+  s_8353ff3c83a50d::t_186a78fbfddc60 85,87
+  s_8353ff3c83a50d::t_e5d2190fe21753 244-245
+  s_8353ff3c83a50d::t_44e852c374bfd1 305-313,317,324-331,358,363-393
+  s_8353ff3c83a50d::t_f02ad5aa6d9198 220-243,246-247
+backend/app/services/shipsagar_service.py
+  s_8353ff3c83a50d::t_1a43bd4fdb2b68 234-235
+  s_8353ff3c83a50d::t_86c4cf0a9d9834 212-216
+  s_8353ff3c83a50d::t_ef6921b28cf6c6 207-211,217-218
+  s_8353ff3c83a50d::t_9428797ee5b197 777-782
+  s_8353ff3c83a50d::t_eff3e8c2bbbc4a 708-709,711,723-745
+backend/tests/test_shipsagar.py
+  s_8353ff3c83a50d::t_6359bcbb21a135 2815-2829
+  s_8353ff3c83a50d::t_1ea8162b1de8a4 3053-3101,3158-3205
+  s_8353ff3c83a50d::t_6c4d50fd931a48 3045,3049-3050
+  s_8353ff3c83a50d::t_b1e4b2e7e5a833 5,865,907,1104,1127
+  s_8353ff3c83a50d::t_fec5e670ffec24 170,173-176
+  s_8353ff3c83a50d::t_05f5a62eb59c57 3038
+  s_8353ff3c83a50d::t_196a0b1cd6e2e9 3040
+  s_8353ff3c83a50d::t_c8e4953ff70e90 426-433,446-447,449-450,453,458-463,475,477-478
+  s_8353ff3c83a50d::t_e1467c785992fd 3052
+  s_8353ff3c83a50d::t_0b08f837d68760 3102-3157
+  s_8353ff3c83a50d::t_b06651a881a8c3 2999
+  s_8353ff3c83a50d::t_5b73c88eea5091 3206-3278
+  s_8353ff3c83a50d::t_b58b6f394e6f75 2810-2814,2830-2998,3000-3037,3039,3041-3044,3046-3048,3051
+web/src/lib/shipments.ts
+  s_8353ff3c83a50d::t_0a794836d35066 16-28
+web/src/pages/Shipments.tsx
+  s_8353ff3c83a50d::t_3596a93d9a5b0d 484,488-490
+  s_8353ff3c83a50d::t_9fd17262eae655 1-2
+  s_8353ff3c83a50d::t_bde44500ebc340 460-468
+  s_8353ff3c83a50d::t_4680a3d2e36c1d 66-71,85,493
+  s_a8126268756bd0::t_bfb46c1253e229 491-492,494
+backend/app/api/shipsagar.py
+  s_8353ff3c83a50d::t_b0051a718a51e1 139-154,161-163,165,168,171,174-175,177-191
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a07bd2befe106edfea02e83e07b8003fc9a7c104",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_8353ff3c83a50d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef38e2c4bffeqMh9V2XsY8XxFx",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_a8126268756bd0": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0a607b75ffecR1iGoDjhP8hdh",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
