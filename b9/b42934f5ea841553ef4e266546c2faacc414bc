@@ -1,0 +1,41 @@
+backend/app/services/shipment_service.py
+  s_8353ff3c83a50d::t_054ae4d610ce0c 40-60
+  s_8353ff3c83a50d::t_f3418b12215a62 64-78,80,82,93-97,99-101,110-113
+backend/tests/test_shipsagar.py
+  s_8353ff3c83a50d::t_a0e28e5da5c29e 2588-2621,2625-2626,2630-2787
+  s_8353ff3c83a50d::t_724f6b07bfd811 2624
+  s_8353ff3c83a50d::t_f6973e871203ca 2788
+  s_8353ff3c83a50d::t_da4eee567a3eee 2627-2629
+  s_8353ff3c83a50d::t_bb9d8ae8370bda 2275-2287,2294,2314-2329
+  s_8353ff3c83a50d::t_ad8746d9cd3456 2622-2623
+backend/app/services/shipsagar_service.py
+  s_8353ff3c83a50d::t_1d422f17954c57 853
+  s_8353ff3c83a50d::t_68a8e5d79700d5 526-527,530-537,539-543,551-556,564,566,588-593,600-607,612-613
+  s_8353ff3c83a50d::t_6a867f57503fd6 520
+  s_8353ff3c83a50d::t_7228d643d9953a 733-735,741
+  s_8353ff3c83a50d::t_964a60bb24db82 54-59
+  s_8353ff3c83a50d::t_22ebdb9eb85fd2 683-710
+  s_8353ff3c83a50d::t_07a5ae277aec05 826-830
+  s_8353ff3c83a50d::t_2c0eb595622416 468-488,494-496,509,514,516,538
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b9b42934f5ea841553ef4e266546c2faacc414bc",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_8353ff3c83a50d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef38e2c4bffeqMh9V2XsY8XxFx",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
