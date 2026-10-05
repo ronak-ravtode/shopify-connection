@@ -1,0 +1,34 @@
+web/src/lib/api.ts
+  s_10021401cafb8d::t_cb06b46bfbc788 571
+web/tests/push-shipment-dialog.test.tsx
+  s_10021401cafb8d::t_8e6a8240ba2f34 62
+  s_10021401cafb8d::t_ff6a89a341f7e4 15-16,19-20,41-61,63-64,84-111,114-115,169-290
+  s_10021401cafb8d::t_067e0a3dcf06f0 112-113
+web/src/components/PushShipmentDialog.tsx
+  s_10021401cafb8d::t_30558f64f6c376 181-182
+  s_10021401cafb8d::t_664e828e080764 275
+  s_10021401cafb8d::t_58f969ab2d46ef 53-61,69
+  s_10021401cafb8d::t_df6b95617bc2d5 156-161
+  s_10021401cafb8d::t_cb2887978a2904 219
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d4e783eeaee909c60db7f27873c359fab4e64dab",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_10021401cafb8d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef4141b46ffe7aQr8cVFTo9TAM",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
