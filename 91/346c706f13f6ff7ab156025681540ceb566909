@@ -1,0 +1,139 @@
+frontend/tests/shipment-history.test.tsx
+  s_ee24a2bcd249f3::t_1ca8289e9aeab2 63-91
+backend/app/api/orders.py
+  s_29790315c01921::t_2d67b6146e7d71 6,11-12,192-199,204-208
+  s_29790315c01921::t_8bebfafd033337 209-225
+frontend/src/lib/shipments.ts
+  s_ee24a2bcd249f3::t_c6691b3540f77d 133-134,136,139,154,156-157,159
+  s_ee24a2bcd249f3::t_2ef805c100c6dd 90-95
+  s_ee24a2bcd249f3::t_3532349e148b51 135,137-138,140-153,158
+backend/app/models/order.py
+  s_51b7d6a0703174::t_ef0b3ef9b84d2d 42-66
+backend/app/services/report_service.py
+  s_ee24a2bcd249f3::t_9727fa5e214a53 592-597
+backend/alembic/versions/0019_india_post_order_fields.py
+  s_51b7d6a0703174::t_48ca12afdc2d51 1-51
+frontend/tests/order-shipment-cell.test.tsx
+  s_ee24a2bcd249f3::t_be9db02382ec55 37-38,48-65
+  s_3d892861e8121f::t_d7f2615b1de9f7 66
+frontend/src/pages/ShipmentHistory.tsx
+  s_ee24a2bcd249f3::t_34c382d5622fdf 93-105
+backend/tests/test_shipsagar.py
+  s_ee24a2bcd249f3::t_d887062b5bebbe 5329,5418-5438
+  s_ee24a2bcd249f3::t_42d6bdcb8adc30 5328,5486-5637
+  s_ee24a2bcd249f3::t_ed83e22d2b05e6 5248-5276,5283-5288,5290,5292-5293,5298-5300,5308-5326
+  s_a3ed333f47be2c::t_97361efeb24af6 5327,5330-5331
+backend/app/api/shipments.py
+  s_ee24a2bcd249f3::t_e84f88ca08c55d 285-295
+  s_ee24a2bcd249f3::t_6899987008d2cc 361-372
+  s_ee24a2bcd249f3::t_fb21bfdd710a18 272-282
+  s_ee24a2bcd249f3::t_ee58f63fea6a34 603-611
+frontend/tests/shipments-client.test.tsx
+  s_ee24a2bcd249f3::t_83f591806fc086 74
+  s_ee24a2bcd249f3::t_5e737907457de2 242-258
+frontend/src/components/AddShipmentDialog.tsx
+  s_ee24a2bcd249f3::t_cb9793ef9e2f74 16-25
+  s_ee24a2bcd249f3::t_71433fbc5a9789 36-47
+  s_ee24a2bcd249f3::t_6e63be0a7ffd8b 93-99,103,117-132
+  s_ee24a2bcd249f3::t_4a2fb625811b67 59
+backend/app/services/shipsagar_service.py
+  s_ee24a2bcd249f3::t_9f76f5909d74ce 55-77
+backend/app/schemas/india_post.py
+  s_dcd03bfab95966::t_ac037a4fe26c65 1-24,31-59
+  s_7813bda325eb9d::t_526265b71c3fbf 25-30
+backend/app/services/reconciliation_service.py
+  s_ee24a2bcd249f3::t_9d76964b738c61 154-194
+  s_ee24a2bcd249f3::t_fa65df1fcd94c2 209-211
+  s_ee24a2bcd249f3::t_c57069ed4b4c6b 205-208,212-213
+frontend/tests/add-shipment-dialog.test.tsx
+  s_ee24a2bcd249f3::t_228171982e7d77 103-151
+backend/app/services/order_service.py
+  s_034dac3936f8e7::t_388e6865dcbd78 10-66
+frontend/src/pages/Orders.tsx
+  s_041972113362d6::t_1f8b4bbe07d57b 171-176
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "91346c706f13f6ff7ab156025681540ceb566909",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_034dac3936f8e7": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef43a185effeTrsGmdK53k712z",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_041972113362d6": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0a7da3f1ffeycm87siTJr5E3y",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_29790315c01921": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef015041affeuPvosUbdKORi5M",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_3d892861e8121f": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_eefc473e3ffeWZ9CjA4F9hsoL4",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_51b7d6a0703174": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f077f04ecffeXJdyJaAByVJKKG",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_7813bda325eb9d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f07507980ffeMfL1FxvxcMAf5L",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_a3ed333f47be2c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0ce3f95fffegqN60DuM6gqc8n",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_dcd03bfab95966": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f077a36b4ffe0H5EWb14wwFAge",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_ee24a2bcd249f3": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_eef82e096ffeeo1rQBVvKZjTVL",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
