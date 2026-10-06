@@ -1,0 +1,46 @@
+frontend/src/lib/api.ts
+  s_5247ef50d1e753::t_77d71cf4af89d6 557-564,664
+  s_5247ef50d1e753::t_4232bcce9002b5 626-659
+  s_79210dc8e0d6e5::t_f9c06415fdf011 660-663
+frontend/tests/shipments-client.test.tsx
+  s_5247ef50d1e753::t_05822e7f45565e 3,5,11,14,18-25
+  s_5247ef50d1e753::t_657ff7f1c626c9 43
+  s_5247ef50d1e753::t_d32a85917f70d5 269-344
+frontend/tests/add-shipment-dialog.test.tsx
+  s_5247ef50d1e753::t_d6f8b74eb5e7fd 1-123
+frontend/src/components/AddShipmentDialog.tsx
+  s_5247ef50d1e753::t_fddd2b696f66cc 1-222
+frontend/src/lib/shipments.ts
+  s_5247ef50d1e753::t_9c614feeb4aae1 65
+  s_5247ef50d1e753::t_cddd8b0a348c7b 3-10,13
+  s_5247ef50d1e753::t_58e7608fe0a189 132-168
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1b5675f6c9f3453f724caea26b61bb975b5ac77a",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_5247ef50d1e753": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_eefd26244ffedmhNH2msrsH1b5",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_79210dc8e0d6e5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef428be79ffekepRmtw5IUQy4b",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
