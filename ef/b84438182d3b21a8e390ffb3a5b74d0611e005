@@ -1,0 +1,14 @@
+frontend/src/pages/Tracking.tsx
+  h_c5a3d01edfee72 340-345
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "efb84438182d3b21a8e390ffb3a5b74d0611e005",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
