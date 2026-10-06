@@ -1,0 +1,14 @@
+frontend/src/components/OrderTable.tsx
+  h_c5a3d01edfee72 1-188
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ee05461c5edbdf9c6e632f823dcf9431c45e55f4",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
