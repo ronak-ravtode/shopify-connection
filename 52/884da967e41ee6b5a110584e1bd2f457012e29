@@ -1,0 +1,16 @@
+backend/app/api/shopify.py
+  h_c5a3d01edfee72 45-46,53,57-58,62,64,68,70-72,75-76,78-80,97,99,104,113,118,121,144-152
+frontend/src/pages/Orders.tsx
+  h_c5a3d01edfee72 77,79-82
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "52884da967e41ee6b5a110584e1bd2f457012e29",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
