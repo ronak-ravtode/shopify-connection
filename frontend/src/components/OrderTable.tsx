@@ -18,13 +18,6 @@ const FINANCIAL_DOTS: Record<string, string> = {
   REFUNDED: "var(--muted-foreground)",
 };
 
-const OPERATIONAL_DOTS: Record<string, string> = {
-  DISPATCHED: "var(--destructive)",
-  PACKED: "var(--primary)",
-  RETURN_RECEIVED: "var(--secondary-foreground)",
-  RTO: "var(--muted-foreground)",
-};
-
 function StatusBadge({ status, dotMap }: { status: string; dotMap: Record<string, string> }) {
   const dot = dotMap[status?.toUpperCase()] ?? "var(--muted-foreground)";
   return (
@@ -136,7 +129,6 @@ export default function OrderTable({
           <TableHead>Order Name</TableHead>
           <TableHead>Shipment</TableHead>
           <TableHead>Financial Status</TableHead>
-          <TableHead>Fulfillment / Op Status</TableHead>
           <TableHead className="text-right">Total Amount</TableHead>
           <TableHead>COD</TableHead>
           <TableHead>City / Pincode</TableHead>
@@ -160,9 +152,6 @@ export default function OrderTable({
             </TableCell>
             <TableCell>
               <StatusBadge status={o.financial_status || "PENDING"} dotMap={FINANCIAL_DOTS} />
-            </TableCell>
-            <TableCell>
-              <StatusBadge status={o.operational_status || "NEW"} dotMap={OPERATIONAL_DOTS} />
             </TableCell>
             <TableCell className="text-right font-semibold tabular-nums text-foreground">
               ₹{Number(o.total_amount || 0).toLocaleString()}

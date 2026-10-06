@@ -18,16 +18,6 @@ function getFinancialBadgeVariant(status?: string): "success" | "warning" | "des
   return "secondary";
 }
 
-function getOpBadgeVariant(status?: string): "success" | "warning" | "destructive" | "info" | "secondary" {
-  if (!status) return "secondary";
-  const s = status.toUpperCase();
-  if (s === "DELIVERED" || s === "FULFILLED") return "success";
-  if (s === "IN_TRANSIT" || s === "OUT_FOR_DELIVERY") return "info";
-  if (s === "RTO" || s === "RETURNED" || s === "LOST") return "destructive";
-  if (s === "NEW" || s === "PENDING") return "warning";
-  return "secondary";
-}
-
 export default function OrderDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -90,7 +80,6 @@ export default function OrderDetailPage() {
   }
 
   const finStatus = order.financial_status || "PENDING";
-  const opStatus = order.operational_status || "NEW";
 
   return (
     <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-6 bg-background px-6 py-6 max-[480px]:px-4">
@@ -123,20 +112,12 @@ export default function OrderDetailPage() {
       </div>
 
       {/* Order Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Card className="p-5 border-border/80 shadow-xs">
           <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Financial Status</div>
           <div className="mt-3 flex items-center gap-2">
             <Badge variant={getFinancialBadgeVariant(finStatus)} className="text-xs font-bold uppercase tracking-wider">
               {finStatus}
-            </Badge>
-          </div>
-        </Card>
-        <Card className="p-5 border-border/80 shadow-xs">
-          <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Fulfillment / Op Status</div>
-          <div className="mt-3 flex items-center gap-2">
-            <Badge variant={getOpBadgeVariant(opStatus)} className="text-xs font-bold uppercase tracking-wider">
-              {opStatus}
             </Badge>
           </div>
         </Card>
