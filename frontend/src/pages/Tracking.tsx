@@ -337,29 +337,12 @@ export default function GeneralTrackingPage() {
                       {s.current_location || s.last_checkpoint_message || "—"}
                     </TableCell>
                     <TableCell className="text-right whitespace-nowrap">
-                      <div className="flex items-center justify-end gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => refreshShipment(s.id)}
-                          disabled={!!syncing[s.id]}
-                        >
-                          {syncing[s.id] ? "Syncing…" : "Sync"}
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => openTimeline(s)}
-                        >
-                          Timeline
-                        </Button>
-                        <Link
-                          to={`/shipments/${s.id}`}
-                          className={buttonVariants({ variant: "outline", size: "sm" })}
-                        >
-                          Details
-                        </Link>
-                      </div>
+                      <Link
+                        to={`/shipments/${s.id}`}
+                        className={buttonVariants({ variant: "outline", size: "sm" })}
+                      >
+                        Details
+                      </Link>
                     </TableCell>
                   </TableRow>
                 ))}
