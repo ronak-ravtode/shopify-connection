@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Badge,
   Button,
@@ -69,7 +69,7 @@ function ShipmentCell({
 
   if (isAwaiting(shipment)) {
     return (
-      <div className="flex flex-col items-start gap-1">
+      <div className="flex flex-col items-start gap-1" onClick={(e) => e.stopPropagation()}>
         <Button
           type="button"
           size="sm"
@@ -85,7 +85,7 @@ function ShipmentCell({
 
   if (shipment.push_state === "rejected") {
     return (
-      <div className="flex flex-col items-start gap-1">
+      <div className="flex flex-col items-start gap-1" onClick={(e) => e.stopPropagation()}>
         <span className="font-mono text-xs text-foreground font-medium">{shipment.awb_number}</span>
         <span className="text-[11px] text-destructive font-medium">{pushStateLabel("rejected")}</span>
       </div>
@@ -93,7 +93,7 @@ function ShipmentCell({
   }
 
   return (
-    <div className="flex flex-col items-start gap-1">
+    <div className="flex flex-col items-start gap-1" onClick={(e) => e.stopPropagation()}>
       {shipment.id ? (
         <Link
           to={`/shipments/${shipment.id}`}
@@ -119,6 +119,8 @@ export default function OrderTable({
   orders: any[];
   onAddShipment?: (order: any) => void;
 }) {
+  const navigate = useNavigate();
+
   if (!orders || orders.length === 0) {
     return (
       <div className="rounded-xl border border-border/80 bg-card p-12 text-center text-sm text-muted-foreground shadow-xs">
@@ -143,14 +145,15 @@ export default function OrderTable({
       </TableHeader>
       <TableBody>
         {orders.map((o) => (
-          <TableRow key={o.id}>
+          <TableRow
+            key={o.id}
+            onClick={() => navigate(`/orders/${o.id}`)}
+            className="cursor-pointer hover:bg-muted/50 transition-colors"
+          >
             <TableCell>
-              <Link
-                to={`/orders/${o.id}`}
-                className="font-mono text-xs font-semibold text-foreground hover:text-primary transition-colors bg-muted/40 hover:bg-muted/80 px-2 py-1 rounded-md border border-border/70 inline-block"
-              >
+              <span className="font-mono text-xs font-semibold text-foreground bg-muted/40 px-2 py-1 rounded-md border border-border/70 inline-block">
                 {o.shopify_order_name || o.internal_order_number || o.id}
-              </Link>
+              </span>
             </TableCell>
             <TableCell>
               <ShipmentCell shipment={o.shipment} onAdd={() => onAddShipment?.(o)} />
@@ -182,4 +185,4 @@ export default function OrderTable({
       </TableBody>
     </Table>
   );
-}
+}
