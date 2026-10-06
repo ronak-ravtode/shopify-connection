@@ -1,0 +1,104 @@
+frontend/package-lock.json
+  h_c5a3d01edfee72 19,33,39-40,42,47-49,830,847,864,881,898,915,932,949,966,983,1000,1017,1034,1051,1068,1085,1102,1119,1136,1153,1170,1187,1204,1374,2945-2947,2951,2959-2961,2965,2973-2975,2979,2987-2989,2993,3001-3003,3007,3015-3017,3021,3029-3031,3035,3043-3045,3049,3057-3059,3063,3071-3073,3077,3085-3087,3091,3099-3101,3105,3113-3115,3119,3127-3129,3133,3141-3143,3147,3155-3157,3161,3169-3171,3175,3183-3185,3189,3197-3199,3203,3211-3213,3217,3225-3227,3231,3239-3241,3245,3253-3255,3259,3267-3269,3273,3281-3283,3287,3362,3378,3405,3422,3439,3456,3473,3490,3507,3524,3541,3566,3588,3605,3619,3694,3745,3749-3752,3755,3762,3769,3780,4680,4852,4878,4980,5082,5485,5811-5826,6012,6135,6168,6189,6210,6231,6252,6273,6294,6315,6336,6357,6378,6475,6969-6975,7070-7087,7101-7107,7412,7535-7541,7567-7588,7631-7634,7648-7672,8223-8235,8269-8278,8283,8290,8543-8546,8693
+frontend/package.json
+  h_c5a3d01edfee72 21,35,42,47,51-52,55
+frontend/src/components/TopNav.tsx
+  h_c5a3d01edfee72 101,129-158
+frontend/src/components/ui/accordion.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/alert-dialog.tsx
+  h_c5a3d01edfee72 4
+frontend/src/components/ui/alert.tsx
+  h_c5a3d01edfee72 3
+frontend/src/components/ui/avatar.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/badge.tsx
+  h_c5a3d01edfee72 3
+frontend/src/components/ui/breadcrumb.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/button.tsx
+  h_c5a3d01edfee72 3
+frontend/src/components/ui/calendar.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/card.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/carousel.tsx
+  h_c5a3d01edfee72 4
+frontend/src/components/ui/checkbox.tsx
+  h_c5a3d01edfee72 4
+frontend/src/components/ui/command.tsx
+  h_c5a3d01edfee72 5
+frontend/src/components/ui/dialog.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/drawer.tsx
+  h_c5a3d01edfee72 4
+frontend/src/components/ui/dropdown-menu.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/hover-card.tsx
+  h_c5a3d01edfee72 4
+frontend/src/components/ui/input-group.tsx
+  h_c5a3d01edfee72 3
+frontend/src/components/ui/input-otp.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/input.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/label.tsx
+  h_c5a3d01edfee72 4
+frontend/src/components/ui/menubar.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/navigation-menu.tsx
+  h_c5a3d01edfee72 3
+frontend/src/components/ui/pagination.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/popover.tsx
+  h_c5a3d01edfee72 4
+frontend/src/components/ui/progress.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/radio-group.tsx
+  h_c5a3d01edfee72 4
+frontend/src/components/ui/resizable.tsx
+  h_c5a3d01edfee72 1
+frontend/src/components/ui/scroll-area.tsx
+  h_c5a3d01edfee72 4
+frontend/src/components/ui/select.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/separator.tsx
+  h_c5a3d01edfee72 4
+frontend/src/components/ui/sheet.tsx
+  h_c5a3d01edfee72 4
+frontend/src/components/ui/sidebar.tsx
+  h_c5a3d01edfee72 3
+frontend/src/components/ui/skeleton.tsx
+  h_c5a3d01edfee72 1
+frontend/src/components/ui/slider.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/switch.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/table.tsx
+  h_c5a3d01edfee72 4
+frontend/src/components/ui/tabs.tsx
+  h_c5a3d01edfee72 3
+frontend/src/components/ui/textarea.tsx
+  h_c5a3d01edfee72 2
+frontend/src/components/ui/toggle-group.tsx
+  h_c5a3d01edfee72 5
+frontend/src/components/ui/toggle.tsx
+  h_c5a3d01edfee72 5
+frontend/src/components/ui/tooltip.tsx
+  h_c5a3d01edfee72 2
+frontend/src/lib/utils.ts
+  h_c5a3d01edfee72 1-6
+frontend/src/pages/Dashboard.tsx
+  h_c5a3d01edfee72 252-254,277-279,418-421
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5e4f8ebd5b08380ded49239f554df7a8c40ff433",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
