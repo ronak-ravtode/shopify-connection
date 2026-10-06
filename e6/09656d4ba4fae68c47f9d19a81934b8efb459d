@@ -1,0 +1,24 @@
+frontend/src/lib/app-nav.ts
+  s_f00990e89e9928::t_eaf4732d961337 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e609656d4ba4fae68c47f9d19a81934b8efb459d",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_f00990e89e9928": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0a9048a5ffeCk2RZL3rbe9SuU",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
