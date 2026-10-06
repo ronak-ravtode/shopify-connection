@@ -17,11 +17,17 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const data = await api<{ token: string }>(`/api/v1/auth/login`, {
+      const data = await api<{ token: string; user?: any }>(`/api/v1/auth/login`, {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });
       localStorage.setItem("token", data.token);
+      if (data.user) {
+        localStorage.setItem("user", JSON.stringify(data.user));
+      } else {
+        localStorage.setItem("user", JSON.stringify({ email }));
+      }
+      window.dispatchEvent(new Event("auth-change"));
       navigate("/dashboard");
     } catch (err: any) {
       setError(err?.message ?? "Login failed. Please check your credentials.");

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "./primitives";
 import { cn } from "@/lib/utils";
 import { APP_NAV_GROUPS } from "../lib/app-nav";
@@ -26,9 +26,65 @@ export default function TopNav() {
   const [openDrop, setOpenDrop] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const navRef = useRef<HTMLElement>(null);
 
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    return typeof window !== "undefined" && Boolean(localStorage.getItem("token"));
+  });
+
+  const [userEmail, setUserEmail] = useState<string | null>(() => {
+    if (typeof window === "undefined") return null;
+    try {
+      const raw = localStorage.getItem("user");
+      if (raw) {
+        const u = JSON.parse(raw);
+        return u.email ?? null;
+      }
+    } catch {}
+    return null;
+  });
+
   const closeDrop = () => setOpenDrop(null);
+
+  // Sync auth state on route changes or storage events
+  useEffect(() => {
+    const syncAuth = () => {
+      if (typeof window === "undefined") return;
+      const tok = localStorage.getItem("token");
+      setIsAuthenticated(Boolean(tok));
+      try {
+        const raw = localStorage.getItem("user");
+        if (raw) {
+          const u = JSON.parse(raw);
+          setUserEmail(u.email ?? null);
+        } else {
+          setUserEmail(null);
+        }
+      } catch {
+        setUserEmail(null);
+      }
+    };
+
+    syncAuth();
+    window.addEventListener("storage", syncAuth);
+    window.addEventListener("auth-change", syncAuth);
+    return () => {
+      window.removeEventListener("storage", syncAuth);
+      window.removeEventListener("auth-change", syncAuth);
+    };
+  }, [pathname]);
+
+  const handleSignOut = () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.dispatchEvent(new Event("auth-change"));
+    }
+    setIsAuthenticated(false);
+    setUserEmail(null);
+    navigate("/login");
+  };
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -163,12 +219,28 @@ export default function TopNav() {
 
         {/* Right Action & Mobile Toggle */}
         <div className="flex items-center gap-3">
-          <Link
-            to="/login"
-            className="text-xs font-semibold text-foreground transition-colors hover:text-primary min-[1100px]:text-sm font-heading tracking-tight"
-          >
-            Sign in
-          </Link>
+          {isAuthenticated ? (
+            <div className="flex items-center gap-2">
+              <span className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 text-xs font-semibold font-heading text-emerald-600 dark:text-emerald-400">
+                <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                {userEmail ? userEmail.split("@")[0] : "Signed in"}
+              </span>
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="text-xs font-semibold text-muted-foreground hover:text-destructive transition-colors min-[1100px]:text-sm font-heading tracking-tight"
+              >
+                Sign out
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              className="text-xs font-semibold text-foreground transition-colors hover:text-primary min-[1100px]:text-sm font-heading tracking-tight"
+            >
+              Sign in
+            </Link>
+          )}
           <Button
             variant="ghost"
             size="sm"
@@ -249,13 +321,26 @@ export default function TopNav() {
                 </div>
               );
             })}
-            <Link
-              to="/login"
-              onClick={() => setOpen(false)}
-              className="mt-2 block rounded-lg bg-primary px-3 py-2 text-center text-sm font-semibold text-primary-foreground font-heading shadow-xs"
-            >
-              Sign in
-            </Link>
+            {isAuthenticated ? (
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  handleSignOut();
+                }}
+                className="mt-2 block w-full rounded-lg bg-destructive/10 border border-destructive/20 px-3 py-2 text-center text-sm font-semibold text-destructive font-heading shadow-xs hover:bg-destructive/20"
+              >
+                Sign out {userEmail ? `(${userEmail})` : ""}
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                onClick={() => setOpen(false)}
+                className="mt-2 block rounded-lg bg-primary px-3 py-2 text-center text-sm font-semibold text-primary-foreground font-heading shadow-xs"
+              >
+                Sign in
+              </Link>
+            )}
           </div>
         </nav>
       )}

@@ -168,3 +168,58 @@ export function IconCurrencyExchange({ size = 16 }: IconProps) {
   );
 }
 
+export function IconMapPin({ size = 14 }: IconProps) {
+  return (
+    <Base size={size}>
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </Base>
+  );
+}
+
+export function IconCopy({ size = 14 }: IconProps) {
+  return (
+    <Base size={size}>
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+      <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+    </Base>
+  );
+}
+
+export function IconCheck({ size = 14 }: IconProps) {
+  return (
+    <Base size={size}>
+      <polyline points="20 6 9 17 4 12" />
+    </Base>
+  );
+}
+
+export function IconExternalLink({ size = 14 }: IconProps) {
+  return (
+    <Base size={size}>
+      <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+      <polyline points="15 3 21 3 21 9" />
+      <line x1="10" y1="14" x2="21" y2="3" />
+    </Base>
+  );
+}
+
+export function IconClock({ size = 14 }: IconProps) {
+  return (
+    <Base size={size}>
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
+    </Base>
+  );
+}
+
+export function IconRefresh({ size = 14 }: IconProps) {
+  return (
+    <Base size={size}>
+      <path d="M23 4v6h-6" />
+      <path d="M1 20v-6h6" />
+      <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+    </Base>
+  );
+}
+
