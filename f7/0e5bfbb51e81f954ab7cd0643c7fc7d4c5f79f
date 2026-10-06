@@ -1,0 +1,31 @@
+backend/tests/test_shipsagar.py
+  s_29790315c01921::t_1242921d924adf 4934-4940,4944-4946
+  s_29790315c01921::t_48cf5e2671c111 4763-4933,4941-4943,4947-4987
+backend/app/services/shopify_service.py
+  s_29790315c01921::t_7fad952633588d 239-245
+backend/app/services/shipment_service.py
+  s_29790315c01921::t_9d551fa92caf34 162-197,199
+  s_29790315c01921::t_9f773546ae203c 198
+  s_29790315c01921::t_1c2f692c75425e 29-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f70e5bfbb51e81f954ab7cd0643c7fc7d4c5f79f",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_29790315c01921": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef015041affeuPvosUbdKORi5M",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
