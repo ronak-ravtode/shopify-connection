@@ -25,7 +25,7 @@ test("topnav renders wordmark and sign in", () => {
 test("topnav centers app sections with active effect and no underline", () => {
   const { container } = renderNav();
   const nav = container.querySelector('nav[aria-label="Primary"]') as HTMLElement;
-  for (const label of ["Dashboard", "Orders", "Exceptions", "Finance"]) {
+  for (const label of ["Dashboard", "Orders", "Finance"]) {
     expect(nav.textContent).toMatch(label);
   }
   const active = container.querySelector('[aria-current="page"]');
@@ -47,7 +47,7 @@ test("topnav uses enterprise canvas background", () => {
 test("topnav groups routes with active trail", () => {
   const { container } = renderNav();
   const nav = container.querySelector('nav[aria-label="Primary"]') as HTMLElement;
-  for (const label of ["Dashboard", "Orders", "Exceptions", "Finance", "Tracking"]) {
+  for (const label of ["Dashboard", "Orders", "Finance", "Tracking"]) {
     expect(nav.textContent).toMatch(label);
   }
   expect(container.querySelector('[aria-current="page"]')).toBeTruthy();

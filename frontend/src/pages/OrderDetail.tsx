@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../lib/api";
 import SeverityBadge from "../components/SeverityBadge";
 import Timeline, { TNode } from "../components/Timeline";
 import { IconAlert, IconSpark } from "../components/icons";
 import {
   Badge,
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -36,11 +37,13 @@ function getOpBadgeVariant(status?: string): "success" | "warning" | "destructiv
 
 export default function OrderDetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [order, setOrder] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [timeline, setTimeline] = useState<TNode[]>([]);
   const [recon, setRecon] = useState<ReconState>(null);
   const [shipments, setShipments] = useState<any[]>([]);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     api<any>(`/api/v1/orders/${id!}`)
@@ -57,6 +60,24 @@ export default function OrderDetailPage() {
       .then((data) => setShipments(data.items ?? []))
       .catch(() => setShipments([]));
   }, [id]);
+
+  async function handleDeleteOrder() {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete Order ${order?.shopify_order_name || order?.internal_order_number || id}? This action cannot be undone.`
+    );
+    if (!confirmDelete) return;
+
+    setDeleting(true);
+    try {
+      const token = localStorage.getItem("token") ?? undefined;
+      await api(`/api/v1/orders/${id!}`, { method: "DELETE" }, token);
+      navigate("/orders");
+    } catch (err: any) {
+      alert(err?.message ?? "Failed to delete order");
+    } finally {
+      setDeleting(false);
+    }
+  }
 
   if (error) {
     return (
@@ -198,6 +219,26 @@ export default function OrderDetailPage() {
           </div>
         </Card>
       )}
+
+      {/* Delete Order Action Card */}
+      <Card className="p-6 border-destructive/30 bg-destructive/5 shadow-xs flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 className="text-base font-bold text-destructive font-heading">Delete Order</h2>
+          <p className="text-xs text-muted-foreground mt-0.5">
+            Permanently remove this order and all associated shipment records from the system.
+          </p>
+        </div>
+        <Button
+          variant="destructive"
+          size="sm"
+          onClick={handleDeleteOrder}
+          disabled={deleting}
+          className="font-semibold text-xs h-9 px-4 shadow-xs"
+        >
+          {deleting ? "Deleting Order..." : "Delete Order"}
+        </Button>
+      </Card>
     </div>
   );
 }
+

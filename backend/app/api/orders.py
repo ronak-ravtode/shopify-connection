@@ -369,9 +369,41 @@ def get_order(
     o = db.query(Order).filter_by(id=order_id).first()
     if o is None:
         raise HTTPException(404, "Order not found")
-    # The shipment is resolved here too, not left at the serializer's null
-    # default: this route gained a `shipment` key, and reporting null for an
-    # order that does have a shipment would be a false field. One extra query on
-    # a single-row fetch, so there is no N+1 to avoid.
     shipment = _shipment_map(db, _user.get("business_id"), [o.id]).get(o.id)
     return {"success": True, "data": _to_dict(o, shipment)}
+
+
+@router.delete("/{order_id}")
+def delete_order(
+    order_id: str,
+    db: Session = Depends(get_db),
+    _user: dict = Depends(get_current_user),
+):
+    from app.models.order import Order, OrderItem
+    from app.models.parcel import Parcel
+    from app.models.shipment import Shipment, ShipmentEvent
+
+    o = db.query(Order).filter_by(id=order_id).first()
+    if o is None:
+        raise HTTPException(404, "Order not found")
+
+    # Clean up associated items, shipments, events, and parcels
+    db.query(OrderItem).filter_by(order_id=o.id).delete(synchronize_session=False)
+
+    s_ids = [s.id for s in db.query(Shipment).filter_by(order_id=o.id).all()]
+    if s_ids:
+        db.query(ShipmentEvent).filter(ShipmentEvent.shipment_id.in_(s_ids)).delete(synchronize_session=False)
+        db.query(Shipment).filter_by(order_id=o.id).delete(synchronize_session=False)
+
+    db.query(Parcel).filter_by(order_id=o.id).delete(synchronize_session=False)
+
+    try:
+        from app.models.exception import ExceptionRecord
+        db.query(ExceptionRecord).filter_by(order_id=o.id).delete(synchronize_session=False)
+    except Exception:
+        pass
+
+    db.delete(o)
+    db.commit()
+
+    return {"success": True, "message": "Order deleted successfully"}
