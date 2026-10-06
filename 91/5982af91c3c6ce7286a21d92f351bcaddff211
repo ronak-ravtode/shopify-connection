@@ -1,0 +1,24 @@
+docs/superpowers/specs/2026-10-06-orders-driven-shipments-design.md
+  s_3e6ca16e665ff1::t_d2841bcbf75c40 1-135
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "915982af91c3c6ce7286a21d92f351bcaddff211",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3e6ca16e665ff1": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efed3a8afffeIvbqeEKOhVZ2On",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
