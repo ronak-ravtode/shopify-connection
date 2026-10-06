@@ -42,37 +42,42 @@ def _resolve_business_id(db: Session, business_id: str | None) -> str:
     return b.id
 
 
-def _fetch_live_orders(days: int, shop_domain: str, token: str) -> list[dict] | None:
-    """Fetch live orders; single retry on transient 429/5xx. Returns None on failure."""
+def _fetch_live_orders(days: int, shop_domain: str, token: str) -> tuple[list[dict] | None, str | None]:
+    """Fetch live orders; single retry on transient 429/5xx. Returns (orders, error) on failure."""
     import httpx
 
     since = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
     url = f"https://{shop_domain}/admin/api/{settings.shopify_api_version}/orders.json"
     params = {"status": "any", "created_at_min": since, "limit": 100}
     headers = {"X-Shopify-Access-Token": token}
+    last_err = None
     for attempt in range(2):  # initial + single retry
         try:
             r = httpx.get(url, params=params, headers=headers, timeout=20.0)
-        except Exception:
+        except Exception as e:
+            last_err = f"Connection error: {e}"
             if attempt == 0:
                 time.sleep(1.0)
                 continue
-            return None
+            return None, last_err
         if r.status_code in (429,) or 500 <= r.status_code < 600:
+            last_err = f"Shopify HTTP {r.status_code}"
             if attempt == 0:
                 time.sleep(1.0)
                 continue
-            return None
+            return None, last_err
         if r.status_code != 200:
-            return None
+            if r.status_code == 401:
+                return None, f"Invalid Shopify Access Token (401 Unauthorized) for {shop_domain}"
+            return None, f"Shopify API HTTP {r.status_code}"
         try:
             body = r.json()
-        except Exception:
-            return None
+        except Exception as e:
+            return None, f"Failed to parse Shopify response: {e}"
         if isinstance(body, dict) and "orders" in body:
-            return body["orders"]
-        return body if isinstance(body, list) else []
-    return None
+            return body["orders"], None
+        return (body if isinstance(body, list) else []), None
+    return None, last_err or "Unknown sync error"
 
 
 @router.post("/sync")
@@ -89,12 +94,14 @@ def sync_orders(
     shop_domain = os.getenv("SHOPIFY_SHOP_DOMAIN", "") or settings.shopify_shop_domain
     orders: list[dict] = []
     source = "fixture"
+    sync_error = None
     if env_token and shop_domain:
-        live = _fetch_live_orders(days, shop_domain, env_token)
+        live, err = _fetch_live_orders(days, shop_domain, env_token)
         if live is not None:
             orders = live
             source = "live"
         else:
+            sync_error = err
             orders = _load_fixture()
             source = "fixture"
     else:
@@ -103,13 +110,15 @@ def sync_orders(
         if store is not None and store.access_token_encrypted:
             raw_token = decrypt_token(store.access_token_encrypted)
         if raw_token and store is not None:
-            live = _fetch_live_orders(days, store.shop_domain, raw_token)
+            live, err = _fetch_live_orders(days, store.shop_domain, raw_token)
             if live is not None:
                 orders = live
                 source = "live"
             else:
+                sync_error = err
                 orders = _load_fixture()
         else:
+            sync_error = "No Shopify credentials configured"
             orders = _load_fixture()
     synced = 0
     for payload in orders:
@@ -132,7 +141,15 @@ def sync_orders(
     else:
         store.last_sync_at = now
     db.commit()
-    return {"success": True, "data": {"synced": synced, "source": source, "business_id": bid}}
+    return {
+        "success": True,
+        "data": {
+            "synced": synced,
+            "source": source,
+            "business_id": bid,
+            "error": sync_error,
+        },
+    }
 
 
 @router.get("/status")

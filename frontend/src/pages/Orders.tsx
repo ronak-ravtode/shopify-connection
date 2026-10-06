@@ -74,8 +74,12 @@ export default function OrdersPage() {
     setSyncing(true);
     setError(null);
     try {
-      await api("/api/v1/shopify/sync?days=30", { method: "POST" });
+      const res = await api<any>("/api/v1/shopify/sync?days=30", { method: "POST" });
       await fetchOrders();
+      const data = res?.data ?? res;
+      if (data?.error) {
+        setError(`Shopify Sync Warning: ${data.error}. Please update SHOPIFY_ACCESS_TOKEN in .env.`);
+      }
     } catch (err: any) {
       setError(err?.message ?? "Shopify Sync failed. Check API connection.");
     } finally {
