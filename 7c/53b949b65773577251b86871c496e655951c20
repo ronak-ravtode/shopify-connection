@@ -1,0 +1,24 @@
+backend/app/services/order_service.py
+  s_f99961aebddc1a::t_c4593d23728347 46-48,51
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7c53b949b65773577251b86871c496e655951c20",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_f99961aebddc1a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef078af09ffejNQpwmNzdUHs0N",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
