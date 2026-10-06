@@ -1,0 +1,28 @@
+backend/tests/test_config_env_files.py
+  s_3e6ca16e665ff1::t_f3db7212346227 1-58
+backend/app/config.py
+  s_3e6ca16e665ff1::t_66b476daaa8ce5 1-2,5-18,21
+README.md
+  s_3e6ca16e665ff1::t_ed2accedf82ac8 184-197
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1b4aac7ef630aa80ae09ff576f6bb67619bb96a8",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3e6ca16e665ff1": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efed3a8afffeIvbqeEKOhVZ2On",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
