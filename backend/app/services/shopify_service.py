@@ -148,18 +148,23 @@ def _upsert_items_and_payment(db: Session, business_id: str, order_id: str, payl
     from app.models.order import OrderItem
     from app.models.payment import Payment
     from app.models.product import Product
+    from app.models.parcel import ParcelItem
 
-    # Idempotent items: clear then re-insert.
-    db.query(OrderItem).filter_by(order_id=order_id).delete()
-    db.flush()
+    existing_items = {
+        (item.sku or item.title or str(item.id)): item
+        for item in db.query(OrderItem).filter_by(order_id=order_id).all()
+    }
+    seen_keys = set()
+
     for li in payload.get("line_items", []) or []:
         sku = str(li.get("sku")) if li.get("sku") else None
+        title = str(li.get("title", "") or "")
+        key = sku or title
+        seen_keys.add(key)
+
         product = None
         if sku:
-            product = (
-                db.query(Product).filter_by(business_id=business_id, sku=sku).first()
-            )
-        title = str(li.get("title", "") or "")
+            product = db.query(Product).filter_by(business_id=business_id, sku=sku).first()
         if product is None:
             product = Product(
                 business_id=business_id,
@@ -170,8 +175,16 @@ def _upsert_items_and_payment(db: Session, business_id: str, order_id: str, payl
             )
             db.add(product)
             db.flush()
-        db.add(
-            OrderItem(
+
+        if key in existing_items:
+            item = existing_items[key]
+            item.title = title
+            item.sku = sku
+            item.quantity = int(li.get("quantity", 1) or 1)
+            item.price = _to_float(li.get("price", 0))
+            item.product_id = product.id
+        else:
+            item = OrderItem(
                 business_id=business_id,
                 order_id=order_id,
                 product_id=product.id,
@@ -180,7 +193,14 @@ def _upsert_items_and_payment(db: Session, business_id: str, order_id: str, payl
                 quantity=int(li.get("quantity", 1) or 1),
                 price=_to_float(li.get("price", 0)),
             )
-        )
+            db.add(item)
+
+    for key, old_item in existing_items.items():
+        if key not in seen_keys:
+            has_parcel_ref = db.query(ParcelItem).filter_by(order_item_id=old_item.id).first() is not None
+            if not has_parcel_ref:
+                db.delete(old_item)
+
     db.flush()
     pay = db.query(Payment).filter_by(business_id=business_id, order_id=order_id).first()
     if pay is not None:
@@ -207,10 +227,14 @@ def upsert_order(db: Session, business_id: str, payload: dict) -> str:
         .filter_by(business_id=business_id, shopify_order_id=n["shopify_order_id"])
         .first()
     )
+    if o is None and n.get("internal_order_number"):
+        o = (
+            db.query(Order)
+            .filter_by(business_id=business_id, internal_order_number=n["internal_order_number"])
+            .first()
+        )
     if o is not None:
         for k, v in n.items():
-            if k in ("internal_order_number",):
-                continue  # keep stable unique value
             setattr(o, k, v)
         db.flush()
     else:
