@@ -1,0 +1,37 @@
+frontend/src/pages/ShipmentHistory.tsx
+  s_d998cac148962f::t_769e18784029d1 108-112
+  s_d998cac148962f::t_764617bbcaaf7f 5
+  s_d998cac148962f::t_8e59faa80b2d87 138-139
+  s_d998cac148962f::t_66f8ab5abca2e9 15-24
+  s_d998cac148962f::t_6511e13f02e6dd 48-53
+frontend/src/components/ShipsagarRetryDrain.tsx
+  s_d998cac148962f::t_94a825a5bdc6e6 1-116
+frontend/tests/shipment-history.test.tsx
+  s_d998cac148962f::t_18a9fe39069de6 41-44,47-58
+  s_d998cac148962f::t_3663a42c2779ec 78-84
+  s_d998cac148962f::t_be10a1b8b9e05d 85-264
+  s_d998cac148962f::t_fcba4bab243c05 2
+frontend/tests/add-shipment-dialog.test.tsx
+  s_d998cac148962f::t_f7d2612a6bf519 103-176
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "edeb66665142c92fd2497b2fe0396f525d49edb1",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_d998cac148962f": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_eefaf6c51ffeCiSyMn08A2cbgt",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
