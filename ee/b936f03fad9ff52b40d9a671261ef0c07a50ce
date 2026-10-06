@@ -1,0 +1,14 @@
+backend/app/api/shopify.py
+  h_c5a3d01edfee72 25-30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "eeb936f03fad9ff52b40d9a671261ef0c07a50ce",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
