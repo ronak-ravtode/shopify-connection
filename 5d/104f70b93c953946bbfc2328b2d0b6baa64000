@@ -1,0 +1,41 @@
+backend/tests/test_shipsagar.py
+  s_a04b4a7f5c48f1::t_c83d90c1ca4557 3545-3550
+  s_a04b4a7f5c48f1::t_a9e0e0b6599898 3429-3533,3536-3544
+  s_a04b4a7f5c48f1::t_76670e6b720e65 3534-3535
+backend/app/services/shipsagar_service.py
+  s_a04b4a7f5c48f1::t_558c506457b682 941,973-976
+  s_a04b4a7f5c48f1::t_77dc9bdda91fc6 90-94
+  s_a04b4a7f5c48f1::t_1e7c306a136f61 10-13
+  s_621d334d9f03da::t_3d9828e909e5af 421-423
+  s_a04b4a7f5c48f1::t_2573973e4af496 162-163
+  s_a04b4a7f5c48f1::t_bda848901281a2 924-940,942-972,977-979
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5d104f70b93c953946bbfc2328b2d0b6baa64000",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_621d334d9f03da": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef2b3153cffe0H25R0TIPhzRMG",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_a04b4a7f5c48f1": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef09027a4ffeP8OkFChXoDiAm4",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
