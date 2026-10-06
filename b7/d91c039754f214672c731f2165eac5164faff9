@@ -1,0 +1,39 @@
+backend/tests/test_shipsagar.py
+  s_f99961aebddc1a::t_02cb6f265afa94 3776-3777
+  s_f99961aebddc1a::t_8ac1794f295547 3828-3829
+  s_f99961aebddc1a::t_ad783eb6cc0d48 3842-3843
+  s_f99961aebddc1a::t_46055e2d4f51ff 32-54
+  s_f99961aebddc1a::t_be6d30743ebee6 2035
+  s_f99961aebddc1a::t_882dc607c03d12 3807-3808
+  s_f99961aebddc1a::t_c2b80471ff7060 3744-3752,3760
+  s_f99961aebddc1a::t_498222a2e0a0b6 12-13
+  s_f99961aebddc1a::t_d26623c54ce91e 3742-3743
+  s_f99961aebddc1a::t_d10fec192ff005 3727-3741,3753-3759,3761-3775,3778-3806,3809-3827,3830-3841,3844-3859
+  s_f99961aebddc1a::t_41a9b3278fbeee 1695-1696
+backend/app/api/shipments.py
+  s_f99961aebddc1a::t_7f157de0084e9f 202,215-227
+  s_f99961aebddc1a::t_b50738eed70028 287
+  s_f99961aebddc1a::t_65056cb1aa2fff 25-28
+  s_f99961aebddc1a::t_0c75223b5a4153 261-266
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b7d91c039754f214672c731f2165eac5164faff9",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_f99961aebddc1a": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef078af09ffejNQpwmNzdUHs0N",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
