@@ -15,6 +15,7 @@ import {
   TableRow,
   buttonVariants,
 } from "../components/primitives";
+import { IconRefresh } from "../components/icons";
 
 type Ship = {
   id: string;
@@ -38,15 +39,6 @@ type OutRow = {
   sla_status: string;
 };
 
-type TrackingEvent = {
-  id: string;
-  normalized_status: string;
-  message: string;
-  location?: string | null;
-  event_time?: string | null;
-  source?: string;
-};
-
 const TONE_STYLE: Record<string, string> = {
   critical: "border-l-4 border-l-destructive",
   warn: "border-l-4 border-l-warning",
@@ -61,41 +53,95 @@ export default function GeneralTrackingPage() {
   const [status, setStatus] = useState("");
   const [band, setBand] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   const [cool, setCool] = useState<Record<string, string>>({});
   const [syncing, setSyncing] = useState<Record<string, boolean>>({});
   const [sweeping, setSweeping] = useState(false);
   const [sweepResult, setSweepResult] = useState<string | null>(null);
   const [dq, setDq] = useState(q);
 
-  // Selected shipment timeline modal
-  const [selectedShipment, setSelectedShipment] = useState<Ship | null>(null);
-  const [events, setEvents] = useState<TrackingEvent[]>([]);
-  const [loadingEvents, setLoadingEvents] = useState(false);
-
   useEffect(() => {
-    const t = setTimeout(() => setDq(q.trim()), 300);
+    const t = setTimeout(() => {
+      setDq(q.trim());
+      setPage(1);
+    }, 300);
     return () => clearTimeout(t);
   }, [q]);
 
-  const loadShipments = React.useCallback(() => {
+  const loadShipments = React.useCallback((pageNum = 1, append = false) => {
+    if (!append) setLoading(true);
+    else setLoadingMore(true);
+
     const token = localStorage.getItem("token") ?? undefined;
+    const pageSize = 10;
     const qs = new URLSearchParams({
-      page_size: "100",
+      page: String(pageNum),
+      page_size: String(pageSize),
       ...(dq ? { q: dq } : {}),
       ...(status ? { status } : {}),
       ...(carrier ? { carrier } : {}),
     });
-    api<{ items: Ship[] }>(`/api/v1/shipments?${qs}`, {}, token)
-      .then((d) => setShips(d.items ?? []))
-      .catch((e) => setError(e?.message ?? "Failed to load tracking data"));
-    api<{ items: OutRow[] }>(`/api/v1/shipments/outstanding`, {}, token)
-      .then((d) => setOut(d.items ?? []))
-      .catch(() => {});
+
+    api<{ items: Ship[]; total?: number }>(`/api/v1/shipments?${qs}`, {}, token)
+      .then((d) => {
+        const items = d.items ?? [];
+        if (append) {
+          setShips((prev) => [...prev, ...items]);
+        } else {
+          setShips(items);
+        }
+        setHasMore(items.length === pageSize);
+        setError(null);
+
+        // Auto-fetch location in background for newly loaded items that have AWBs but missing locations
+        items.forEach((s) => {
+          if (s.awb_number && !s.awb_number.startsWith("AWAITING") && !s.current_location) {
+            autoFetchLocation(s.id, token);
+          }
+        });
+      })
+      .catch((e) => setError(e?.message ?? "Failed to load tracking data"))
+      .finally(() => {
+        setLoading(false);
+        setLoadingMore(false);
+      });
+
+    if (pageNum === 1) {
+      api<{ items: OutRow[] }>(`/api/v1/shipments/outstanding`, {}, token)
+        .then((d) => setOut(d.items ?? []))
+        .catch(() => {});
+    }
   }, [dq, status, carrier]);
 
+  // Auto-sync shipment location in background if empty
+  const autoFetchLocation = (id: string, token?: string) => {
+    api<{ data?: { status?: string; events?: any[] } }>(`/api/v1/shipments/${id}/history`, {}, token)
+      .then((res) => {
+        const events = res.data?.events ?? [];
+        const latestLoc = events.find((e: any) => e.action_location)?.action_location;
+        if (latestLoc) {
+          setShips((prev) =>
+            prev.map((s) => (s.id === id ? { ...s, current_location: latestLoc } : s))
+          );
+        }
+      })
+      .catch(() => {});
+  };
+
   useEffect(() => {
-    loadShipments();
+    setPage(1);
+    loadShipments(1, false);
   }, [loadShipments]);
+
+  const loadNextPage = () => {
+    if (!hasMore || loadingMore) return;
+    const nextPage = page + 1;
+    setPage(nextPage);
+    loadShipments(nextPage, true);
+  };
 
   const names = useMemo(() => {
     const m: Record<string, string> = {};
@@ -131,7 +177,13 @@ export default function GeneralTrackingPage() {
     });
     try {
       await api(`/api/v1/shipments/${id}/sync`, { method: "POST" }, token);
-      loadShipments();
+      // Re-fetch history to update location immediately
+      const historyRes = await api<{ data?: { events?: any[] } }>(`/api/v1/shipments/${id}/history`, {}, token);
+      const events = historyRes.data?.events ?? [];
+      const latestLoc = events.find((e: any) => e.action_location)?.action_location;
+      setShips((prev) =>
+        prev.map((s) => (s.id === id ? { ...s, current_location: latestLoc || s.current_location } : s))
+      );
     } catch (e: any) {
       setCool((m) => ({ ...m, [id]: cooldownMessage(e) }));
     } finally {
@@ -150,29 +202,11 @@ export default function GeneralTrackingPage() {
         token
       );
       setSweepResult(`Sweep complete: ${res.synced} updated, ${res.errors} errors out of ${res.checked} checked.`);
-      loadShipments();
+      loadShipments(1, false);
     } catch (e: any) {
       setSweepResult(`Sweep failed: ${e?.message || "Admin role required"}`);
     } finally {
       setSweeping(false);
-    }
-  }
-
-  async function openTimeline(s: Ship) {
-    setSelectedShipment(s);
-    setLoadingEvents(true);
-    const token = localStorage.getItem("token") ?? undefined;
-    try {
-      const res = await api<{ items: TrackingEvent[] }>(
-        `/api/v1/shipments/${s.id}/events`,
-        {},
-        token
-      );
-      setEvents(res.items ?? []);
-    } catch (e) {
-      setEvents([]);
-    } finally {
-      setLoadingEvents(false);
     }
   }
 
@@ -193,8 +227,9 @@ export default function GeneralTrackingPage() {
             Real-time multi-carrier shipment status, India Post &amp; DTDC tracking events, and exception monitoring
           </p>
         </div>
-        <Button onClick={runSweep} disabled={sweeping} variant="outline">
-          {sweeping ? "Running Sweep…" : "Run Global Tracking Sweep"}
+        <Button onClick={runSweep} disabled={sweeping} variant="outline" className="gap-1.5 font-semibold text-xs">
+          <IconRefresh size={13} className={sweeping ? "animate-spin" : ""} />
+          <span>{sweeping ? "Running Sweep…" : "Run Global Tracking Sweep"}</span>
         </Button>
       </div>
 
@@ -236,7 +271,10 @@ export default function GeneralTrackingPage() {
         <select
           className="min-h-11 flex-1 min-w-[140px] rounded-md border border-input bg-background px-3.5 py-2.5 text-base text-foreground focus-visible:outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30"
           value={carrier}
-          onChange={(e) => setCarrier(e.target.value)}
+          onChange={(e) => {
+            setCarrier(e.target.value);
+            setPage(1);
+          }}
           aria-label="Carrier Filter"
         >
           <option value="">All Carriers</option>
@@ -251,7 +289,10 @@ export default function GeneralTrackingPage() {
         <select
           className="min-h-11 flex-1 min-w-[140px] rounded-md border border-input bg-background px-3.5 py-2.5 text-base text-foreground focus-visible:outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30"
           value={status}
-          onChange={(e) => setStatus(e.target.value)}
+          onChange={(e) => {
+            setStatus(e.target.value);
+            setPage(1);
+          }}
           aria-label="Status Filter"
         >
           <option value="">All Statuses</option>
@@ -280,7 +321,35 @@ export default function GeneralTrackingPage() {
 
       {/* Main Table */}
       <Card className="overflow-hidden p-0">
-        {shown.length === 0 ? (
+        {loading && ships.length === 0 ? (
+          /* Skeleton Loader */
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Order</TableHead>
+                  <TableHead>AWB / Consignment</TableHead>
+                  <TableHead>Carrier</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Current Location</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {Array.from({ length: 6 }).map((_, idx) => (
+                  <TableRow key={idx} className="animate-pulse">
+                    <TableCell><div className="h-4 w-16 bg-muted/80 rounded" /></TableCell>
+                    <TableCell><div className="h-4 w-28 bg-muted/80 rounded" /></TableCell>
+                    <TableCell><div className="h-4 w-16 bg-muted/80 rounded" /></TableCell>
+                    <TableCell><div className="h-4 w-24 bg-muted/80 rounded" /></TableCell>
+                    <TableCell><div className="h-4 w-32 bg-muted/80 rounded" /></TableCell>
+                    <TableCell><div className="h-7 w-24 bg-muted/80 rounded ml-auto" /></TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        ) : shown.length === 0 ? (
           <p className="p-10 text-center text-sm text-muted-foreground">
             No order tracking records found. Try searching for another Order # or AWB.
           </p>
@@ -333,16 +402,27 @@ export default function GeneralTrackingPage() {
                         </div>
                       )}
                     </TableCell>
-                    <TableCell className="text-xs text-muted-foreground max-w-[200px] truncate">
+                    <TableCell className="text-xs font-medium text-foreground max-w-[200px] truncate">
                       {s.current_location || s.last_checkpoint_message || "—"}
                     </TableCell>
                     <TableCell className="text-right whitespace-nowrap">
-                      <Link
-                        to={`/shipments/${s.id}`}
-                        className={buttonVariants({ variant: "outline", size: "sm" })}
-                      >
-                        Details
-                      </Link>
+                      <div className="flex items-center justify-end gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => refreshShipment(s.id)}
+                          disabled={!!syncing[s.id]}
+                          className="h-8 text-xs font-semibold"
+                        >
+                          {syncing[s.id] ? "Syncing…" : "Sync"}
+                        </Button>
+                        <Link
+                          to={`/shipments/${s.id}`}
+                          className={buttonVariants({ variant: "outline", size: "sm" })}
+                        >
+                          Details
+                        </Link>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -352,49 +432,17 @@ export default function GeneralTrackingPage() {
         )}
       </Card>
 
-      {/* Timeline Modal */}
-      {selectedShipment && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-xs p-4"
-          onClick={() => setSelectedShipment(null)}
-        >
-          <Card
-            className="w-full max-w-xl max-h-[80vh] overflow-y-auto p-6"
-            onClick={(e) => e.stopPropagation()}
+      {/* Pagination / Load More */}
+      {hasMore && !loading && (
+        <div className="flex justify-center my-2">
+          <Button
+            variant="outline"
+            onClick={loadNextPage}
+            disabled={loadingMore}
+            className="font-semibold text-xs h-9 px-6 shadow-xs"
           >
-            <div className="flex items-center justify-between pb-4 border-b border-border mb-4">
-              <div>
-                <h3 className="text-lg font-bold text-foreground">
-                  Tracking Timeline: {selectedShipment.awb_number}
-                </h3>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  Carrier: {selectedShipment.carrier_code} | Status: {selectedShipment.tracking_status}
-                </p>
-              </div>
-              <Button variant="outline" size="sm" onClick={() => setSelectedShipment(null)}>
-                Close
-              </Button>
-            </div>
-
-            {loadingEvents ? (
-              <p className="py-6 text-center text-sm text-muted-foreground">Loading event history…</p>
-            ) : events.length === 0 ? (
-              <p className="py-6 text-center text-sm text-muted-foreground">No checkpoints recorded yet for this consignment.</p>
-            ) : (
-              <div className="relative border-l-2 border-border pl-4 flex flex-col gap-4 mt-2">
-                {events.map((ev, i) => (
-                  <div key={ev.id || i} className="relative">
-                    <div className="absolute -left-[23px] top-1 size-3 rounded-full bg-primary" />
-                    <div className="text-sm font-semibold text-foreground">{ev.normalized_status}</div>
-                    <div className="text-xs text-muted-foreground mt-0.5">{ev.message}</div>
-                    <div className="text-xs text-muted-foreground mt-1">
-                      {ev.location ? `📍 ${ev.location} • ` : ""}{ev.event_time ? new Date(ev.event_time).toLocaleString() : ""}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </Card>
+            {loadingMore ? "Loading more orders…" : "Load More Orders"}
+          </Button>
         </div>
       )}
     </div>
