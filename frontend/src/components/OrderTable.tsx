@@ -10,8 +10,6 @@ import {
   TableHeader,
   TableRow,
 } from "./primitives";
-import { API } from "../lib/api";
-import { downloadXlsx } from "../lib/india-post";
 import { isAwaiting, pushStateLabel, statusTone, type OrderShipment } from "../lib/shipments";
 
 const FINANCIAL_DOTS: Record<string, string> = {
@@ -140,8 +138,7 @@ export default function OrderTable({
           <TableHead className="text-right">Total Amount</TableHead>
           <TableHead>COD</TableHead>
           <TableHead>City / Pincode</TableHead>
-          <TableHead>Date</TableHead>
-          <TableHead className="text-right">Action</TableHead>
+          <TableHead className="text-right">Date</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -175,26 +172,10 @@ export default function OrderTable({
             <TableCell className="text-xs text-muted-foreground">
               {`${o.receiver_city ?? ""} ${o.receiver_pincode ?? ""}`.trim() || "-"}
             </TableCell>
-            <TableCell className="text-xs text-muted-foreground font-mono">
+            <TableCell className="text-right text-xs text-muted-foreground font-mono">
               {(o.order_date ?? o.shopify_created_at ?? o.created_at)
                 ? new Date(o.order_date ?? o.shopify_created_at ?? o.created_at).toLocaleString()
                 : "-"}
-            </TableCell>
-            <TableCell className="text-right">
-              <div className="flex items-center justify-end gap-2">
-                <Button asChild variant="outline" size="sm" className="shadow-xs hover:border-primary/50 text-xs">
-                  <Link to={`/orders/${o.id}`}>Timeline</Link>
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="shadow-xs hover:border-primary/50 text-xs"
-                  onClick={() => downloadXlsx(`${API}/api/v1/orders/${o.id}/export/india-post.xlsx`, "india-post.xlsx")}
-                >
-                  XLSX
-                </Button>
-              </div>
             </TableCell>
           </TableRow>
         ))}

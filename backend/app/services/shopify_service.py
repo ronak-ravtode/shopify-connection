@@ -148,19 +148,16 @@ def _upsert_items_and_payment(db: Session, business_id: str, order_id: str, payl
     from app.models.order import OrderItem
     from app.models.payment import Payment
     from app.models.product import Product
-    from app.models.parcel import ParcelItem
 
     existing_items = {
         (item.sku or item.title or str(item.id)): item
         for item in db.query(OrderItem).filter_by(order_id=order_id).all()
     }
-    seen_keys = set()
 
     for li in payload.get("line_items", []) or []:
         sku = str(li.get("sku")) if li.get("sku") else None
         title = str(li.get("title", "") or "")
         key = sku or title
-        seen_keys.add(key)
 
         product = None
         if sku:
@@ -194,12 +191,6 @@ def _upsert_items_and_payment(db: Session, business_id: str, order_id: str, payl
                 price=_to_float(li.get("price", 0)),
             )
             db.add(item)
-
-    for key, old_item in existing_items.items():
-        if key not in seen_keys:
-            has_parcel_ref = db.query(ParcelItem).filter_by(order_item_id=old_item.id).first() is not None
-            if not has_parcel_ref:
-                db.delete(old_item)
 
     db.flush()
     pay = db.query(Payment).filter_by(business_id=business_id, order_id=order_id).first()
