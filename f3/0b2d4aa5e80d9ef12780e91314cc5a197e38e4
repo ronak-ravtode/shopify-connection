@@ -1,0 +1,59 @@
+backend/app/api/shipments.py
+  s_621d334d9f03da::t_21b57ce7db4d5e 27-35,41-44
+  s_3e6ca16e665ff1::t_aa99fb3c999621 427,429,432-435
+  s_3e6ca16e665ff1::t_9d3eb3659b98dc 428,430-431
+web/tests/shipments-client.test.tsx
+  s_621d334d9f03da::t_9822f0d3751c71 229-230,232-233
+  s_3e6ca16e665ff1::t_97bbf2363acd53 59-62
+  s_3e6ca16e665ff1::t_596229cf7d8da5 27,30
+  s_621d334d9f03da::t_87e7b22e61623e 8,10
+  s_621d334d9f03da::t_b70d21b04112c4 96-118
+web/tests/shipments-page.test.tsx
+  s_3e6ca16e665ff1::t_4a11c879a4f6ce 228-231
+web/src/lib/shipments.ts
+  s_621d334d9f03da::t_88fe0d2d51b1c2 83-110
+  s_3e6ca16e665ff1::t_c4982e0cc6d5f3 11,14
+  s_3e6ca16e665ff1::t_4938124d64aff7 51,54
+backend/app/services/shipment_service.py
+  s_3e6ca16e665ff1::t_a1d30268b7594a 136
+  s_3e6ca16e665ff1::t_412a51fba70528 112-114
+backend/tests/test_shipsagar.py
+  s_621d334d9f03da::t_592c3f23afb455 2215-2220
+  s_621d334d9f03da::t_2deb9026a08b5a 2122-2123,3069,3071,3117-3136
+  s_3e6ca16e665ff1::t_9fbebf5164eb80 3392
+  s_621d334d9f03da::t_eacecbd0fbe9d5 3064-3067,3070,3072-3083
+  s_621d334d9f03da::t_4da7f62ae051fe 3038-3039,3041-3063
+  s_3e6ca16e665ff1::t_b3e92f994485c2 3365-3366,3379-3386,3389-3391,3393-3406,3409-3420
+  s_3e6ca16e665ff1::t_d2059a0b7ac184 3367-3378,3387-3388,3407-3408
+  s_621d334d9f03da::t_bdf19c05d32c4e 1236,1608,2020,2489,3095
+  s_621d334d9f03da::t_e9031f741fe09d 2073-2084,2092-2121
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f30b2d4aa5e80d9ef12780e91314cc5a197e38e4",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3e6ca16e665ff1": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efed3a8afffeIvbqeEKOhVZ2On",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_621d334d9f03da": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef2b3153cffe0H25R0TIPhzRMG",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
