@@ -98,7 +98,7 @@ export default function TopNav() {
                   type="button"
                   aria-expanded={dropOpen}
                   aria-haspopup="true"
-                  aria-label={`${g.label} menu`}
+                  aria-label={`${g.label} submenu`}
                   onClick={() => setOpenDrop(dropOpen ? null : g.label)}
                   className={cn(
                     PILL,
@@ -126,38 +126,36 @@ export default function TopNav() {
                 </button>
 
                 {/* Floating Dropdown Panel */}
-                <div
-                  className={cn(
-                    "absolute top-full left-0 mt-1 min-w-[210px] rounded-xl border border-border/80 bg-popover/98 p-1.5 shadow-xl backdrop-blur-md z-50 transition-all duration-150",
-                    "before:absolute before:-top-3 before:left-0 before:right-0 before:h-3 before:content-['']",
-                    dropOpen
-                      ? "opacity-100 visible translate-y-0 pointer-events-auto"
-                      : "opacity-0 invisible -translate-y-1 pointer-events-none",
-                  )}
-                >
-                  {(g.children ?? []).map((c) => {
-                    const childActive = isExact(pathname, c.href);
-                    return (
-                      <Link
-                        key={c.href}
-                        to={c.href}
-                        aria-current={childActive ? "page" : undefined}
-                        onClick={closeDrop}
-                        className={cn(
-                          "flex h-9 items-center justify-between rounded-lg px-3 text-xs font-semibold whitespace-nowrap transition-colors min-[1100px]:text-sm font-heading tracking-tight",
-                          childActive
-                            ? "bg-primary/10 text-primary font-semibold"
-                            : "text-muted-foreground hover:bg-primary/10 hover:text-primary",
-                        )}
-                      >
-                        <span>{c.label}</span>
-                        {childActive && (
-                          <span className="size-1.5 rounded-full bg-primary" />
-                        )}
-                      </Link>
-                    );
-                  })}
-                </div>
+                {dropOpen && (
+                  <div
+                    className={cn(
+                      "absolute top-full left-0 mt-1 min-w-[210px] rounded-xl border border-border/80 bg-popover/98 p-1.5 shadow-xl backdrop-blur-md z-50 transition-all duration-150 animate-in fade-in-50 zoom-in-95",
+                    )}
+                  >
+                    {(g.children ?? []).map((c) => {
+                      const childActive = isExact(pathname, c.href);
+                      return (
+                        <Link
+                          key={c.href}
+                          to={c.href}
+                          aria-current={childActive ? "page" : undefined}
+                          onClick={closeDrop}
+                          className={cn(
+                            "flex h-9 items-center justify-between rounded-lg px-3 text-xs font-semibold whitespace-nowrap transition-colors min-[1100px]:text-sm font-heading tracking-tight",
+                            childActive
+                              ? "bg-primary/10 text-primary font-semibold"
+                              : "text-muted-foreground hover:bg-primary/10 hover:text-primary",
+                          )}
+                        >
+                          <span>{c.label}</span>
+                          {childActive && (
+                            <span className="size-1.5 rounded-full bg-primary" />
+                          )}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             );
           })}

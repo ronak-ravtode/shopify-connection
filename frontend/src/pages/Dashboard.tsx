@@ -249,6 +249,9 @@ export default function DashboardPage() {
     maximumFractionDigits: 2,
   })}`;
 
+  const kpis = data?.kpis;
+  const financials = data?.financials;
+  const multiplier = 1;
   const rtoValue = kpis?.rto_total !== undefined ? `${kpis.rto_total}` : "0";
   const dispatchedValue = kpis?.dispatched_orders !== undefined ? `${kpis.dispatched_orders}` : "0";
   const totalOrders = kpis?.orders_total !== undefined ? `${kpis.orders_total}` : "0";
@@ -271,8 +274,9 @@ export default function DashboardPage() {
         {/* Header Section */}
         <div className="shopify-section-header">
           <h1 className="shopify-section-title">Dashboard</h1>
-          <button
-            className="shopify-icon-btn"
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={() => setDashboardCollapsed(!dashboardCollapsed)}
             title={dashboardCollapsed ? "Expand Dashboard" : "Collapse Dashboard"}
             className="size-8 p-0"
@@ -411,10 +415,10 @@ export default function DashboardPage() {
               </Badge>
             </div>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4">
-              <MetricCard title="Total Orders" value={kpis.orders_total} icon={<IconBox />} subtitle={`${kpis.paid_orders} Paid`} />
-              <MetricCard title="Dispatched Scans" value={kpis.dispatched_orders} icon={<IconTag />} subtitle={`${kpis.packed_orders} Packed`} />
-              <MetricCard title="Returns / RTO" value={`${kpis.returns_total}`} icon={<IconReturn />} subtitle={`RTO Total: ${kpis.rto_total}`} />
-              <MetricCard title="Open Exceptions" value={kpis.open_exceptions} icon={<IconAlert />} subtitle={`Reconciled: ${kpis.reconciled_rate}%`} />
+              <MetricCard title="Total Orders" value={kpis?.orders_total ?? 0} icon={<IconBox />} subtitle={`${kpis?.paid_orders ?? 0} Paid`} />
+              <MetricCard title="Dispatched Scans" value={kpis?.dispatched_orders ?? 0} icon={<IconTag />} subtitle={`${kpis?.packed_orders ?? 0} Packed`} />
+              <MetricCard title="Returns / RTO" value={`${kpis?.returns_total ?? 0}`} icon={<IconReturn />} subtitle={`RTO Total: ${kpis?.rto_total ?? 0}`} />
+              <MetricCard title="Open Exceptions" value={kpis?.open_exceptions ?? 0} icon={<IconAlert />} subtitle={`Reconciled: ${kpis?.reconciled_rate ?? 0}%`} />
             </div>
           </div>
 
