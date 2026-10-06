@@ -55,11 +55,11 @@ test("topnav groups routes with active trail", () => {
 
 test("clicking outside topnav closes open dropdown menu", () => {
   const { container } = renderNav();
-  const btn = screen.getByLabelText("Orders submenu");
+  const btn = screen.getByLabelText("Finance submenu");
   fireEvent.click(btn);
-  expect(screen.getByText("Parcels")).toBeTruthy();
+  expect(screen.getByText("Statements")).toBeTruthy();
   fireEvent.mouseDown(document.body);
-  expect(screen.queryByText("Parcels")).toBeNull();
+  expect(screen.queryByText("Statements")).toBeNull();
 });
 
 test("reveal renders children and never hides content without an observer", () => {
