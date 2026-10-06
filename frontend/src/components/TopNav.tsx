@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { APP_NAV_GROUPS } from "../lib/app-nav";
 
@@ -21,14 +21,37 @@ export default function TopNav() {
   const [openDrop, setOpenDrop] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
   const { pathname } = useLocation();
+  const navRef = useRef<HTMLElement>(null);
 
   const closeDrop = () => setOpenDrop(null);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    if (!openDrop) return;
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenDrop(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [openDrop]);
+
+  // Close dropdown and mobile drawer on page navigation
+  useEffect(() => {
+    setOpenDrop(null);
+    setMobileOpen(false);
+  }, [pathname]);
 
   const activePillClass = "px-3.5 py-1.5 rounded-full text-sm font-semibold bg-white text-slate-900 shadow-xs transition";
   const inactivePillClass = "px-3.5 py-1.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition";
 
   return (
-    <header className="sticky top-0 z-50 bg-slate-50/90 backdrop-blur-md border-b border-slate-200">
+    <header ref={navRef} className="sticky top-0 z-50 bg-slate-50/90 backdrop-blur-md border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Brand Logo */}
         <Link to="/" className="text-lg font-bold text-slate-900 flex items-center gap-2">

@@ -1,6 +1,6 @@
 // web/tests/nav.test.tsx
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { expect, test, vi } from "vitest";
 
@@ -50,6 +50,15 @@ test("topnav groups routes with active trail", () => {
     expect(nav.textContent).toMatch(label);
   }
   expect(container.querySelector('[aria-current="page"]')).toBeTruthy();
+});
+
+test("clicking outside topnav closes open dropdown menu", () => {
+  const { container } = renderNav();
+  const btn = screen.getByLabelText("Orders submenu");
+  fireEvent.click(btn);
+  expect(screen.getByText("Parcels")).toBeTruthy();
+  fireEvent.mouseDown(document.body);
+  expect(screen.queryByText("Parcels")).toBeNull();
 });
 
 test("reveal renders children and never hides content without an observer", () => {
