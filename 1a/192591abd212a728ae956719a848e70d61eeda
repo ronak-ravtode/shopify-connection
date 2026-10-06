@@ -1,0 +1,14 @@
+frontend/src/pages/OrderDetail.tsx
+  h_c5a3d01edfee72 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1a192591abd212a728ae956719a848e70d61eeda",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
