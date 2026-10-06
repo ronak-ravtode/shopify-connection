@@ -1,0 +1,14 @@
+backend/tests/fixtures/shopify_orders.json
+  h_c5a3d01edfee72 71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0b752afb98049cf76b429dcbed1396be4e156d2b",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
