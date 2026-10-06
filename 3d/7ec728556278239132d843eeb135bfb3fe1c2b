@@ -1,0 +1,59 @@
+backend/app/api/parcels.py
+  s_29790315c01921::t_5beb7171b6c4e5 7
+  s_29790315c01921::t_bc620087060954 108-111
+backend/tests/test_shipsagar.py
+  s_29790315c01921::t_87891c3191b7e2 5256
+  s_29790315c01921::t_eda55b7a0534c5 5192-5255,5257-5262,5265-5364,5366-5369,5371-5423,5430-5431,5433-5434
+  s_29790315c01921::t_e6990439c5674e 5005,5015-5020,5027-5030
+  s_29790315c01921::t_f999e31a4eed67 5263
+  s_29790315c01921::t_b1da2a53b38ef1 5164-5167
+  s_29790315c01921::t_1d7aaf3d1bd9a8 5424-5429,5432,5435-5444
+  s_29790315c01921::t_416d113c078636 5264
+  s_29790315c01921::t_7fa069ece21507 5365,5370
+backend/app/services/shipment_service.py
+  s_29790315c01921::t_9f94f506439ca5 59-70
+backend/app/services/reconciliation_service.py
+  s_29790315c01921::t_45b409494644fa 186,197,280,322
+  s_29790315c01921::t_f37f5e22c35981 191,208,283,335
+  s_29790315c01921::t_809e733eaf0bd0 157,159-163,169,171-178
+backend/app/api/shipments.py
+  s_29790315c01921::t_d655e9e079c95c 127-129,417
+  s_29790315c01921::t_ae83589e3dc8f0 130
+  s_29790315c01921::t_58cf2691e9a09b 241-247
+  s_29790315c01921::t_8b74ce40d34fd0 393
+  s_29790315c01921::t_90be88b81befdd 9
+  s_29790315c01921::t_24a5cdf1605eeb 418-420,422-425
+backend/app/api/sla.py
+  s_29790315c01921::t_a0ad93a374c294 218
+  s_29790315c01921::t_aa4e70636b921b 102-105
+  s_29790315c01921::t_44e60a153136c9 253,260,273
+  s_29790315c01921::t_76bbd9814367e1 80
+backend/app/services/report_service.py
+  s_29790315c01921::t_d8baaf89ca2bac 573
+  s_29790315c01921::t_a32e0815121618 681-682
+  s_29790315c01921::t_08302c413c6999 411,414-421
+backend/app/services/statement_service.py
+  s_29790315c01921::t_ad131be6999ce8 171-177
+  s_29790315c01921::t_e0cafc9baa486f 163
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3d7ec728556278239132d843eeb135bfb3fe1c2b",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_29790315c01921": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef015041affeuPvosUbdKORi5M",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
