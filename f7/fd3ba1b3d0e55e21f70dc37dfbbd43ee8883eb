@@ -1,0 +1,34 @@
+frontend/src/App.tsx
+  s_d998cac148962f::t_5a3c3c2199fc0f 20
+  s_d998cac148962f::t_2b6c44b10db986 66
+frontend/tests/fe5-reports-shipments.test.tsx
+  s_d998cac148962f::t_b427256e078e17 2
+frontend/src/pages/ShipmentHistory.tsx
+  s_d998cac148962f::t_81409a596ea285 1-59,68-106,110-119
+  s_d998cac148962f::t_3daa0c508202f7 60-67
+  s_d998cac148962f::t_4d07cf1224c280 107-109
+frontend/tests/shipment-history.test.tsx
+  s_d998cac148962f::t_362161eef7b815 41-43,46-49
+  s_d998cac148962f::t_d00d09def33407 1-40,44-45,50-71
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f7fd3ba1b3d0e55e21f70dc37dfbbd43ee8883eb",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_d998cac148962f": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_eefaf6c51ffeCiSyMn08A2cbgt",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
