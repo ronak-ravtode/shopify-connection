@@ -1,0 +1,28 @@
+backend/tests/test_shipsagar.py
+  s_3e6ca16e665ff1::t_a7e212c9f2f173 3076
+.env.example
+  s_3e6ca16e665ff1::t_ed286db97c5ac2 10
+README.md
+  s_3e6ca16e665ff1::t_ed286db97c5ac2 6,26,48,108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c56e28c4cb8d918b4bfbc20e1e9708ba4ae35860",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3e6ca16e665ff1": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efed3a8afffeIvbqeEKOhVZ2On",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
