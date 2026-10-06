@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../lib/api";
-import SeverityBadge from "../components/SeverityBadge";
 import Timeline, { TNode } from "../components/Timeline";
-import { IconAlert, IconSpark } from "../components/icons";
+import { IconAlert } from "../components/icons";
 import {
   Badge,
   Button,
   Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
 } from "../components/primitives";
-
-type ReconIssue = { code: string; severity: string; message: string };
-type ReconState = { status: string; issues: ReconIssue[] } | null;
 
 function getFinancialBadgeVariant(status?: string): "success" | "warning" | "destructive" | "secondary" {
   if (!status) return "secondary";
@@ -41,7 +34,6 @@ export default function OrderDetailPage() {
   const [order, setOrder] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [timeline, setTimeline] = useState<TNode[]>([]);
-  const [recon, setRecon] = useState<ReconState>(null);
   const [shipments, setShipments] = useState<any[]>([]);
   const [deleting, setDeleting] = useState(false);
 
@@ -53,9 +45,6 @@ export default function OrderDetailPage() {
     api<{ items: TNode[] }>(`/api/v1/orders/${id!}/timeline`, {}, token)
       .then((data) => setTimeline(data.items ?? []))
       .catch(() => setTimeline([]));
-    api<ReconState>(`/api/v1/reconciliation/order/${id!}`, { method: "POST" }, token)
-      .then((data) => setRecon(data))
-      .catch(() => setRecon(null));
     api<{ items: any[] }>(`/api/v1/shipments?order_id=${id!}`, {}, token)
       .then((data) => setShipments(data.items ?? []))
       .catch(() => setShipments([]));
@@ -159,35 +148,6 @@ export default function OrderDetailPage() {
           <p className="text-xs text-muted-foreground">Currency: {order.currency || "INR"}</p>
         </Card>
       </div>
-
-      {/* Reconciliation Engine Alert Block */}
-      {recon && (
-        <Card className={`p-6 transition-colors ${recon.status === "RECONCILED" ? "border-emerald-500/40 bg-emerald-500/[0.03]" : "border-destructive/40 bg-destructive/[0.03]"}`}>
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-bold tracking-tight text-foreground">Reconciliation Engine Status</h2>
-            <Badge variant={recon.status === "RECONCILED" ? "success" : "destructive"}>
-              {recon.status}
-            </Badge>
-          </div>
-          {recon.status === "RECONCILED" ? (
-            <div className="flex items-center gap-2 text-sm font-medium text-emerald-700 dark:text-emerald-400">
-              <IconSpark size={16} /> <span>Fully Reconciled — Operational state agrees across Shopify, physical scans, payments, and returns.</span>
-            </div>
-          ) : (
-            <div className="flex flex-col gap-2.5">
-              {(recon.issues ?? []).map((issue) => (
-                <div key={issue.code} className="flex items-center gap-3 rounded-xl border border-border/80 bg-background/90 p-3 shadow-xs">
-                  <SeverityBadge severity={issue.severity} />
-                  <div>
-                    <span className="font-semibold text-foreground text-sm">{issue.code}</span>
-                    <p className="mt-0.5 text-xs text-muted-foreground">{issue.message}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </Card>
-      )}
 
       {/* Order Timeline Section */}
       <Card className="p-6 border-border/80 shadow-xs">
