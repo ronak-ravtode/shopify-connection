@@ -22,9 +22,12 @@ FIXTURE_PATH = Path(__file__).resolve().parents[2] / "tests" / "fixtures" / "sho
 
 
 def _load_fixture() -> list[dict]:
-    with open(FIXTURE_PATH, encoding="utf-8") as f:
-        data = json.load(f)
-    return data if isinstance(data, list) else data.get("orders", [])
+    try:
+        with open(FIXTURE_PATH, encoding="utf-8") as f:
+            data = json.load(f)
+        return data if isinstance(data, list) else data.get("orders", [])
+    except Exception:
+        return []
 
 
 def _resolve_business_id(db: Session, business_id: str | None) -> str:
