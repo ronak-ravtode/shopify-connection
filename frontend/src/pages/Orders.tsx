@@ -5,6 +5,7 @@ import AddShipmentDialog from "../components/AddShipmentDialog";
 import NewOrderDialog from "../components/NewOrderDialog";
 import OrderTable from "../components/OrderTable";
 import ImportResult, { ImportSummary } from "../components/ImportResult";
+import { Button, Card, Checkbox, Input, Label, Badge } from "../components/primitives";
 import {
   IconAlert,
   IconBox,
@@ -96,12 +97,14 @@ export default function OrdersPage() {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
         body: fd,
       });
-      const j = await r.json();
-      if (!j.success) throw new Error(j.error?.message ?? "Import failed");
-      setImportSummary(j.data);
-      fetchOrders(true);
+      const data = await r.json();
+      if (!r.ok) {
+        throw new Error(data.detail ?? `Upload failed (${r.status})`);
+      }
+      setImportSummary(data);
+      await fetchOrders();
     } catch (err: any) {
-      setError(err?.message ?? "CSV Import failed");
+      setError(err.message ?? "CSV upload failed");
     } finally {
       setUploading(false);
       if (fileRef.current) fileRef.current.value = "";
@@ -109,48 +112,49 @@ export default function OrdersPage() {
   };
 
   const activeFiltersCount = [codMode, dateFrom, dateTo, status, city, pincode].filter(Boolean).length;
-  const inputClass =
-    "w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition shadow-xs";
+  const selectClass =
+    "w-full h-9 px-3 bg-card border border-border/80 rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition shadow-xs";
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-6">
-      {/* Top Header & Action Bar */}
-      <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs flex flex-wrap items-center justify-between gap-4">
+    <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-6 bg-background px-6 max-[480px]:px-4">
+      {/* Page Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Orders Directory
-          </h1>
-          <p className="text-xs text-slate-500 mt-1">
-            Search, filter, and manage synchronized commerce & India Post orders
+          <div className="flex items-center gap-2 mb-1">
+            <h1 className="font-heading font-bold tracking-tight text-2xl sm:text-3xl text-foreground">
+              Orders Directory
+            </h1>
+            <Badge variant="secondary" className="text-xs">
+              Live Pipeline
+            </Badge>
+          </div>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Search, filter, and manage synchronized commerce &amp; India Post orders
           </p>
         </div>
 
-        <div className="flex items-center gap-3 flex-wrap">
-          <button
-            className="px-4 py-2 bg-emerald-700 text-white rounded-lg text-sm font-semibold hover:bg-emerald-800 transition shadow-xs flex items-center gap-2 cursor-pointer"
-            onClick={() => setShowNew(true)}
-          >
-            <IconBox size={16} /> + New Order
-          </button>
+        <div className="flex items-center gap-2.5 flex-wrap">
+          <Button onClick={() => setShowNew(true)} size="sm" className="shadow-xs font-semibold gap-1.5">
+            <IconBox size={15} /> + New Order
+          </Button>
 
-          <button
-            className="px-3.5 py-2 bg-white text-slate-700 border border-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 transition flex items-center gap-2 cursor-pointer"
+          <Button
+            variant="outline"
+            size="sm"
             onClick={() =>
               downloadXlsx(`${API}/api/v1/orders/export/india-post.xlsx${query}`, "india-post.xlsx").catch(
                 (e) => setError(e?.message ?? "Export failed")
               )
             }
+            className="shadow-xs gap-1.5"
           >
-            <IconReceipt size={16} /> Export (.xlsx)
-          </button>
+            <IconReceipt size={15} /> Export (.xlsx)
+          </Button>
 
-          <button
-            onClick={handleSyncShopify}
-            disabled={syncing}
-            className="px-3.5 py-2 bg-white text-slate-700 border border-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 transition flex items-center gap-2 cursor-pointer disabled:opacity-50"
-          >
-            <IconRefund size={16} /> {syncing ? "Syncing..." : "Sync Shopify"}
-          </button>
+          <Button onClick={handleSyncShopify} disabled={syncing} variant="outline" size="sm" className="shadow-xs gap-1.5">
+            <IconRefund size={15} />
+            {syncing ? "Syncing..." : "Sync Shopify"}
+          </Button>
 
           <input
             ref={fileRef}
@@ -160,53 +164,41 @@ export default function OrdersPage() {
             className="hidden"
             onChange={(e) => handleCsvUpload(e.target.files?.[0])}
           />
-          <button
-            onClick={() => fileRef.current?.click()}
-            disabled={uploading}
-            className="px-3.5 py-2 bg-white text-slate-700 border border-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 transition flex items-center gap-2 cursor-pointer disabled:opacity-50"
-          >
-            <IconTag size={16} /> {uploading ? "Importing..." : "Import CSV"}
-          </button>
+          <Button variant="outline" size="sm" onClick={() => fileRef.current?.click()} disabled={uploading} className="shadow-xs gap-1.5">
+            <IconTag size={15} />
+            {uploading ? "Importing…" : "Import CSV"}
+          </Button>
         </div>
       </div>
 
       {importSummary && (
-        <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs">
+        <Card className="border-border/80">
           <ImportResult summary={importSummary} />
-        </div>
+        </Card>
       )}
 
-      {/* Filter & Search Bar */}
-      <div className="bg-white border border-slate-200 rounded-xl p-6 shadow-xs flex flex-col gap-4">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="relative flex-1 min-w-[280px]">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
-            <input
-              className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition shadow-xs"
-              placeholder="Search orders by name, customer, phone, or order ID..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-
-          <label className="flex items-center gap-2 text-xs font-medium text-slate-600 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={live}
-              onChange={(e) => setLive(e.target.checked)}
-              aria-label="Live updates"
-              className="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
-            />
-            <span className="bg-sky-50 text-sky-800 border border-sky-200 px-2.5 py-0.5 rounded-full font-semibold">
-              Live Sync{updatedAt ? ` · ${updatedAt}` : ""}
+      {/* Filter & Search Controls */}
+      <Card className="p-4 sm:p-5 border-border/80 flex flex-col gap-4 shadow-xs">
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-4">
+          <Input
+            placeholder="Search orders by name, customer, phone, or order ID..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="flex-1"
+          />
+          <Label className="cursor-pointer gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground whitespace-nowrap flex items-center">
+            <Checkbox checked={live} onCheckedChange={(v) => setLive(v === true)} aria-label="Live updates" />
+            <span className="flex items-center gap-1.5">
+              <span className={`size-2 rounded-full ${live ? "bg-emerald-500 animate-pulse" : "bg-muted-foreground"}`} />
+              Live{updatedAt ? ` · updated ${updatedAt}` : ""}
             </span>
-          </label>
+          </Label>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 items-end">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 items-end pt-2 border-t border-border/60">
           <div className="flex flex-col gap-1">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Payment Mode</span>
-            <select className={inputClass} aria-label="COD mode" value={codMode} onChange={(e) => setCodMode(e.target.value)}>
+            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider font-heading">Payment Mode</span>
+            <select className={selectClass} aria-label="COD mode" value={codMode} onChange={(e) => setCodMode(e.target.value)}>
               <option value="">ALL</option>
               <option value="COD">COD</option>
               <option value="PREPAID">PREPAID</option>
@@ -214,8 +206,8 @@ export default function OrdersPage() {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Status</span>
-            <select className={inputClass} aria-label="Status" value={status} onChange={(e) => setStatus(e.target.value)}>
+            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider font-heading">Status</span>
+            <select className={selectClass} aria-label="Status" value={status} onChange={(e) => setStatus(e.target.value)}>
               <option value="">All Statuses</option>
               <option value="NEW">NEW</option>
               <option value="PACKED">PACKED</option>
@@ -226,28 +218,30 @@ export default function OrdersPage() {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Date From</span>
-            <input className={inputClass} type="date" aria-label="Date from" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
+            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider font-heading">Date From</span>
+            <Input className="h-9" type="date" aria-label="Date from" value={dateFrom} onChange={(e) => setDateFrom(e.target.value)} />
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Date To</span>
-            <input className={inputClass} type="date" aria-label="Date to" value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
+            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider font-heading">Date To</span>
+            <Input className="h-9" type="date" aria-label="Date to" value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">City</span>
-            <input className={inputClass} placeholder="Filter city" aria-label="City" value={city} onChange={(e) => setCity(e.target.value)} />
+            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider font-heading">City</span>
+            <Input className="h-9" placeholder="Filter city" aria-label="City" value={city} onChange={(e) => setCity(e.target.value)} />
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">Pincode</span>
-            <input className={inputClass} placeholder="6-digit pincode" aria-label="Pincode" value={pincode} onChange={(e) => setPincode(e.target.value)} />
+            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider font-heading">Pincode</span>
+            <Input className="h-9" placeholder="6-digit pincode" aria-label="Pincode" value={pincode} onChange={(e) => setPincode(e.target.value)} />
           </div>
 
           <div className="flex flex-col gap-1">
-            <button
-              className="px-3 py-2 bg-white text-slate-700 border border-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 transition cursor-pointer disabled:opacity-40"
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-9 text-xs"
               onClick={() => {
                 setCodMode("");
                 setDateFrom("");
@@ -260,62 +254,53 @@ export default function OrdersPage() {
               disabled={activeFiltersCount === 0 && !search}
             >
               Clear {activeFiltersCount > 0 ? `(${activeFiltersCount})` : ""}
-            </button>
+            </Button>
           </div>
         </div>
-      </div>
+      </Card>
 
       {/* Connection Error Alert */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-xl flex items-center justify-between text-sm">
+        <div role="alert" className="flex items-center justify-between gap-3 rounded-xl border border-destructive/20 bg-destructive/10 px-4 py-3 text-sm text-destructive">
           <div className="flex items-center gap-2 font-medium">
-            <IconAlert size={18} />
+            <IconAlert size={16} />
             <span><strong>Connection Warning:</strong> {error}</span>
           </div>
-          <button
-            className="px-3 py-1 bg-white text-red-700 border border-red-300 rounded-md text-xs font-semibold hover:bg-red-100 transition cursor-pointer"
-            onClick={() => fetchOrders()}
-          >
+          <Button variant="outline" size="sm" onClick={() => fetchOrders()} className="h-7 text-xs border-destructive/30 hover:bg-destructive/10">
             Retry Connection
-          </button>
+          </Button>
         </div>
       )}
 
-      {/* Main Order Table Container */}
-      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-xs">
+      {/* Main Table */}
+      <Card className="overflow-hidden p-0 border-border/80 shadow-xs">
         {loading ? (
-          <div className="p-16 text-center text-slate-500 text-sm font-medium">
+          <div className="p-12 text-center text-sm text-muted-foreground flex flex-col items-center gap-3">
+            <div className="size-6 rounded-full border-2 border-primary border-t-transparent animate-spin" />
             Loading orders directory...
           </div>
         ) : orders.length === 0 ? (
-          <div className="p-12 text-center flex flex-col items-center justify-center">
-            <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 mb-3">
+          <div className="p-10 text-center flex flex-col items-center justify-center">
+            <div className="size-12 rounded-full bg-muted/60 flex items-center justify-center text-muted-foreground mb-3">
               <IconBox size={24} />
             </div>
-            <h3 className="text-base font-semibold text-slate-900 mb-1">No orders found</h3>
-            <p className="text-xs text-slate-500 max-w-sm mb-5">
+            <h3 className="text-base font-bold font-heading text-foreground mb-1">No orders found</h3>
+            <p className="text-xs text-muted-foreground max-w-sm mb-5">
               No orders matched your active filters or directory is empty. Sync Shopify or create a manual order.
             </p>
-            <div className="flex gap-3">
-              <button
-                className="px-4 py-2 bg-emerald-700 text-white rounded-lg text-sm font-semibold hover:bg-emerald-800 transition cursor-pointer"
-                onClick={() => setShowNew(true)}
-              >
+            <div className="flex justify-center gap-3">
+              <Button onClick={() => setShowNew(true)}>
                 + Create New Order
-              </button>
-              <button
-                onClick={handleSyncShopify}
-                disabled={syncing}
-                className="px-4 py-2 bg-white text-slate-700 border border-slate-300 rounded-lg text-sm font-medium hover:bg-slate-50 transition cursor-pointer"
-              >
+              </Button>
+              <Button variant="outline" onClick={handleSyncShopify} disabled={syncing}>
                 Sync Shopify Orders
-              </button>
+              </Button>
             </div>
           </div>
         ) : (
           <OrderTable orders={orders} onAddShipment={(o) => setAddShipmentOrder(o)} />
         )}
-      </div>
+      </Card>
 
       {showNew && (
         <NewOrderDialog
@@ -336,9 +321,6 @@ export default function OrdersPage() {
         onPushed={() => {
           fetchOrders(true);
         }}
-        // A 502 means the AWB was committed and a retry job is queued, so the
-        // row changed even though the provider refused. Refreshing is what stops
-        // it still offering Add Shipment on a shipment that would now 400.
         onRecovered={() => {
           fetchOrders(true);
         }}

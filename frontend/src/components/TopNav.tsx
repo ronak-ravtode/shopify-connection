@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Button } from "./primitives";
+import { cn } from "@/lib/utils";
 import { APP_NAV_GROUPS } from "../lib/app-nav";
 
 function isActive(pathname: string | null, href: string) {
@@ -16,8 +18,11 @@ function isGroupActive(pathname: string | null, href?: string, children?: { href
   return (children ?? []).some((c) => isActive(pathname, c.href));
 }
 
+const PILL =
+  "inline-flex h-9 items-center rounded-full px-3 text-xs min-[1100px]:text-sm min-[1100px]:px-3.5 font-semibold whitespace-nowrap transition-all duration-150 font-heading tracking-tight";
+
 export default function TopNav() {
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [openDrop, setOpenDrop] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
   const { pathname } = useLocation();
@@ -44,25 +49,24 @@ export default function TopNav() {
   // Close dropdown and mobile drawer on page navigation
   useEffect(() => {
     setOpenDrop(null);
-    setMobileOpen(false);
+    setOpen(false);
   }, [pathname]);
 
-  const activePillClass = "px-3.5 py-1.5 rounded-full text-sm font-semibold bg-white text-slate-900 shadow-xs transition";
-  const inactivePillClass = "px-3.5 py-1.5 rounded-full text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition";
-
   return (
-    <header ref={navRef} className="sticky top-0 z-50 bg-slate-50/90 backdrop-blur-md border-b border-slate-200">
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Brand Logo */}
-        <Link to="/" className="text-lg font-bold text-slate-900 flex items-center gap-2">
-          <span className="w-8 h-8 rounded-lg bg-emerald-700 text-white flex items-center justify-center text-sm font-black">
-            R
-          </span>
+    <header ref={navRef} className="sticky top-0 z-50 w-full border-b border-border/80 bg-background/95 backdrop-blur-md">
+      <div className="mx-auto flex h-14 w-full max-w-[1280px] items-center justify-between px-4 sm:px-6">
+        <Link
+          to="/"
+          className="flex items-center text-lg font-bold font-heading tracking-tight text-foreground transition-opacity hover:opacity-85"
+        >
           ReconHub
         </Link>
 
-        {/* Primary Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-1" aria-label="Primary">
+        {/* Desktop Primary Navigation */}
+        <nav
+          aria-label="Primary"
+          className="hidden items-center gap-1 text-sm font-medium min-[769px]:flex min-[1100px]:gap-1.5"
+        >
           {APP_NAV_GROUPS.map((g) => {
             const active = isGroupActive(pathname, g.href, g.children);
             if (g.href) {
@@ -71,146 +75,190 @@ export default function TopNav() {
                   key={g.label}
                   to={g.href}
                   aria-current={active ? "page" : undefined}
-                  className={active ? activePillClass : inactivePillClass}
+                  className={cn(
+                    PILL,
+                    active
+                      ? "bg-foreground text-background font-semibold shadow-xs rounded-full"
+                      : "text-muted-foreground hover:bg-primary/10 hover:text-primary rounded-full",
+                  )}
                 >
                   {g.label}
                 </Link>
               );
             }
+
             const dropOpen = openDrop === g.label;
-            const primaryHref = g.children?.[0]?.href ?? "/";
+
             return (
               <div
                 key={g.label}
-                className="relative inline-flex items-center"
-                onKeyDown={(e) => {
-                  if (e.key === "Escape") closeDrop();
-                }}
+                className="group relative inline-flex items-center"
               >
-                <Link
-                  to={primaryHref}
-                  aria-current={isExact(pathname, primaryHref) ? "page" : undefined}
-                  onClick={closeDrop}
-                  className={`rounded-l-full pr-2 ${active ? activePillClass : inactivePillClass}`}
-                >
-                  {g.label}
-                </Link>
                 <button
                   type="button"
                   aria-expanded={dropOpen}
                   aria-haspopup="true"
-                  aria-label={`${g.label} submenu`}
+                  aria-label={`${g.label} menu`}
                   onClick={() => setOpenDrop(dropOpen ? null : g.label)}
-                  className={`rounded-r-full pl-1 pr-2.5 text-xs font-semibold cursor-pointer ${
-                    active ? activePillClass : inactivePillClass
-                  }`}
+                  className={cn(
+                    PILL,
+                    "gap-1 cursor-pointer rounded-full",
+                    active
+                      ? "bg-foreground text-background font-semibold shadow-xs"
+                      : "text-muted-foreground hover:bg-primary/10 hover:text-primary",
+                  )}
                 >
-                  ▾
+                  <span>{g.label}</span>
+                  <svg
+                    className={cn(
+                      "size-3.5 transition-transform duration-200 opacity-70",
+                      dropOpen && "rotate-180 opacity-100",
+                    )}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
                 </button>
-                {dropOpen && (
-                  <div className="absolute top-full left-0 mt-1 min-w-[200px] bg-white border border-slate-200 rounded-xl p-1.5 shadow-lg z-50 flex flex-col gap-0.5">
-                    {(g.children ?? []).map((c) => {
-                      const childActive = isActive(pathname, c.href);
-                      return (
-                        <Link
-                          key={c.href}
-                          to={c.href}
-                          aria-current={isExact(pathname, c.href) ? "page" : undefined}
-                          onClick={closeDrop}
-                          className={`px-3 py-2 rounded-lg text-xs font-medium transition ${
-                            childActive ? "bg-slate-100 text-slate-900 font-semibold" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                          }`}
-                        >
-                          {c.label}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
+
+                {/* Floating Dropdown Panel */}
+                <div
+                  className={cn(
+                    "absolute top-full left-0 mt-1 min-w-[210px] rounded-xl border border-border/80 bg-popover/98 p-1.5 shadow-xl backdrop-blur-md z-50 transition-all duration-150",
+                    "before:absolute before:-top-3 before:left-0 before:right-0 before:h-3 before:content-['']",
+                    dropOpen
+                      ? "opacity-100 visible translate-y-0 pointer-events-auto"
+                      : "opacity-0 invisible -translate-y-1 pointer-events-none",
+                  )}
+                >
+                  {(g.children ?? []).map((c) => {
+                    const childActive = isExact(pathname, c.href);
+                    return (
+                      <Link
+                        key={c.href}
+                        to={c.href}
+                        aria-current={childActive ? "page" : undefined}
+                        onClick={closeDrop}
+                        className={cn(
+                          "flex h-9 items-center justify-between rounded-lg px-3 text-xs font-semibold whitespace-nowrap transition-colors min-[1100px]:text-sm font-heading tracking-tight",
+                          childActive
+                            ? "bg-primary/10 text-primary font-semibold"
+                            : "text-muted-foreground hover:bg-primary/10 hover:text-primary",
+                        )}
+                      >
+                        <span>{c.label}</span>
+                        {childActive && (
+                          <span className="size-1.5 rounded-full bg-primary" />
+                        )}
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
             );
           })}
         </nav>
 
-        {/* Right Actions */}
+        {/* Right Action & Mobile Toggle */}
         <div className="flex items-center gap-3">
           <Link
             to="/login"
-            className="text-sm font-medium text-slate-700 hover:text-slate-900 px-3 py-1.5 rounded-lg hover:bg-slate-100 transition"
+            className="text-xs font-semibold text-foreground transition-colors hover:text-primary min-[1100px]:text-sm font-heading tracking-tight"
           >
             Sign in
           </Link>
-
-          {/* Mobile Hamburger Button */}
-          <button
-            className="lg:hidden text-slate-700 hover:text-slate-900 p-2 rounded-lg hover:bg-slate-100 transition text-lg"
-            onClick={() => setMobileOpen(!mobileOpen)}
+          <Button
+            variant="ghost"
+            size="sm"
             aria-label="menu"
-            aria-expanded={mobileOpen}
+            aria-expanded={open}
+            onClick={() => setOpen(!open)}
+            className="hidden h-9 w-9 p-0 text-base max-[768px]:inline-flex"
           >
             ☰
-          </button>
+          </Button>
         </div>
       </div>
 
       {/* Mobile Drawer */}
-      {mobileOpen && (
-        <nav className="lg:hidden px-6 py-4 bg-white border-b border-slate-200 flex flex-col gap-2" aria-label="Mobile">
-          {APP_NAV_GROUPS.map((g) => {
-            if (g.href) {
-              const active = isActive(pathname, g.href);
+      {open && (
+        <nav aria-label="Mobile" className="border-b border-border bg-background p-4 shadow-lg min-[769px]:hidden">
+          <div className="flex flex-col gap-1">
+            {APP_NAV_GROUPS.map((g) => {
+              if (g.href) {
+                const active = isActive(pathname, g.href);
+                return (
+                  <Link
+                    key={g.label}
+                    to={g.href}
+                    onClick={() => setOpen(false)}
+                    className={cn(
+                      "flex min-h-10 items-center rounded-lg px-3 text-sm font-semibold transition-colors font-heading",
+                      active ? "bg-primary/10 text-primary font-semibold" : "text-muted-foreground hover:bg-primary/10 hover:text-primary",
+                    )}
+                  >
+                    {g.label}
+                  </Link>
+                );
+              }
+
+              const isExpanded = expanded === g.label;
+              const groupActive = isGroupActive(pathname, g.href, g.children);
+
               return (
-                <Link
-                  key={g.label}
-                  to={g.href}
-                  aria-current={active ? "page" : undefined}
-                  onClick={() => setMobileOpen(false)}
-                  className={`block px-4 py-2.5 rounded-xl text-sm font-medium ${
-                    active ? "bg-slate-100 text-slate-900 font-semibold" : "text-slate-600 hover:bg-slate-50"
-                  }`}
-                >
-                  {g.label}
-                </Link>
+                <div key={g.label} className="flex flex-col">
+                  <button
+                    type="button"
+                    aria-expanded={isExpanded}
+                    onClick={() => setExpanded(isExpanded ? null : g.label)}
+                    className={cn(
+                      "flex min-h-10 w-full items-center justify-between rounded-lg px-3 text-left text-sm font-semibold transition-colors font-heading",
+                      groupActive ? "bg-primary/10 text-primary font-semibold" : "text-muted-foreground hover:bg-primary/10 hover:text-primary",
+                    )}
+                  >
+                    <span>{g.label}</span>
+                    <span className={cn("text-xs transition-transform", isExpanded && "rotate-180")}>▾</span>
+                  </button>
+                  {isExpanded && (
+                    <div className="ml-3 mt-1 flex flex-col gap-1 border-l-2 border-border/60 pl-3">
+                      {(g.children ?? []).map((c) => {
+                        const childActive = isExact(pathname, c.href);
+                        return (
+                          <Link
+                            key={c.href}
+                            to={c.href}
+                            onClick={() => setOpen(false)}
+                            className={cn(
+                              "flex min-h-9 items-center justify-between rounded-md px-2 text-sm transition-colors font-heading",
+                              childActive
+                                ? "bg-primary/10 text-primary font-semibold"
+                                : "text-muted-foreground hover:bg-primary/10 hover:text-primary",
+                            )}
+                          >
+                            <span>{c.label}</span>
+                            {childActive && (
+                              <span className="size-1.5 rounded-full bg-primary" />
+                            )}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
               );
-            }
-            const isExpanded = expanded === g.label;
-            const groupActive = isGroupActive(pathname, g.href, g.children);
-            return (
-              <div key={g.label}>
-                <button
-                  type="button"
-                  aria-expanded={isExpanded}
-                  onClick={() => setExpanded(isExpanded ? null : g.label)}
-                  className={`w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium flex items-center justify-between ${
-                    groupActive ? "bg-slate-100 text-slate-900 font-semibold" : "text-slate-600 hover:bg-slate-50"
-                  }`}
-                >
-                  <span>{g.label}</span>
-                  <span className="text-xs">{isExpanded ? "▲" : "▼"}</span>
-                </button>
-                {isExpanded && (
-                  <div className="pl-4 flex flex-col gap-1 mt-1">
-                    {(g.children ?? []).map((c) => {
-                      const childActive = isActive(pathname, c.href);
-                      return (
-                        <Link
-                          key={c.href}
-                          to={c.href}
-                          aria-current={isExact(pathname, c.href) ? "page" : undefined}
-                          onClick={() => setMobileOpen(false)}
-                          className={`block px-4 py-2 rounded-lg text-xs font-medium ${
-                            childActive ? "bg-slate-100 text-slate-900 font-semibold" : "text-slate-600 hover:bg-slate-50"
-                          }`}
-                        >
-                          {c.label}
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+            })}
+            <Link
+              to="/login"
+              onClick={() => setOpen(false)}
+              className="mt-2 block rounded-lg bg-primary px-3 py-2 text-center text-sm font-semibold text-primary-foreground font-heading shadow-xs"
+            >
+              Sign in
+            </Link>
+          </div>
         </nav>
       )}
     </header>

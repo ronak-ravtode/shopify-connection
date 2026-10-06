@@ -2,6 +2,19 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../lib/api";
 import { bandTone, cooldownMessage } from "../lib/tracking";
+import {
+  Badge,
+  Button,
+  Card,
+  Input,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  buttonVariants,
+} from "../components/primitives";
 
 type Ship = {
   id: string;
@@ -22,10 +35,10 @@ type OutRow = {
   sla_status: string;
 };
 
-const TONE_STYLE: Record<string, React.CSSProperties> = {
-  critical: { borderLeft: "4px solid var(--error)" },
-  warn: { borderLeft: "4px solid var(--warning)" },
-  ok: {},
+const TONE_STYLE: Record<string, string> = {
+  critical: "border-l-4 border-l-destructive",
+  warn: "border-l-4 border-l-warning",
+  ok: "",
 };
 
 export default function TrackingPage() {
@@ -114,86 +127,152 @@ export default function TrackingPage() {
   }
 
   return (
-    <div className="container" style={{ display: "flex", flexDirection: "column", gap: "24px", background: "var(--canvas)" }}>
-      <div>
-        <h1 className="display" style={{ fontSize: "28px", fontWeight: 700 }}>Tracking command center</h1>
-        <p style={{ color: "var(--muted)", fontSize: "14px", marginTop: "4px" }}>
-          Live courier state, exception bands, and manual refresh with cooldown
-        </p>
-      </div>
-
-      <div className="cols-2" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "16px" }}>
-        {([
-          ["Critical", counts.critical, "var(--error)"],
-          ["Warning", counts.warn, "var(--warning)"],
-          ["On track", counts.ok, "var(--success)"],
-        ] as const).map(([label, n, color]) => (
-          <div key={label} className="content-card" style={{ borderTop: `4px solid ${color}` }}>
-            <div style={{ fontSize: "12px", textTransform: "uppercase", color: "var(--muted)" }}>{label}</div>
-            <div style={{ fontSize: "32px", fontWeight: 800 }}>{n}</div>
+    <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-6 bg-background px-6 max-[480px]:px-4">
+      {/* Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <h1 className="font-heading font-bold tracking-tight text-2xl sm:text-3xl text-foreground">
+              Tracking Command Center
+            </h1>
+            <Badge variant="secondary" className="text-xs">
+              Live Pipeline
+            </Badge>
           </div>
-        ))}
+          <p className="mt-1 text-sm text-muted-foreground">
+            Live courier state, exception bands, and manual refresh with cooldown
+          </p>
+        </div>
       </div>
 
-      <div className="content-card" style={{ padding: "16px 24px", display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
-        <input
-          className="input-control"
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <Card className="border-t-4 border-t-destructive p-5 border-border/80 shadow-xs">
+          <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Critical</div>
+          <div className="mt-1 text-3xl font-extrabold text-destructive">{counts.critical}</div>
+        </Card>
+        <Card className="border-t-4 border-t-warning p-5 border-border/80 shadow-xs">
+          <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Warning</div>
+          <div className="mt-1 text-3xl font-extrabold text-warning">{counts.warn}</div>
+        </Card>
+        <Card className="border-t-4 border-t-success p-5 border-border/80 shadow-xs">
+          <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">On track</div>
+          <div className="mt-1 text-3xl font-extrabold text-foreground">{counts.ok}</div>
+        </Card>
+      </div>
+
+      <Card className="flex flex-wrap items-center gap-3 p-4 sm:p-5 border-border/80 shadow-xs">
+        <Input
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search AWB, order, or barcode…"
           aria-label="Search shipments"
-          style={{ flex: 2, minWidth: "220px" }}
+          className="flex-[2] min-w-[220px]"
         />
-        <select className="input-control" value={carrier} onChange={(e) => setCarrier(e.target.value)} aria-label="Carrier" style={{ flex: 1, minWidth: "140px" }}>
+        <select
+          className="min-h-11 flex-1 min-w-[140px] rounded-md border border-input bg-background px-3.5 py-2.5 text-base text-foreground focus-visible:outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30"
+          value={carrier}
+          onChange={(e) => setCarrier(e.target.value)}
+          aria-label="Carrier"
+        >
           <option value="">All carriers</option>
           {carriers.map((c) => <option key={c}>{c}</option>)}
         </select>
-        <select className="input-control" value={status} onChange={(e) => setStatus(e.target.value)} aria-label="Status" style={{ flex: 1, minWidth: "140px" }}>
+        <select
+          className="min-h-11 flex-1 min-w-[140px] rounded-md border border-input bg-background px-3.5 py-2.5 text-base text-foreground focus-visible:outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30"
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          aria-label="Status"
+        >
           <option value="">All statuses</option>
           {["BOOKED", "IN_TRANSIT", "AT_HUB", "OUT_FOR_DELIVERY", "DELIVERED", "NDR_REATTEMPT", "DELIVERY_EXCEPTION", "RTO_INITIATED", "RTO_DELIVERED", "RETURNED", "LOST"].map((s) => (
             <option key={s}>{s}</option>
           ))}
         </select>
-        <select className="input-control" value={band} onChange={(e) => setBand(e.target.value)} aria-label="Exception band" style={{ flex: 1, minWidth: "140px" }}>
+        <select
+          className="min-h-11 flex-1 min-w-[140px] rounded-md border border-input bg-background px-3.5 py-2.5 text-base text-foreground focus-visible:outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30"
+          value={band}
+          onChange={(e) => setBand(e.target.value)}
+          aria-label="Exception band"
+        >
           <option value="">All bands</option>
           <option value="critical">Critical</option>
           <option value="warn">Warning</option>
           <option value="ok">On track</option>
         </select>
-      </div>
+      </Card>
 
-      {error && <p role="alert" className="badge-danger" style={{ padding: "12px 16px", borderRadius: "12px" }}>{error}</p>}
+      {error && (
+        <p role="alert" className="rounded-xl border border-destructive/20 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+          {error}
+        </p>
+      )}
 
-      <div style={{ overflowX: "auto", background: "var(--card)", border: "1px solid var(--hairline)", borderRadius: "12px" }}>
+      <Card className="overflow-hidden p-0">
         {shown.length === 0 ? (
-          <p style={{ padding: "40px", textAlign: "center", color: "var(--muted)" }}>
+          <p className="p-10 text-center text-sm text-muted-foreground">
             No shipments match — book one from dispatch or clear the filters.
           </p>
         ) : (
-          <table className="modern-table" style={{ border: "none" }}>
-            <thead><tr><th>AWB</th><th>Order</th><th>Carrier</th><th>Status</th><th style={{ textAlign: "right" }}>Action</th></tr></thead>
-            <tbody>
-              {shown.map((s) => (
-                <tr key={s.id} style={TONE_STYLE[bandTone(s.tracking_status)]}>
-                  <td style={{ fontWeight: 600 }}>{s.awb_number}</td>
-                  <td>{names[s.id] ?? "-"}</td>
-                  <td>{s.carrier_code}</td>
-                  <td>
-                    <span className="badge-pill">{s.tracking_status}</span>
-                    {cool[s.id] && <div role="status" style={{ fontSize: "12px", color: "var(--warning)", marginTop: "4px" }}>{cool[s.id]}</div>}
-                  </td>
-                  <td style={{ textAlign: "right", whiteSpace: "nowrap" }}>
-                    <button onClick={() => refresh(s.id)} disabled={!!syncing[s.id]} className="btn-secondary" style={{ marginRight: "8px" }}>
-                      {syncing[s.id] ? "Refreshing…" : "Refresh"}
-                    </button>
-                    <Link to={`/shipments/${s.id}`} className="btn-secondary">Open</Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>AWB</TableHead>
+                  <TableHead>Order</TableHead>
+                  <TableHead>Carrier</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="text-right">Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {shown.map((s) => (
+                  <TableRow key={s.id} className={`transition-colors ${TONE_STYLE[bandTone(s.tracking_status)]}`}>
+                    <TableCell>
+                      <span className="font-mono text-xs font-semibold bg-muted/50 px-2 py-0.5 rounded border border-border/70 text-foreground">
+                        {s.awb_number}
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-foreground font-medium">{names[s.id] ?? "—"}</TableCell>
+                    <TableCell>
+                      <Badge variant="outline" className="font-mono text-[11px] font-semibold">{s.carrier_code}</Badge>
+                    </TableCell>
+                    <TableCell>
+                      <Badge
+                        variant={
+                          bandTone(s.tracking_status) === "critical"
+                            ? "destructive"
+                            : bandTone(s.tracking_status) === "warn"
+                            ? "warning"
+                            : "secondary"
+                        }
+                        className="text-xs font-semibold shadow-xs"
+                      >
+                        {s.tracking_status}
+                      </Badge>
+                      {cool[s.id] && <div role="status" className="mt-1 text-xs text-warning font-medium">{cool[s.id]}</div>}
+                    </TableCell>
+                    <TableCell className="text-right whitespace-nowrap">
+                      <div className="flex items-center justify-end gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => refresh(s.id)}
+                          disabled={!!syncing[s.id]}
+                        >
+                          {syncing[s.id] ? "Refreshing…" : "Refresh"}
+                        </Button>
+                        <Link to={`/shipments/${s.id}`} className={buttonVariants({ variant: "outline", size: "sm" })}>
+                          Open
+                        </Link>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         )}
-      </div>
+      </Card>
     </div>
   );
 }

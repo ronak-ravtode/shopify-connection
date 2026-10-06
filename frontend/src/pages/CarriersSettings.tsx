@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../lib/api";
+import { Badge, Button, Card } from "../components/primitives";
 
 const KNOWN = ["DTDC", "TIRUPATI", "INDIA_POST", "MANUAL"];
 
@@ -18,12 +19,14 @@ export default function CarriersPage() {
   const [msg, setMsg] = useState<string | null>(null);
   const [health, setHealth] = useState<Health[]>([]);
   const [healthError, setHealthError] = useState<string | null>(null);
+
   useEffect(() => {
     const token = localStorage.getItem("token") ?? undefined;
     api<{ items: Health[] }>(`/api/v1/carriers/health`, {}, token)
       .then((d) => setHealth(d.items ?? []))
       .catch((e) => setHealthError(e?.message ?? "Failed to load carrier health"));
   }, []);
+
   async function connect() {
     const token = localStorage.getItem("token") ?? undefined;
     setMsg(null);
@@ -34,46 +37,85 @@ export default function CarriersPage() {
       setMsg(e?.message ?? "Connect failed");
     }
   }
+
   return (
-    <main className="container" style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "900px", background: "var(--canvas)" }}>
-      <div>
-        <h1 className="display" style={{ fontSize: "28px", fontWeight: 700 }}>Carrier connections</h1>
-        <p style={{ color: "var(--muted)", fontSize: "14px", marginTop: "4px" }}>Live API adapters activate when you save real account credentials. Until then, use MANUAL checkpoints.</p>
+    <main className="mx-auto flex w-full max-w-[1280px] flex-col gap-6 bg-background px-6 max-[480px]:px-4">
+      {/* Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <h1 className="font-heading font-bold tracking-tight text-2xl sm:text-3xl text-foreground">
+              Carrier Connections
+            </h1>
+            <Badge variant="secondary" className="text-xs">
+              Logistics APIs
+            </Badge>
+          </div>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Live API adapters activate when you save real account credentials. Until then, use MANUAL checkpoints.
+          </p>
+        </div>
       </div>
-      <div className="content-card" style={{ display: "flex", gap: "12px", alignItems: "center", flexWrap: "wrap" }}>
-        <select value={code} onChange={(e) => setCode(e.target.value)} aria-label="Carrier" className="input-control" style={{ width: "240px" }}>
-          {KNOWN.map((c) => <option key={c}>{c}</option>)}
+
+      <Card className="flex flex-wrap items-center gap-3 p-6 border-border/80 shadow-xs">
+        <select
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+          aria-label="Carrier"
+          className="min-h-11 w-full max-w-[240px] rounded-md border border-input bg-background px-3.5 py-2.5 text-sm text-foreground focus-visible:outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30"
+        >
+          {KNOWN.map((c) => (
+            <option key={c}>{c}</option>
+          ))}
         </select>
-        <button onClick={connect} className="btn-primary">Connect</button>
-      </div>
-      {msg && <p role="status" className="content-card" style={{ fontSize: "14px" }}>{msg}</p>}
+        <Button onClick={connect}>Connect</Button>
+      </Card>
+
+      {msg && (
+        <Card className="p-4 text-sm text-foreground">
+          <p role="status">{msg}</p>
+        </Card>
+      )}
+
       <div>
-        <h2 className="display" style={{ fontSize: "20px", fontWeight: 700 }}>Carrier health</h2>
-        <p style={{ color: "var(--muted)", fontSize: "14px", marginTop: "4px" }}>Connection state and last sync outcome per provider (credentials never shown).</p>
+        <h2 className="font-heading font-semibold text-xl tracking-tight text-foreground">Carrier Health &amp; Integrations</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Connection state and last sync outcome per provider (credentials never shown).
+        </p>
       </div>
-      {healthError && <p role="alert" className="badge-danger" style={{ padding: "12px 16px", borderRadius: "12px" }}>{healthError}</p>}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "16px" }}>
+
+      {healthError && (
+        <div role="alert" className="rounded-xl border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">
+          {healthError}
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {health.map((h) => (
-          <div key={h.code} className="content-card" style={{ borderTop: `4px solid ${h.configured ? "var(--success)" : "var(--hairline)"}` }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <strong>{h.code}</strong>
-              <span className={`badge ${h.configured ? "badge-success" : "badge-neutral"}`}>
+          <Card
+            key={h.code}
+            className={`p-5 border-border/80 shadow-xs ${h.configured ? "border-t-4 border-t-success" : "border-t-4 border-t-muted"}`}
+          >
+            <div className="flex items-center justify-between">
+              <span className="font-bold text-foreground">{h.code}</span>
+              <Badge variant={h.configured ? "default" : "secondary"}>
                 {h.configured ? "Connected" : "Not connected"}
-              </span>
+              </Badge>
             </div>
-            <div style={{ fontSize: "13px", color: "var(--muted)", marginTop: "4px" }}>{h.name}</div>
-            <div style={{ fontSize: "13px", marginTop: "8px" }}>
-              Capabilities: {(h.capabilities ?? []).join(", ") || "—"}
+            <div className="mt-1 text-xs text-muted-foreground">{h.name}</div>
+            <div className="mt-3 text-xs text-foreground">
+              <span className="text-muted-foreground">Capabilities: </span>
+              {(h.capabilities ?? []).join(", ") || "—"}
             </div>
-            <div style={{ fontSize: "13px", marginTop: "4px" }}>
+            <div className="mt-1 text-xs text-muted-foreground">
               Last success: {h.last_success ?? "never"}
             </div>
             {h.last_error && (
-              <div role="status" style={{ fontSize: "13px", marginTop: "4px", color: "var(--error)" }}>
+              <div role="status" className="mt-1 text-xs text-destructive">
                 Last error: {h.last_error}
               </div>
             )}
-          </div>
+          </Card>
         ))}
       </div>
     </main>

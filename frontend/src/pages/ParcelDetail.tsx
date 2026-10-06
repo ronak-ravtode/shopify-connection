@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { api, API } from "../lib/api";
 import { IconAlert } from "../components/icons";
 import ParcelBarcode from "../components/barcode/ParcelBarcode";
+import { Badge, Button, Card } from "../components/primitives";
 
 type ParcelData = {
   parcel: { id: string; parcel_code: string; barcode_value: string; status: string };
@@ -28,6 +29,7 @@ export default function ParcelPage() {
     const blob = await r.blob();
     window.open(URL.createObjectURL(blob), "_blank", "noopener");
   }
+
   async function downloadPng() {
     if (!data) return;
     const token = localStorage.getItem("token") ?? "";
@@ -71,52 +73,108 @@ export default function ParcelPage() {
     window.location.reload();
   }
 
-  if (err) return <main className="container" style={{ display: "flex", flexDirection: "column", gap: "16px", background: "var(--canvas)" }}><p role="alert" className="badge-danger" style={{ padding: "12px 16px", borderRadius: "12px", display: "flex", alignItems: "center", gap: "10px" }}><IconAlert size={16} /> {err}</p></main>;
-  if (!data) return <main className="container" style={{ background: "var(--canvas)" }}><p style={{ color: "var(--muted)" }}>Loading…</p></main>;
+  if (err) {
+    return (
+      <main className="mx-auto flex w-full max-w-[1280px] flex-col gap-4 bg-background px-6 max-[480px]:px-4">
+        <p role="alert" className="flex items-center gap-2.5 rounded-xl border border-destructive/20 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+          <IconAlert size={16} /> {err}
+        </p>
+      </main>
+    );
+  }
+
+  if (!data) {
+    return (
+      <main className="mx-auto w-full max-w-[1280px] bg-background px-6 max-[480px]:px-4">
+        <p className="p-10 text-center text-muted-foreground">Loading…</p>
+      </main>
+    );
+  }
+
   return (
-    <main className="container" style={{ display: "flex", flexDirection: "column", gap: "24px", background: "var(--canvas)" }}>
-      
-      <Link to="/orders" style={{ color: "var(--muted)", fontSize: "14px" }}>← Back to Orders Directory</Link>
-      <div className="content-card">
-        <h1 className="display" style={{ fontSize: "28px", fontWeight: 700, marginBottom: "8px" }}>Parcel {data.parcel.barcode_value}</h1>
-        <p style={{ color: "var(--body)", fontSize: "14px" }}>Status: <span className="badge badge-neutral">{data.parcel.status}</span></p>
+    <main className="mx-auto flex w-full max-w-[1280px] flex-col gap-6 bg-background px-6 max-[480px]:px-4">
+      {/* Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
+        <div>
+          <Link to="/orders" className="mb-2 inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            ← Back to Orders Directory
+          </Link>
+          <div className="flex items-center gap-2 mb-1">
+            <h1 className="font-heading font-bold tracking-tight text-2xl sm:text-3xl text-foreground">
+              Parcel {data.parcel.barcode_value}
+            </h1>
+            <Badge variant="secondary" className="text-xs">
+              {data.parcel.status}
+            </Badge>
+          </div>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {data.order ? `Order: ${data.order.shopify_order_name} · ₹${data.order.total_amount}` : "Standalone parcel unit"}
+          </p>
+        </div>
+      </div>
+
+      <Card className="p-6 border-border/80 shadow-xs">
+        <div className="flex items-center gap-2 text-sm text-foreground">
+          <span className="text-muted-foreground">Status:</span>
+          <Badge variant="secondary">{data.parcel.status}</Badge>
+        </div>
         {data.order && (
-          <p style={{ color: "var(--body)", fontSize: "14px", marginTop: "8px" }}>Order: {data.order.shopify_order_name} — ₹{data.order.total_amount}</p>
+          <p className="mt-2 text-sm text-foreground">
+            Order: <span className="font-semibold">{data.order.shopify_order_name}</span> — ₹{data.order.total_amount}
+          </p>
         )}
-        {data.customer && <p style={{ color: "var(--muted)", fontSize: "14px", marginTop: "8px" }}>Customer: {data.customer.name ?? data.customer.email}</p>}
-        <p style={{ color: "var(--muted)", fontSize: "14px", marginTop: "8px" }}>Items: {data.item_count}</p>
-        <div style={{ background: "var(--card)", border: "1px solid var(--hairline)", borderRadius: "12px", padding: "16px", marginTop: "16px", maxWidth: "380px" }}>
+        {data.customer && (
+          <p className="mt-1 text-sm text-muted-foreground">
+            Customer: {data.customer.name ?? data.customer.email}
+          </p>
+        )}
+        <p className="mt-1 text-sm text-muted-foreground">Items: {data.item_count}</p>
+
+        <div className="mt-4 max-w-[380px] rounded-xl border border-border/80 bg-muted/30 p-4 shadow-xs">
           <ParcelBarcode value={data.parcel.barcode_value} />
         </div>
-        <button onClick={openLabel} className="btn-secondary" style={{ marginTop: "16px" }}>
-          Print label
-        </button>
-        <button onClick={downloadPng} className="btn-secondary" style={{ marginTop: "16px", marginLeft: "12px" }}>
-          Download barcode PNG
-        </button>
-        <p style={{ color: "var(--muted)", fontSize: "13px", marginTop: "12px" }}>
+
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <Button variant="outline" onClick={openLabel}>
+            Print label
+          </Button>
+          <Button variant="outline" onClick={downloadPng}>
+            Download barcode PNG
+          </Button>
+          {data.parcel.status !== "CLOSED" && (
+            <Button variant="outline" onClick={closeParcel}>
+              Close parcel lifecycle
+            </Button>
+          )}
+        </div>
+        <p className="mt-3 text-xs text-muted-foreground">
           Scan this barcode with any USB scanner straight into the dispatch or return pages — no app or pairing needed.
         </p>
-        {data.parcel.status !== "CLOSED" && (
-          <button onClick={closeParcel} className="btn-secondary" style={{ marginTop: "12px" }}>
-            Close parcel lifecycle
-          </button>
-        )}
-      </div>
+      </Card>
+
       {returns.length > 0 && (
-        <div className="content-card">
-          <h2 className="display" style={{ fontSize: "20px", marginBottom: "12px" }}>Returns on this parcel</h2>
-          {returns.map((r: any) => (
-            <div key={r.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "8px 0" }}>
-              <span style={{ fontSize: "14px" }}>{r.return_type} · {r.status}</span>
-              {r.status === "RECEIVED" && (
-                <button onClick={() => inspectReturn(r.id)} className="btn-secondary">Mark inspected</button>
-              )}
-            </div>
-          ))}
-        </div>
+        <Card className="p-6 border-border/80 shadow-xs">
+          <h2 className="mb-3 text-lg font-bold tracking-tight text-foreground">Returns on this parcel</h2>
+          <div className="flex flex-col divide-y divide-border">
+            {returns.map((r: any) => (
+              <div key={r.id} className="flex items-center justify-between py-3">
+                <span className="text-sm font-medium text-foreground">{r.return_type} · {r.status}</span>
+                {r.status === "RECEIVED" && (
+                  <Button variant="outline" size="sm" onClick={() => inspectReturn(r.id)}>
+                    Mark inspected
+                  </Button>
+                )}
+              </div>
+            ))}
+          </div>
+        </Card>
       )}
-      {msg && <p role="status" style={{ color: "var(--success)", fontWeight: 600 }}>{msg}</p>}
+
+      {msg && (
+        <p role="status" className="rounded-xl border border-success/30 bg-success/15 px-4 py-3 text-sm font-semibold text-foreground">
+          {msg}
+        </p>
+      )}
     </main>
   );
 }

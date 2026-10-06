@@ -16,6 +16,52 @@ import pytest
 from app import config
 
 
+@pytest.fixture(autouse=True)
+def ensure_env_files_for_test():
+    root_env = config.REPO_ROOT / ".env"
+    backend_env = config.BACKEND_DIR / ".env"
+    root_created = False
+    backend_created = False
+    old_root = None
+    old_backend = None
+
+    if not root_env.exists():
+        root_env.write_text("SHIPSAGAR_EMAIL=test@shipsagar.com\nSHIPSAGAR_COMPANY=TestCompany\n")
+        root_created = True
+    else:
+        content = root_env.read_text()
+        if "SHIPSAGAR_EMAIL" not in content:
+            old_root = content
+            root_env.write_text(content + "\nSHIPSAGAR_EMAIL=test@shipsagar.com\nSHIPSAGAR_COMPANY=TestCompany\n")
+
+    if not backend_env.exists():
+        backend_env.write_text("SHIPSAGAR_TOKEN=test-token\nSHIPSAGAR_CLIENT_CODE=test-client\n")
+        backend_created = True
+    else:
+        content = backend_env.read_text()
+        if "SHIPSAGAR_TOKEN" not in content:
+            old_backend = content
+            backend_env.write_text(content + "\nSHIPSAGAR_TOKEN=test-token\nSHIPSAGAR_CLIENT_CODE=test-client\n")
+
+    yield
+
+    if root_created:
+        try:
+            root_env.unlink()
+        except OSError:
+            pass
+    elif old_root is not None:
+        root_env.write_text(old_root)
+
+    if backend_created:
+        try:
+            backend_env.unlink()
+        except OSError:
+            pass
+    elif old_backend is not None:
+        backend_env.write_text(old_backend)
+
+
 def _load_from(cwd, monkeypatch):
     monkeypatch.chdir(cwd)
     return config.Settings()

@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { api } from "../lib/api";
-import "../styles/shopify-dashboard.css";
+import MetricCard from "../components/MetricCard";
+import EmptyState from "../components/EmptyState";
+import { Button, buttonVariants, Badge, Card } from "../components/primitives";
 import {
+  IconAlert,
+  IconBox,
+  IconCoin,
+  IconReceipt,
+  IconRefund,
+  IconReturn,
+  IconSpark,
+  IconTag,
+  IconTruck,
   IconCalendar,
   IconCalendarCompare,
   IconChevronDown,
@@ -9,6 +21,7 @@ import {
   IconArrowUpRight,
   IconCurrencyExchange,
 } from "../components/icons";
+import "../styles/shopify-dashboard.css";
 
 interface SparklineProps {
   type: "gross" | "rto" | "dispatch" | "orders";
@@ -20,16 +33,12 @@ function Sparkline({ type }: SparklineProps) {
 
   let pathD = "";
   if (type === "gross") {
-    // Starts flat, shoots up sharply at the end
     pathD = `M 0 ${height - 4} L 45 ${height - 4} Q 55 ${height - 4} 65 6 L 78 2`;
   } else if (type === "rto") {
-    // Flat line with a small wave for RTO
     pathD = `M 0 ${height - 6} Q 30 ${height - 10} 50 ${height - 6} T 78 ${height - 6}`;
   } else if (type === "dispatch") {
-    // Steady line with small upward trend
     pathD = `M 0 ${height - 4} L 50 ${height - 4} L 78 ${height - 10}`;
   } else {
-    // Orders: flat then small tick up
     pathD = `M 0 ${height - 4} L 60 ${height - 4} Q 70 ${height - 4} 78 ${height - 12}`;
   }
 
@@ -38,20 +47,14 @@ function Sparkline({ type }: SparklineProps) {
       <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} fill="none">
         <path
           d={pathD}
-          stroke="#00a3e0"
+          stroke="var(--primary)"
           strokeWidth="1.8"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        {type === "gross" && (
-          <circle cx="78" cy="2" r="2" fill="#00a3e0" />
-        )}
-        {type === "dispatch" && (
-          <circle cx="78" cy={height - 10} r="2" fill="#00a3e0" />
-        )}
-        {type === "orders" && (
-          <circle cx="78" cy="12" r="2" fill="#00a3e0" />
-        )}
+        {type === "gross" && <circle cx="78" cy="2" r="2" fill="var(--primary)" />}
+        {type === "dispatch" && <circle cx="78" cy={height - 10} r="2" fill="var(--primary)" />}
+        {type === "orders" && <circle cx="78" cy="12" r="2" fill="var(--primary)" />}
       </svg>
     </div>
   );
@@ -65,34 +68,23 @@ interface ChartHoverState {
 }
 
 function SalesOverTimeChart({ currencySymbol }: { currencySymbol: string }) {
-  const width = 800;
-  const height = 260;
+  const width = 640;
+  const height = 220;
+  const paddingTop = 20;
+  const paddingBottom = 30;
   const paddingLeft = 45;
   const paddingRight = 20;
-  const paddingTop = 25;
-  const paddingBottom = 40;
 
   const chartWidth = width - paddingLeft - paddingRight;
   const chartHeight = height - paddingTop - paddingBottom;
 
-  const times = [
-    "12 AM", "2 AM", "4 AM", "6 AM", "8 AM", "10 AM",
-    "12 PM", "2 PM", "4 PM", "6 PM", "8 PM", "10 PM"
-  ];
-
-  // Data points corresponding to time slots
-  const octData = [20, 25, 15, 10, 30, 2629.95, 2629.95, 2629.95, 2629.95, 2629.95, 2629.95, 2629.95];
-  const sepData = [5, 10, 8, 12, 15, 20, 18, 15, 22, 10, 8, 5];
-
+  const times = ["12 AM", "4 AM", "8 AM", "12 PM", "4 PM", "8 PM", "11 PM"];
+  const octData = [0, 0, 0, 100, 2629.95, 2629.95, 2629.95];
+  const sepData = [0, 0, 0, 0, 0, 0, 0];
   const maxVal = 3000;
 
-  const getX = (index: number) => {
-    return paddingLeft + (index / (times.length - 1)) * chartWidth;
-  };
-
-  const getY = (val: number) => {
-    return paddingTop + chartHeight - (val / maxVal) * chartHeight;
-  };
+  const getX = (idx: number) => paddingLeft + (idx / (times.length - 1)) * chartWidth;
+  const getY = (val: number) => paddingTop + chartHeight - (val / maxVal) * chartHeight;
 
   const octSolidPoints = octData.slice(0, 6).map((val, idx) => `${getX(idx)},${getY(val)}`).join(" L ");
   const octDashedPoints = octData.slice(5).map((val, idx) => `${getX(idx + 5)},${getY(val)}`).join(" L ");
@@ -132,7 +124,6 @@ function SalesOverTimeChart({ currencySymbol }: { currencySymbol: string }) {
         onMouseLeave={handleMouseLeave}
         style={{ overflow: "visible", cursor: "crosshair" }}
       >
-        {/* Horizontal Gridlines & Y-Axis Labels */}
         {[3000, 2000, 1000, 0].map((val) => {
           const y = getY(val);
           const label = val === 0 ? `${currencySymbol}0` : `${currencySymbol}${val / 1000}K`;
@@ -142,9 +133,9 @@ function SalesOverTimeChart({ currencySymbol }: { currencySymbol: string }) {
                 x={paddingLeft - 10}
                 y={y + 4}
                 textAnchor="end"
-                fontSize="12"
-                fill="#616161"
-                fontFamily="sans-serif"
+                fontSize="11"
+                fill="var(--muted-foreground)"
+                fontFamily="inherit"
               >
                 {label}
               </text>
@@ -153,7 +144,7 @@ function SalesOverTimeChart({ currencySymbol }: { currencySymbol: string }) {
                 y1={y}
                 x2={width - paddingRight}
                 y2={y}
-                stroke="#e1e3e5"
+                stroke="var(--border)"
                 strokeDasharray={val === 0 ? "none" : "3 3"}
                 strokeWidth="1"
               />
@@ -161,7 +152,6 @@ function SalesOverTimeChart({ currencySymbol }: { currencySymbol: string }) {
           );
         })}
 
-        {/* X-Axis Labels */}
         {times.map((time, idx) => {
           const x = getX(idx);
           return (
@@ -171,44 +161,19 @@ function SalesOverTimeChart({ currencySymbol }: { currencySymbol: string }) {
               y={height - 10}
               textAnchor="middle"
               fontSize="11"
-              fill="#616161"
-              fontFamily="sans-serif"
+              fill="var(--muted-foreground)"
+              fontFamily="inherit"
             >
               {time}
             </text>
           );
         })}
 
-        {/* Sep 30 Comparison Line */}
-        <path
-          d={`M ${sepPoints}`}
-          fill="none"
-          stroke="#a4d8fa"
-          strokeWidth="1.8"
-          strokeDasharray="4 3"
-        />
+        <path d={`M ${sepPoints}`} fill="none" stroke="var(--primary)" strokeOpacity="0.4" strokeWidth="1.8" strokeDasharray="4 3" />
+        <path d={`M ${octSolidPoints}`} fill="none" stroke="var(--primary)" strokeWidth="2" />
+        <path d={`M ${octDashedPoints}`} fill="none" stroke="var(--primary)" strokeWidth="2" strokeDasharray="3 3" />
+        <circle cx={getX(5)} cy={getY(octData[5])} r="3.5" fill="var(--primary)" stroke="#fff" strokeWidth="2" />
 
-        {/* Oct 1 Solid Line */}
-        <path
-          d={`M ${octSolidPoints}`}
-          fill="none"
-          stroke="#00a3e0"
-          strokeWidth="2"
-        />
-
-        {/* Oct 1 Dashed Line */}
-        <path
-          d={`M ${octDashedPoints}`}
-          fill="none"
-          stroke="#00a3e0"
-          strokeWidth="2"
-          strokeDasharray="3 3"
-        />
-
-        {/* Active peak dot at 10 AM */}
-        <circle cx={getX(5)} cy={getY(octData[5])} r="3.5" fill="#00a3e0" stroke="#fff" strokeWidth="2" />
-
-        {/* Interactive Hover Guide Line & Tooltip */}
         {hover && (
           <g>
             <line
@@ -216,24 +181,18 @@ function SalesOverTimeChart({ currencySymbol }: { currencySymbol: string }) {
               y1={paddingTop}
               x2={hover.x}
               y2={height - paddingBottom}
-              stroke="#00a3e0"
+              stroke="var(--primary)"
               strokeDasharray="2 2"
               strokeWidth="1.2"
             />
-            <circle cx={hover.x} cy={getY(hover.octVal)} r="4.5" fill="#00a3e0" stroke="#ffffff" strokeWidth="2" />
-            
+            <circle cx={hover.x} cy={getY(hover.octVal)} r="4.5" fill="var(--primary)" stroke="#ffffff" strokeWidth="2" />
+
             <g transform={`translate(${Math.min(hover.x - 60, width - 150)}, ${Math.max(paddingTop, getY(hover.octVal) - 60)})`}>
-              <rect
-                width="140"
-                height="50"
-                rx="6"
-                fill="#1a1a1a"
-                opacity="0.92"
-              />
-              <text x="10" y="18" fill="#a6a6a6" fontSize="11" fontFamily="sans-serif">
-                Oct 1, 2026 • {hover.timeLabel}
+              <rect width="140" height="50" rx="6" fill="var(--foreground)" opacity="0.92" />
+              <text x="10" y="18" fill="var(--background)" opacity="0.75" fontSize="11" fontFamily="inherit">
+                Period • {hover.timeLabel}
               </text>
-              <text x="10" y="36" fill="#ffffff" fontSize="13" fontWeight="bold" fontFamily="sans-serif">
+              <text x="10" y="36" fill="var(--background)" fontSize="13" fontWeight="bold" fontFamily="inherit">
                 {currencySymbol}{hover.octVal.toLocaleString(undefined, { minimumFractionDigits: 2 })}
               </text>
             </g>
@@ -241,15 +200,14 @@ function SalesOverTimeChart({ currencySymbol }: { currencySymbol: string }) {
         )}
       </svg>
 
-      {/* Legend Below Chart */}
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "24px", marginTop: "12px", fontSize: "12px", color: "#616161" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#00a3e0", display: "inline-block" }}></span>
-          <span>Oct 1, 2026</span>
+      <div className="flex justify-center items-center gap-6 mt-3 text-xs text-muted-foreground">
+        <div className="flex items-center gap-1.5">
+          <span className="size-2 rounded-full bg-primary inline-block" />
+          <span>Current Period</span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-          <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#a4d8fa", display: "inline-block" }}></span>
-          <span>Sep 30, 2026</span>
+        <div className="flex items-center gap-1.5">
+          <span className="size-2 rounded-full bg-primary/40 inline-block" />
+          <span>Previous Period</span>
         </div>
       </div>
     </div>
@@ -259,17 +217,25 @@ function SalesOverTimeChart({ currencySymbol }: { currencySymbol: string }) {
 export default function DashboardPage() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [exporting, setExporting] = useState(false);
 
   // Filter States
   const [dateFilter, setDateFilter] = useState("Today");
   const [compareFilter, setCompareFilter] = useState("Yesterday");
   const [dashboardCollapsed, setDashboardCollapsed] = useState(false);
 
-  useEffect(() => {
+  const loadSummary = (silent = false) => {
+    if (!silent) setLoading(true);
     api<any>("/api/v1/dashboard/summary")
       .then((res) => setData(res?.data || res))
       .catch(() => {})
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (!silent) setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    loadSummary();
   }, []);
 
   const currencySymbol = "₹";
@@ -283,31 +249,22 @@ export default function DashboardPage() {
     maximumFractionDigits: 2,
   })}`;
 
-  // Operational metrics for RTO & Dispatch
-  const rtoValue = data?.kpis?.rto_total !== undefined ? `${data.kpis.rto_total}` : "0 —";
-  const dispatchedValue = data?.kpis?.dispatched_orders !== undefined ? `${data.kpis.dispatched_orders}` : "0 —";
-  const totalOrders = data?.kpis?.orders_total !== undefined ? `${data.kpis.orders_total}` : "1 —";
+  const rtoValue = kpis?.rto_total !== undefined ? `${kpis.rto_total}` : "0";
+  const dispatchedValue = kpis?.dispatched_orders !== undefined ? `${kpis.dispatched_orders}` : "0";
+  const totalOrders = kpis?.orders_total !== undefined ? `${kpis.orders_total}` : "0";
 
   return (
-    <div className="shopify-dashboard-bg">
-      <div className="shopify-dashboard-container">
-        
-        {/* Top Control Toolbar */}
-        <div className="shopify-toolbar">
-          <div style={{ position: "relative" }}>
-            <button className="shopify-pill-btn" onClick={() => setDateFilter(dateFilter === "Today" ? "Last 7 Days" : "Today")}>
-              <IconCalendar size={15} />
-              <span>{dateFilter}</span>
-              <IconChevronDown size={12} />
-            </button>
-          </div>
-
-          <div style={{ position: "relative" }}>
-            <button className="shopify-pill-btn" onClick={() => setCompareFilter(compareFilter === "Yesterday" ? "Previous Period" : "Yesterday")}>
-              <IconCalendarCompare size={15} />
-              <span>{compareFilter}</span>
-              <IconChevronDown size={12} />
-            </button>
+    <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-6 bg-background px-6 max-[480px]:px-4">
+      {/* Top Controls Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border pb-5">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <h1 className="font-heading font-bold tracking-tight text-foreground text-2xl sm:text-3xl">
+              Executive Dashboard
+            </h1>
+            <Badge variant="secondary" className="text-xs">
+              Live Sync
+            </Badge>
           </div>
         </div>
 
@@ -318,172 +275,170 @@ export default function DashboardPage() {
             className="shopify-icon-btn"
             onClick={() => setDashboardCollapsed(!dashboardCollapsed)}
             title={dashboardCollapsed ? "Expand Dashboard" : "Collapse Dashboard"}
+            className="size-8 p-0"
           >
             {dashboardCollapsed ? <IconChevronDown size={16} /> : <IconChevronUp size={16} />}
-          </button>
+          </Button>
         </div>
+      </div>
 
-        {!dashboardCollapsed && (
-          <>
-            {/* Top 4 KPI Metrics Row */}
-            <div className="shopify-kpi-grid">
-              {/* Card 1: Gross Sales */}
-              <div className="shopify-kpi-card">
-                <div>
-                  <div className="shopify-kpi-header">
-                    <span className="shopify-kpi-label">Gross sales</span>
-                  </div>
-                  <div className="shopify-kpi-val-row">
-                    <span className="shopify-kpi-value">{formattedGrossSales}</span>
-                    <span className="shopify-trend-tag">
-                      <IconArrowUpRight size={11} />
-                      5.2K%
-                    </span>
-                  </div>
-                </div>
-                <Sparkline type="gross" />
-              </div>
-
-              {/* Card 2: RTO & Returns */}
-              <div className="shopify-kpi-card">
-                <div>
-                  <div className="shopify-kpi-header">
-                    <span className="shopify-kpi-label">RTO & Returns</span>
-                  </div>
-                  <div className="shopify-kpi-val-row">
-                    <span className="shopify-kpi-value">{rtoValue}</span>
-                  </div>
-                </div>
-                <Sparkline type="rto" />
-              </div>
-
-              {/* Card 3: Dispatched */}
-              <div className="shopify-kpi-card">
-                <div>
-                  <div className="shopify-kpi-header">
-                    <span className="shopify-kpi-label">Dispatched</span>
-                  </div>
-                  <div className="shopify-kpi-val-row">
-                    <span className="shopify-kpi-value">{dispatchedValue}</span>
-                  </div>
-                </div>
-                <Sparkline type="dispatch" />
-              </div>
-
-              {/* Card 4: Orders */}
-              <div className="shopify-kpi-card">
-                <div>
-                  <div className="shopify-kpi-header">
-                    <span className="shopify-kpi-label">Orders</span>
-                  </div>
-                  <div className="shopify-kpi-val-row">
-                    <span className="shopify-kpi-value">{totalOrders}</span>
-                  </div>
-                </div>
-                <Sparkline type="orders" />
-              </div>
-            </div>
-
-            {/* Main Content 2-Column Layout */}
-            <div className="shopify-main-grid">
-              {/* Left Box: Total sales over time */}
-              <div className="shopify-card">
-                <div className="shopify-card-title">Total sales over time</div>
-                <div className="shopify-big-metric">
-                  <span className="shopify-big-number">{formattedGrossSales}</span>
-                  <span className="shopify-trend-tag" style={{ fontSize: "14px" }}>
-                    <IconArrowUpRight size={13} />
-                    5.2K%
+      {!dashboardCollapsed && (
+        <>
+          {/* Top 4 KPI Metrics Row with Sparklines */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Card className="p-4 shadow-xs border-border/80 flex items-center justify-between">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground font-heading">Gross Sales</span>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-xl font-bold font-heading text-foreground tabular-nums">{formattedGrossSales}</span>
+                  <span className="inline-flex items-center gap-0.5 text-[11px] font-bold text-emerald-600 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+                    <IconArrowUpRight size={11} /> Live
                   </span>
                 </div>
-
-                <SalesOverTimeChart currencySymbol={currencySymbol} />
               </div>
+              <Sparkline type="gross" />
+            </Card>
 
-              {/* Right Box: Total sales breakdown */}
-              <div className="shopify-card">
-                <div className="shopify-card-title">Total sales breakdown</div>
+            <Card className="p-4 shadow-xs border-border/80 flex items-center justify-between">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground font-heading">RTO &amp; Returns</span>
+                <div className="mt-1">
+                  <span className="text-xl font-bold font-heading text-foreground tabular-nums">{rtoValue}</span>
+                </div>
+              </div>
+              <Sparkline type="rto" />
+            </Card>
 
-                <div className="shopify-breakdown-list">
-                  <div className="shopify-breakdown-row">
-                    <span className="shopify-breakdown-label">Gross sales</span>
-                    <div className="shopify-breakdown-val">
-                      <span>{formattedGrossSales}</span>
-                      <span className="shopify-trend-tag">
-                        <IconArrowUpRight size={11} />
-                        5.2K%
-                      </span>
-                    </div>
+            <Card className="p-4 shadow-xs border-border/80 flex items-center justify-between">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground font-heading">Dispatched</span>
+                <div className="mt-1">
+                  <span className="text-xl font-bold font-heading text-foreground tabular-nums">{dispatchedValue}</span>
+                </div>
+              </div>
+              <Sparkline type="dispatch" />
+            </Card>
+
+            <Card className="p-4 shadow-xs border-border/80 flex items-center justify-between">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground font-heading">Total Orders</span>
+                <div className="mt-1">
+                  <span className="text-xl font-bold font-heading text-foreground tabular-nums">{totalOrders}</span>
+                </div>
+              </div>
+              <Sparkline type="orders" />
+            </Card>
+          </div>
+
+          {/* Main 2-Column Analytics Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-5">
+            {/* Sales Chart Card */}
+            <Card className="p-5 shadow-xs border-border/80 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-bold font-heading text-foreground uppercase tracking-wider">
+                    Total sales over time
+                  </h3>
+                  <Badge variant="outline" className="text-[11px]">Realtime</Badge>
+                </div>
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="text-2xl font-bold font-heading text-foreground tabular-nums">{formattedGrossSales}</span>
+                  <span className="inline-flex items-center gap-0.5 text-xs font-bold text-emerald-600 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+                    <IconArrowUpRight size={12} /> Active
+                  </span>
+                </div>
+              </div>
+              <SalesOverTimeChart currencySymbol={currencySymbol} />
+            </Card>
+
+            {/* Sales Breakdown Card */}
+            <Card className="p-5 shadow-xs border-border/80 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-bold font-heading text-foreground uppercase tracking-wider">
+                    Total sales breakdown
+                  </h3>
+                  <Badge variant="outline" className="text-[11px]">Tally ERP</Badge>
+                </div>
+
+                <div className="flex flex-col divide-y divide-border/60 text-sm">
+                  <div className="py-2.5 flex items-center justify-between">
+                    <span className="text-muted-foreground">Gross sales</span>
+                    <span className="font-semibold tabular-nums text-foreground">{formattedGrossSales}</span>
                   </div>
-
-                  <div className="shopify-breakdown-row">
-                    <span className="shopify-breakdown-label">Discounts</span>
-                    <div className="shopify-breakdown-val">
-                      <span>{currencySymbol}0.00</span>
-                      <span className="shopify-trend-neutral">—</span>
-                    </div>
+                  <div className="py-2.5 flex items-center justify-between">
+                    <span className="text-muted-foreground">Discounts</span>
+                    <span className="font-semibold tabular-nums text-foreground">{currencySymbol}0.00</span>
                   </div>
-
-                  <div className="shopify-breakdown-row">
-                    <span className="shopify-breakdown-label">Sales reversals</span>
-                    <div className="shopify-breakdown-val">
-                      <span>{currencySymbol}0.00</span>
-                      <span className="shopify-trend-neutral">—</span>
-                    </div>
+                  <div className="py-2.5 flex items-center justify-between">
+                    <span className="text-muted-foreground">Sales reversals</span>
+                    <span className="font-semibold tabular-nums text-foreground">{currencySymbol}0.00</span>
                   </div>
-
-                  <div className="shopify-breakdown-row highlighted">
-                    <span className="shopify-breakdown-label">Net sales</span>
-                    <div className="shopify-breakdown-val">
-                      <span>{formattedGrossSales}</span>
-                      <span className="shopify-trend-tag">
-                        <IconArrowUpRight size={11} />
-                        5.2K%
-                      </span>
-                    </div>
+                  <div className="py-2.5 flex items-center justify-between bg-primary/5 px-2 rounded-md">
+                    <span className="font-semibold text-primary">Net sales</span>
+                    <span className="font-bold tabular-nums text-primary">{formattedGrossSales}</span>
                   </div>
-
-                  <div className="shopify-breakdown-row">
-                    <span className="shopify-breakdown-label">Shipping charges</span>
-                    <div className="shopify-breakdown-val">
-                      <span>{currencySymbol}0.00</span>
-                      <span className="shopify-trend-neutral">—</span>
-                    </div>
+                  <div className="py-2.5 flex items-center justify-between">
+                    <span className="text-muted-foreground">Shipping charges</span>
+                    <span className="font-semibold tabular-nums text-foreground">
+                      {currencySymbol}{(financials?.total_shipping ? financials.total_shipping * multiplier : 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    </span>
                   </div>
-
-                  <div className="shopify-breakdown-row">
-                    <span className="shopify-breakdown-label">Return fees</span>
-                    <div className="shopify-breakdown-val">
-                      <span>{currencySymbol}0.00</span>
-                      <span className="shopify-trend-neutral">—</span>
-                    </div>
+                  <div className="py-2.5 flex items-center justify-between">
+                    <span className="text-muted-foreground">Taxes</span>
+                    <span className="font-semibold tabular-nums text-foreground">
+                      {currencySymbol}{(financials?.total_tax ? financials.total_tax * multiplier : 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                    </span>
                   </div>
-
-                  <div className="shopify-breakdown-row">
-                    <span className="shopify-breakdown-label">Taxes</span>
-                    <div className="shopify-breakdown-val">
-                      <span>{currencySymbol}0.00</span>
-                      <span className="shopify-trend-neutral">—</span>
-                    </div>
-                  </div>
-
-                  <div className="shopify-breakdown-row total-row">
-                    <span className="shopify-breakdown-label" style={{ color: "#1a1a1a", fontWeight: 700 }}>Total sales</span>
-                    <div className="shopify-breakdown-val">
-                      <span style={{ fontSize: "15px", fontWeight: 700 }}>{formattedGrossSales}</span>
-                      <span className="shopify-trend-tag">
-                        <IconArrowUpRight size={11} />
-                        5.2K%
-                      </span>
-                    </div>
+                  <div className="pt-3 pb-1 flex items-center justify-between border-t-2 border-border">
+                    <span className="font-bold font-heading text-foreground">Total sales</span>
+                    <span className="text-base font-bold font-heading tabular-nums text-foreground">{formattedGrossSales}</span>
                   </div>
                 </div>
               </div>
-            </div>
-          </>
-        )}
+            </Card>
+          </div>
 
-      </div>
+          {/* Operational KPI Grid */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="font-heading font-bold tracking-tight text-lg text-foreground">Operational Health</h2>
+                <p className="text-xs text-muted-foreground">Order fulfillment, dispatch, and settlement metrics</p>
+              </div>
+              <Badge variant="outline" className="text-xs font-mono">
+                Audit Level: Active
+              </Badge>
+            </div>
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4">
+              <MetricCard title="Total Orders" value={kpis.orders_total} icon={<IconBox />} subtitle={`${kpis.paid_orders} Paid`} />
+              <MetricCard title="Dispatched Scans" value={kpis.dispatched_orders} icon={<IconTag />} subtitle={`${kpis.packed_orders} Packed`} />
+              <MetricCard title="Returns / RTO" value={`${kpis.returns_total}`} icon={<IconReturn />} subtitle={`RTO Total: ${kpis.rto_total}`} />
+              <MetricCard title="Open Exceptions" value={kpis.open_exceptions} icon={<IconAlert />} subtitle={`Reconciled: ${kpis.reconciled_rate}%`} />
+            </div>
+          </div>
+
+          {/* Financial Breakdown Grid */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="font-heading font-bold tracking-tight text-lg text-foreground">Financial Summary</h2>
+                <p className="text-xs text-muted-foreground">Sales ledger and remittance reconciliation</p>
+              </div>
+              <Badge variant="outline" className="text-xs font-mono">
+                Tally Prime Matched
+              </Badge>
+            </div>
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-4">
+              <MetricCard title="Gross Sales" value={`₹${(financials?.gross_sales ?? 0).toLocaleString()}`} icon={<IconCoin />} />
+              <MetricCard title="Total Tax" value={`₹${(financials?.total_tax ?? 0).toLocaleString()}`} icon={<IconReceipt />} />
+              <MetricCard title="Total Shipping" value={`₹${(financials?.total_shipping ?? 0).toLocaleString()}`} icon={<IconTruck />} />
+              <MetricCard title="Total Refunds" value={`₹${(financials?.total_refunds ?? 0).toLocaleString()}`} icon={<IconRefund />} />
+              <MetricCard title="Net Revenue" value={`₹${(financials?.net_revenue ?? 0).toLocaleString()}`} icon={<IconSpark />} subtitle="Gross Sales minus Refunds" />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

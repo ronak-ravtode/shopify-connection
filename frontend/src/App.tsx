@@ -27,16 +27,19 @@ import FinanceLedger from "./pages/FinanceLedger";
 import Tracking from "./pages/Tracking";
 import ShipmentsTracking from "./pages/ShipmentsTracking";
 
+import Footer from "./components/Footer";
+
 export function AppShell() {
   return (
-    <>
+    <div className="min-h-screen bg-background text-foreground antialiased flex flex-col">
       <TopNav />
-      <main style={{ paddingTop: 24 }}>
+      <main className="flex-1 pb-16 pt-6">
         <Suspense fallback={<Loading />}>
           <Outlet />
         </Suspense>
       </main>
-    </>
+      <Footer />
+    </div>
   );
 }
 

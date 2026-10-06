@@ -1,6 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../lib/api";
+import {
+  Badge,
+  Button,
+  Card,
+  Input,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../components/primitives";
 
 export default function StatementDetailPage() {
   const { id } = useParams();
@@ -8,13 +20,19 @@ export default function StatementDetailPage() {
   const [rows, setRows] = useState<any[]>([]);
   const [shipId, setShipId] = useState("");
   const [error, setError] = useState<string | null>(null);
+
   function load() {
     const token = localStorage.getItem("token") ?? undefined;
     api<any>(`/api/v1/statements/${id!}/results`, {}, token)
-      .then((d) => { setCounts(d.counts); setRows(d.rows ?? []); })
+      .then((d) => {
+        setCounts(d.counts);
+        setRows(d.rows ?? []);
+      })
       .catch((e) => setError(e?.message));
   }
+
   useEffect(load, [id]);
+
   async function dryRun() {
     const token = localStorage.getItem("token") ?? undefined;
     try {
@@ -24,6 +42,7 @@ export default function StatementDetailPage() {
       setError(e?.message ?? "Dry run failed");
     }
   }
+
   async function process() {
     const token = localStorage.getItem("token") ?? undefined;
     try {
@@ -33,57 +52,134 @@ export default function StatementDetailPage() {
       setError(e?.message ?? "Process failed");
     }
   }
+
   async function matchRow(rid: string) {
     const token = localStorage.getItem("token") ?? undefined;
     try {
-      await api(`/api/v1/statements/rows/${rid}/match`,
-        { method: "POST", body: JSON.stringify({ shipment_id: shipId }) }, token);
-      setShipId(""); load();
+      await api(
+        `/api/v1/statements/rows/${rid}/match`,
+        { method: "POST", body: JSON.stringify({ shipment_id: shipId }) },
+        token
+      );
+      setShipId("");
+      load();
     } catch (e: any) {
       setError(e?.message ?? "Match failed");
     }
   }
+
   return (
-    <div className="container" style={{ display: "flex", flexDirection: "column", gap: "24px", background: "var(--canvas)" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px" }}>
+    <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-6 bg-background px-6 max-[480px]:px-4">
+      {/* Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
         <div>
-          <h1 className="display" style={{ fontSize: "28px", fontWeight: 700 }}>Statement results</h1>
-          <p style={{ color: "var(--muted)", fontSize: "14px", marginTop: "4px" }}>Dry-run first, then process and clear the unmatched queue</p>
+          <a href="/statements" className="mb-2 inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            ← Back to Statements
+          </a>
+          <div className="flex items-center gap-2 mb-1">
+            <h1 className="font-heading font-bold tracking-tight text-2xl sm:text-3xl text-foreground">
+              Statement Processing Results
+            </h1>
+            <Badge variant="secondary" className="text-xs">
+              Settlement Batch
+            </Badge>
+          </div>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Dry-run first, then process and clear the unmatched queue
+          </p>
         </div>
-        <div style={{ display: "flex", gap: "12px" }}>
-          <button onClick={dryRun} className="btn-secondary">Dry run</button>
-          <button onClick={process} className="btn-primary">Process</button>
+        <div className="flex gap-3">
+          <Button variant="outline" onClick={dryRun}>
+            Dry run
+          </Button>
+          <Button onClick={process}>Process</Button>
         </div>
       </div>
-      {error && <p role="alert" className="badge-danger" style={{ padding: "12px 16px", borderRadius: "12px" }}>{error}</p>}
-      {counts && (
-        <div className="content-card" style={{ display: "flex", gap: "24px", flexWrap: "wrap" }}>
-          {Object.entries(counts.dry_run ?? counts).filter(([, v]) => typeof v === "number").map(([k, v]) => (
-            <div key={k}><div style={{ fontSize: "12px", color: "var(--muted)", textTransform: "uppercase" }}>{k}</div>
-              <div style={{ fontSize: "24px", fontWeight: 800 }}>{v as number}</div></div>
-          ))}
+
+      {error && (
+        <div role="alert" className="rounded-xl border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">
+          {error}
         </div>
       )}
-      <div style={{ overflowX: "auto", background: "var(--card)", border: "1px solid var(--hairline)", borderRadius: "12px" }}>
+
+      {counts && (
+        <Card className="flex flex-wrap gap-6 p-6 border-border/80 shadow-xs">
+          {Object.entries(counts.dry_run ?? counts)
+            .filter(([, v]) => typeof v === "number")
+            .map(([k, v]) => (
+              <div key={k}>
+                <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  {k}
+                </div>
+                <div className="mt-1 text-2xl font-extrabold text-foreground">{v as number}</div>
+              </div>
+            ))}
+        </Card>
+      )}
+
+      <Card className="overflow-hidden p-0 border-border/80 shadow-xs">
         {rows.length === 0 ? (
-          <p style={{ padding: "40px", textAlign: "center", color: "var(--muted)" }}>No rows in this statement.</p>
+          <p className="p-10 text-center text-sm text-muted-foreground">
+            No rows in this statement.
+          </p>
         ) : (
-          <table className="modern-table" style={{ border: "none" }}>
-            <thead><tr><th>Row</th><th>AWB</th><th>Net</th><th>Status</th><th style={{ textAlign: "right" }}>Action</th></tr></thead>
-            <tbody>
-              {rows.map((r) => (
-                <tr key={r.id}><td>{r.row_number}</td><td style={{ fontWeight: 600 }}>{r.awb_number ?? "-"}</td><td className="tnum">₹{Number(r.net_amount || 0).toLocaleString()}</td>
-                  <td><span className="badge-pill">{r.reconciliation_status}</span></td>
-                  <td style={{ textAlign: "right" }}>{r.reconciliation_status === "UNMATCHED" && (
-                    <span style={{ display: "inline-flex", gap: "8px" }}>
-                      <input className="input-control" value={shipId} onChange={(e) => setShipId(e.target.value)} placeholder="Shipment ID" aria-label="Shipment ID" style={{ width: "160px" }} />
-                      <button onClick={() => matchRow(r.id)} className="btn-secondary">Match</button>
-                    </span>)}</td></tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Row</TableHead>
+                  <TableHead>AWB</TableHead>
+                  <TableHead>Net</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="text-right">Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {rows.map((r) => (
+                  <TableRow key={r.id}>
+                    <TableCell className="tabular-nums font-mono text-xs text-muted-foreground">
+                      #{r.row_number}
+                    </TableCell>
+                    <TableCell>
+                      {r.awb_number ? (
+                        <span className="font-mono text-xs font-semibold bg-muted/50 px-2 py-0.5 rounded border border-border/70 text-foreground">
+                          {r.awb_number}
+                        </span>
+                      ) : (
+                        <span className="text-muted-foreground/60">—</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="tabular-nums font-semibold text-foreground">
+                      ₹{Number(r.net_amount || 0).toLocaleString()}
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant={r.reconciliation_status === "MATCHED" ? "success" : "warning"} className="text-xs font-semibold shadow-xs">
+                        {r.reconciliation_status}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {r.reconciliation_status === "UNMATCHED" && (
+                        <div className="inline-flex items-center gap-2">
+                          <Input
+                            className="w-36 h-9"
+                            value={shipId}
+                            onChange={(e) => setShipId(e.target.value)}
+                            placeholder="Shipment ID"
+                            aria-label="Shipment ID"
+                          />
+                          <Button size="sm" variant="outline" onClick={() => matchRow(r.id)}>
+                            Match
+                          </Button>
+                        </div>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         )}
-      </div>
+      </Card>
     </div>
   );
 }

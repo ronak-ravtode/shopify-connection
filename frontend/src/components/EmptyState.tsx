@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button, Card } from "./primitives";
 
 export type EmptyStateAction = { label: string; href: string };
 
@@ -17,41 +18,27 @@ export default function EmptyState({
   secondary?: EmptyStateAction;
 }) {
   return (
-    <div
-      className="content-card"
-      style={{ textAlign: "center", padding: "48px 24px", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}
-    >
+    <Card className="flex flex-col items-center justify-center p-8 sm:p-14 text-center max-w-2xl mx-auto border-border/80 shadow-xs">
       {icon && (
         <div
           aria-hidden="true"
-          style={{
-            width: "48px",
-            height: "48px",
-            borderRadius: "12px",
-            background: "var(--neutral-bg)",
-            border: "1px solid var(--hairline)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "var(--muted)",
-            marginBottom: "8px",
-          }}
+          className="mb-4 flex size-14 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 text-primary shadow-xs"
         >
           {icon}
         </div>
       )}
-      <h3 style={{ fontSize: "18px", fontWeight: 600, color: "var(--ink)", margin: 0 }}>{title}</h3>
-      <p style={{ fontSize: "14px", color: "var(--muted)", margin: "0 0 16px", maxWidth: "420px" }}>{body}</p>
-      <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", justifyContent: "center" }}>
-        <Link to={primary.href} className="btn-primary">
-          {primary.label}
-        </Link>
+      <h3 className="text-xl font-heading font-bold text-foreground tracking-tight">{title}</h3>
+      <p className="mt-2 mb-6 max-w-[440px] text-sm text-muted-foreground leading-relaxed mx-auto">{body}</p>
+      <div className="flex flex-wrap items-center justify-center gap-3 w-full sm:w-auto">
+        <Button asChild className="max-[480px]:w-full font-semibold px-6 shadow-xs">
+          <Link to={primary.href}>{primary.label}</Link>
+        </Button>
         {secondary && (
-          <Link to={secondary.href} className="btn-secondary">
-            {secondary.label}
-          </Link>
+          <Button asChild variant="outline" className="max-[480px]:w-full font-medium px-6">
+            <Link to={secondary.href}>{secondary.label}</Link>
+          </Button>
         )}
       </div>
-    </div>
+    </Card>
   );
 }

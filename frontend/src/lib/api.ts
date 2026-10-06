@@ -569,6 +569,16 @@ export type ShipmentSyncResult = {
   reason?: string;
 };
 
+export type PushOrderOption = {
+  id: string;
+  order_no?: string | null;
+  internal_order_number?: string | null;
+  shopify_order_name?: string | null;
+  customer_name?: string | null;
+  receiver_city?: string | null;
+  receiver_pincode?: string | null;
+  shipment_id?: string | null;
+};
 export function listShipments(
   params: {
     date_from?: string;

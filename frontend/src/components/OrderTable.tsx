@@ -1,38 +1,52 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  Badge,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./primitives";
 import { API } from "../lib/api";
 import { downloadXlsx } from "../lib/india-post";
 import { isAwaiting, pushStateLabel, statusTone, type OrderShipment } from "../lib/shipments";
 
-const FINANCIAL_CLASSES: Record<string, { bg: string; text: string; dot: string }> = {
-  PAID: { bg: "bg-emerald-50", text: "text-emerald-800", dot: "bg-emerald-600" },
-  PENDING: { bg: "bg-amber-50", text: "text-amber-800", dot: "bg-amber-500" },
-  REFUNDED: { bg: "bg-red-50", text: "text-red-800", dot: "bg-red-600" },
+const FINANCIAL_DOTS: Record<string, string> = {
+  PAID: "var(--destructive)",
+  PENDING: "var(--secondary-foreground)",
+  REFUNDED: "var(--muted-foreground)",
 };
 
-const OPERATIONAL_CLASSES: Record<string, { bg: string; text: string; dot: string }> = {
-  DISPATCHED: { bg: "bg-emerald-50", text: "text-emerald-800", dot: "bg-emerald-600" },
-  PACKED: { bg: "bg-teal-50", text: "text-teal-800", dot: "bg-teal-600" },
-  RETURN_RECEIVED: { bg: "bg-amber-50", text: "text-amber-800", dot: "bg-amber-500" },
-  RTO: { bg: "bg-red-50", text: "text-red-800", dot: "bg-red-600" },
+const OPERATIONAL_DOTS: Record<string, string> = {
+  DISPATCHED: "var(--destructive)",
+  PACKED: "var(--primary)",
+  RETURN_RECEIVED: "var(--secondary-foreground)",
+  RTO: "var(--muted-foreground)",
 };
 
-function StatusBadge({ status, styleMap }: { status: string; styleMap: Record<string, { bg: string; text: string; dot: string }> }) {
-  const conf = styleMap[status?.toUpperCase()] ?? { bg: "bg-slate-100", text: "text-slate-700", dot: "bg-slate-400" };
+function StatusBadge({ status, dotMap }: { status: string; dotMap: Record<string, string> }) {
+  const dot = dotMap[status?.toUpperCase()] ?? "var(--muted-foreground)";
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${conf.bg} ${conf.text}`}>
-      <span className={`w-2 h-2 rounded-full ${conf.dot} shrink-0`} aria-hidden="true" />
-      <span>{status}</span>
+    <span className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold bg-muted/60 border border-border/80 text-foreground">
+      <span
+        aria-hidden="true"
+        className="size-1.5 shrink-0 rounded-full"
+        style={{ background: dot }}
+      />
+      {status}
     </span>
   );
 }
 
 const PILL_CLASSES: Record<string, string> = {
-  success: "bg-emerald-100 text-emerald-800",
-  info: "bg-sky-100 text-sky-800",
-  warning: "bg-amber-100 text-amber-800",
-  danger: "bg-red-100 text-red-800",
-  neutral: "bg-slate-100 text-slate-700",
+  success: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
+  info: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
+  warning: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20",
+  danger: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20",
+  neutral: "bg-muted text-muted-foreground border border-border",
 };
 
 function ShipmentPill({ status }: { status: string }) {
@@ -44,29 +58,29 @@ function ShipmentPill({ status }: { status: string }) {
   );
 }
 
-// AWAITING_TRACKING is deliberately NOT in shipments.TERMINAL_STATUSES: it is
-// the one state that asks the user for the missing tracking number, so it has to
-// stay visible here as a green Add Shipment button rather than be filtered out
-// as a finished shipment.
-function ShipmentCell({ shipment, onAdd }: {
+function ShipmentCell({
+  shipment,
+  onAdd,
+}: {
   shipment: OrderShipment | null | undefined;
   onAdd: () => void;
 }) {
   if (!shipment) {
-    return <span className="text-xs text-slate-400">{pushStateLabel("none")}</span>;
+    return <span className="text-xs text-muted-foreground">{pushStateLabel("none")}</span>;
   }
 
   if (isAwaiting(shipment)) {
     return (
       <div className="flex flex-col items-start gap-1">
-        <button
+        <Button
           type="button"
+          size="sm"
           onClick={onAdd}
-          className="px-2.5 py-1 rounded-lg text-xs font-semibold text-white bg-emerald-700 hover:bg-emerald-800 transition cursor-pointer"
+          className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-xs"
         >
           Add Shipment
-        </button>
-        <span className="text-[11px] text-amber-700">{pushStateLabel("awaiting")}</span>
+        </Button>
+        <span className="text-[11px] text-amber-600 font-medium">{pushStateLabel("awaiting")}</span>
       </div>
     );
   }
@@ -74,8 +88,8 @@ function ShipmentCell({ shipment, onAdd }: {
   if (shipment.push_state === "rejected") {
     return (
       <div className="flex flex-col items-start gap-1">
-        <span className="font-mono text-xs text-slate-900">{shipment.awb_number}</span>
-        <span className="text-[11px] text-red-700">{pushStateLabel("rejected")}</span>
+        <span className="font-mono text-xs text-foreground font-medium">{shipment.awb_number}</span>
+        <span className="text-[11px] text-destructive font-medium">{pushStateLabel("rejected")}</span>
       </div>
     );
   }
@@ -85,16 +99,16 @@ function ShipmentCell({ shipment, onAdd }: {
       {shipment.id ? (
         <Link
           to={`/shipments/${shipment.id}`}
-          className="font-mono text-xs font-semibold text-emerald-800 hover:underline"
+          className="font-mono text-xs font-semibold text-primary hover:underline"
         >
           {shipment.awb_number}
         </Link>
       ) : (
-        <span className="font-mono text-xs text-slate-900">{shipment.awb_number}</span>
+        <span className="font-mono text-xs text-foreground font-medium">{shipment.awb_number}</span>
       )}
       <ShipmentPill status={shipment.tracking_status ?? ""} />
       {shipment.current_location && (
-        <span className="text-[11px] text-slate-500">{shipment.current_location}</span>
+        <span className="text-[11px] text-muted-foreground">{shipment.current_location}</span>
       )}
     </div>
   );
@@ -105,86 +119,86 @@ export default function OrderTable({
   onAddShipment,
 }: {
   orders: any[];
-  onAddShipment: (order: any) => void;
+  onAddShipment?: (order: any) => void;
 }) {
   if (!orders || orders.length === 0) {
     return (
-      <div className="text-center py-10 text-slate-500 text-sm">
-        No orders found. Click "Sync Shopify Orders" to import data.
+      <div className="rounded-xl border border-border/80 bg-card p-12 text-center text-sm text-muted-foreground shadow-xs">
+        No orders found. Click &quot;Sync Shopify Orders&quot; to import data.
       </div>
     );
   }
 
   return (
-    <div className="overflow-x-auto bg-white border border-slate-200 rounded-xl shadow-xs">
-      <table className="w-full text-left border-collapse">
-        <thead>
-          <tr className="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500 uppercase tracking-wider">
-            <th className="px-4 py-3.5">Order Name</th>
-            <th className="px-4 py-3.5">Shipment</th>
-            <th className="px-4 py-3.5">Financial Status</th>
-            <th className="px-4 py-3.5">Fulfillment / Op Status</th>
-            <th className="px-4 py-3.5">Total Amount</th>
-            <th className="px-4 py-3.5">COD</th>
-            <th className="px-4 py-3.5">City / Pincode</th>
-            <th className="px-4 py-3.5">Date</th>
-            <th className="px-4 py-3.5 text-right whitespace-nowrap">Action</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-slate-100 text-sm text-slate-800">
-          {orders.map((o) => (
-            <tr key={o.id} className="hover:bg-slate-50/80 transition-colors">
-              <td className="px-4 py-3.5 font-semibold text-emerald-800 hover:underline">
-                <Link to={`/orders/${o.id}`}>
-                  {o.shopify_order_name || o.internal_order_number || o.id}
-                </Link>
-              </td>
-              <td className="px-4 py-3.5">
-                <ShipmentCell shipment={o.shipment} onAdd={() => onAddShipment(o)} />
-              </td>
-              <td className="px-4 py-3.5">
-                <StatusBadge status={o.financial_status || "PENDING"} styleMap={FINANCIAL_CLASSES} />
-              </td>
-              <td className="px-4 py-3.5">
-                <StatusBadge status={o.operational_status || "NEW"} styleMap={OPERATIONAL_CLASSES} />
-              </td>
-              <td className="px-4 py-3.5 font-bold tabular-nums text-slate-900">
-                ₹{Number(o.total_amount || 0).toLocaleString()}
-              </td>
-              <td className="px-4 py-3.5 text-slate-600">
-                {(!o.cod_mode && (o.cod_value === undefined || o.cod_value === null || o.cod_value === ""))
-                  ? "-"
-                  : `${o.cod_mode ?? ""}${o.cod_mode && o.cod_value !== undefined && o.cod_value !== null && o.cod_value !== "" ? " " : ""}${o.cod_value !== undefined && o.cod_value !== null && o.cod_value !== "" ? `₹${o.cod_value}` : ""}`}
-              </td>
-              <td className="px-4 py-3.5 text-slate-600">
-                {`${o.receiver_city ?? ""} ${o.receiver_pincode ?? ""}`.trim() || "-"}
-              </td>
-              <td className="px-4 py-3.5 text-xs text-slate-500 whitespace-nowrap">
-                {(o.order_date ?? o.shopify_created_at ?? o.created_at)
-                  ? new Date(o.order_date ?? o.shopify_created_at ?? o.created_at).toLocaleString()
-                  : "-"}
-              </td>
-              <td className="px-4 py-3.5 text-right whitespace-nowrap">
-                <div className="flex items-center justify-end gap-2">
-                  <Link
-                    to={`/orders/${o.id}`}
-                    className="px-3 py-1.5 bg-white text-slate-700 border border-slate-300 rounded-md text-xs font-medium hover:bg-slate-50 transition"
-                  >
-                    Timeline
-                  </Link>
-                  <button
-                    type="button"
-                    className="px-3 py-1.5 bg-white text-slate-700 border border-slate-300 rounded-md text-xs font-medium hover:bg-slate-50 transition cursor-pointer"
-                    onClick={() => downloadXlsx(`${API}/api/v1/orders/${o.id}/export/india-post.xlsx`, "india-post.xlsx")}
-                  >
-                    XLSX
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Order Name</TableHead>
+          <TableHead>Shipment</TableHead>
+          <TableHead>Financial Status</TableHead>
+          <TableHead>Fulfillment / Op Status</TableHead>
+          <TableHead className="text-right">Total Amount</TableHead>
+          <TableHead>COD</TableHead>
+          <TableHead>City / Pincode</TableHead>
+          <TableHead>Date</TableHead>
+          <TableHead className="text-right">Action</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {orders.map((o) => (
+          <TableRow key={o.id}>
+            <TableCell>
+              <Link
+                to={`/orders/${o.id}`}
+                className="font-mono text-xs font-semibold text-foreground hover:text-primary transition-colors bg-muted/40 hover:bg-muted/80 px-2 py-1 rounded-md border border-border/70 inline-block"
+              >
+                {o.shopify_order_name || o.internal_order_number || o.id}
+              </Link>
+            </TableCell>
+            <TableCell>
+              <ShipmentCell shipment={o.shipment} onAdd={() => onAddShipment?.(o)} />
+            </TableCell>
+            <TableCell>
+              <StatusBadge status={o.financial_status || "PENDING"} dotMap={FINANCIAL_DOTS} />
+            </TableCell>
+            <TableCell>
+              <StatusBadge status={o.operational_status || "NEW"} dotMap={OPERATIONAL_DOTS} />
+            </TableCell>
+            <TableCell className="text-right font-semibold tabular-nums text-foreground">
+              ₹{Number(o.total_amount || 0).toLocaleString()}
+            </TableCell>
+            <TableCell className="text-xs text-muted-foreground tabular-nums">
+              {(!o.cod_mode && (o.cod_value === undefined || o.cod_value === null || o.cod_value === ""))
+                ? "-"
+                : `${o.cod_mode ?? ""}${o.cod_mode && o.cod_value !== undefined && o.cod_value !== null && o.cod_value !== "" ? " " : ""}${o.cod_value !== undefined && o.cod_value !== null && o.cod_value !== "" ? `₹${o.cod_value}` : ""}`}
+            </TableCell>
+            <TableCell className="text-xs text-muted-foreground">
+              {`${o.receiver_city ?? ""} ${o.receiver_pincode ?? ""}`.trim() || "-"}
+            </TableCell>
+            <TableCell className="text-xs text-muted-foreground font-mono">
+              {(o.order_date ?? o.shopify_created_at ?? o.created_at)
+                ? new Date(o.order_date ?? o.shopify_created_at ?? o.created_at).toLocaleString()
+                : "-"}
+            </TableCell>
+            <TableCell className="text-right">
+              <div className="flex items-center justify-end gap-2">
+                <Button asChild variant="outline" size="sm" className="shadow-xs hover:border-primary/50 text-xs">
+                  <Link to={`/orders/${o.id}`}>Timeline</Link>
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="shadow-xs hover:border-primary/50 text-xs"
+                  onClick={() => downloadXlsx(`${API}/api/v1/orders/${o.id}/export/india-post.xlsx`, "india-post.xlsx")}
+                >
+                  XLSX
+                </Button>
+              </div>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }

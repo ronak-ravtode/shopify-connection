@@ -1,6 +1,19 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import EmptyState from "../components/EmptyState";
 import MetricCard from "../components/MetricCard";
+import {
+  Badge,
+  Button,
+  Card,
+  Input,
+  Label,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../components/primitives";
 import { LEDGER_TXN_TYPES, LedgerEntry, LedgerSummary, getLedgerSummary, listLedger } from "../lib/api";
 
 const PAGE_SIZE = 20;
@@ -28,8 +41,6 @@ function defaultRange(): { from: string; to: string } {
 
 function inr(v: string | number): string {
   const n = Number(v ?? 0);
-  // "U+20B9" (rupee sign) as a unicode escape keeps this file pure ASCII,
-  // immune to encoding misinterpretation at any layer (editor/git/server/browser).
   return `\u20B9${Number.isFinite(n) ? n.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0.00"}`;
 }
 
@@ -72,7 +83,6 @@ export default function LedgerPage() {
           });
     Promise.all([listP, summaryP])
       .catch((e) => {
-        // Never leave prior rows/summary visible alongside an error.
         if (!isCurrent()) return;
         setItems([]);
         setSummary(null);
@@ -95,56 +105,96 @@ export default function LedgerPage() {
   const hasSummary = Boolean(summary?.revenue && summary?.profit);
 
   return (
-    <div className="container" style={{ display: "flex", flexDirection: "column", gap: "24px", background: "var(--canvas)" }}>
-      <div>
-        <h1 className="display" style={{ fontSize: "28px", fontWeight: 700 }}>Ledger</h1>
-        <p style={{ color: "var(--muted)", fontSize: "14px", marginTop: "4px" }}>
-          Immutable financial events &mdash; read-only. Corrections happen via reversal entries.
-        </p>
+    <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-6 bg-background px-6 max-[480px]:px-4">
+      {/* Header */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <h1 className="font-heading font-bold tracking-tight text-2xl sm:text-3xl text-foreground">
+              Financial Ledger
+            </h1>
+            <Badge variant="secondary" className="text-xs">
+              Audit Trail
+            </Badge>
+          </div>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Immutable financial events &mdash; read-only. Corrections happen via reversal entries.
+          </p>
+        </div>
       </div>
 
-      <div className="content-card" style={{ display: "flex", gap: "12px", alignItems: "end", flexWrap: "wrap" }}>
-        <label style={{ display: "flex", flexDirection: "column", gap: "4px", fontSize: "12px", color: "var(--muted)" }}>
-          From
-          <input type="date" value={from} onChange={(e) => setFrom(e.target.value)} aria-label="From date" className="input-control" />
-        </label>
-        <label style={{ display: "flex", flexDirection: "column", gap: "4px", fontSize: "12px", color: "var(--muted)" }}>
-          To
-          <input type="date" value={to} onChange={(e) => setTo(e.target.value)} aria-label="To date" className="input-control" />
-        </label>
-        <label style={{ display: "flex", flexDirection: "column", gap: "4px", fontSize: "12px", color: "var(--muted)" }}>
-          Type
-          <select value={type} onChange={(e) => setType(e.target.value)} aria-label="Transaction type" className="input-control" style={{ minWidth: "200px" }}>
+      <Card className="flex flex-wrap items-end gap-3 p-5 border-border/80 shadow-xs">
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="ledger-from" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            From
+          </Label>
+          <Input
+            id="ledger-from"
+            type="date"
+            value={from}
+            onChange={(e) => setFrom(e.target.value)}
+            aria-label="From date"
+            className="w-auto"
+          />
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="ledger-to" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            To
+          </Label>
+          <Input
+            id="ledger-to"
+            type="date"
+            value={to}
+            onChange={(e) => setTo(e.target.value)}
+            aria-label="To date"
+            className="w-auto"
+          />
+        </div>
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="ledger-type" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Type
+          </Label>
+          <select
+            id="ledger-type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            aria-label="Transaction type"
+            className="min-h-11 min-w-[200px] rounded-md border border-input bg-background px-3.5 py-2.5 text-base text-foreground focus-visible:outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30"
+          >
             <option value="">All types</option>
             {LEDGER_TXN_TYPES.map((t) => (
               <option key={t} value={t}>{t}</option>
             ))}
           </select>
-        </label>
-        <label style={{ display: "flex", flexDirection: "column", gap: "4px", fontSize: "12px", color: "var(--muted)" }}>
-          Order
-          <input
+        </div>
+        <div className="flex flex-col gap-1.5 flex-1 min-w-[200px]">
+          <Label htmlFor="ledger-order" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Order
+          </Label>
+          <Input
+            id="ledger-order"
             type="search"
             value={orderSearch}
             onChange={(e) => setOrderSearch(e.target.value)}
             placeholder="Order ID"
             aria-label="Order search"
-            className="input-control"
-            style={{ minWidth: "200px" }}
           />
-        </label>
-        <button onClick={load} className="btn-primary" style={{ minHeight: 44 }}>Apply</button>
-      </div>
+        </div>
+        <Button onClick={load}>Apply</Button>
+      </Card>
 
       {error && (
-        <div role="alert" className="badge-danger" style={{ padding: "12px 16px", borderRadius: "12px" }}>
-          {error} <button onClick={load} className="btn-secondary" style={{ marginLeft: "12px" }}>Retry</button>
+        <div role="alert" className="flex items-center justify-between gap-3 rounded-xl border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">
+          <span>{error}</span>
+          <Button variant="outline" size="sm" onClick={load}>
+            Retry
+          </Button>
         </div>
       )}
 
       {hasSummary && summary && (
-        <div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px" }}>
+        <div className="flex flex-col gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <MetricCard title="Net sales" value={inr(summary.revenue.net_exclusive)} subtitle="excl. GST" />
             <MetricCard title="Gross profit" value={inr(summary.profit.gross_profit)} subtitle={`COGS ${inr(summary.profit.cogs)}`} />
             <MetricCard
@@ -154,7 +204,7 @@ export default function LedgerPage() {
             />
           </div>
           {summary.profit.warning && (
-            <p role="note" style={{ color: "var(--warning)", fontSize: "13px", fontWeight: 600, marginTop: "12px" }}>
+            <p role="note" className="text-xs font-semibold text-warning">
               {summary.profit.warning}
             </p>
           )}
@@ -162,7 +212,7 @@ export default function LedgerPage() {
       )}
 
       {loading ? (
-        <div style={{ padding: "40px", textAlign: "center", color: "var(--muted)" }}>Loading ledger&hellip;</div>
+        <div className="p-10 text-center text-sm text-muted-foreground">Loading ledger&hellip;</div>
       ) : items.length === 0 ? (
         <EmptyState
           title="No ledger entries"
@@ -171,51 +221,81 @@ export default function LedgerPage() {
           secondary={{ label: "Monthly report", href: "/reports/monthly" }}
         />
       ) : (
-        <div className="content-card" style={{ padding: 0, overflow: "hidden" }}>
-          <div style={{ overflowX: "auto" }}>
-            <table className="modern-table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Type</th>
-                  <th>Order</th>
-                  <th style={{ textAlign: "right" }}>Amount</th>
-                  <th style={{ textAlign: "right" }}>Tax</th>
-                  <th style={{ textAlign: "right" }}>Net</th>
-                  <th>Reference</th>
-                </tr>
-              </thead>
-              <tbody>
+        <Card className="overflow-hidden p-0 border-border/80 shadow-xs">
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Type</TableHead>
+                  <TableHead>Order</TableHead>
+                  <TableHead className="text-right">Amount</TableHead>
+                  <TableHead className="text-right">Tax</TableHead>
+                  <TableHead className="text-right">Net</TableHead>
+                  <TableHead>Reference</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
                 {pageItems.map((t) => (
-                  <tr key={t.id}>
-                    <td style={{ fontSize: "13px", color: "var(--muted)", whiteSpace: "nowrap" }}>
-                      {t.transaction_date_ist ?? t.transaction_date ?? "-"}
-                    </td>
-                    <td><span className="badge-pill">{t.transaction_type}</span></td>
-                    <td style={{ fontSize: "13px" }}>{t.order_id ?? "-"}</td>
-                    <td className="tnum" style={{ textAlign: "right", fontWeight: 600 }}>{inr(t.amount)}</td>
-                    <td className="tnum" style={{ textAlign: "right" }}>{inr(t.tax_amount)}</td>
-                    <td className="tnum" style={{ textAlign: "right" }}>{inr(t.net_amount)}</td>
-                    <td style={{ fontSize: "13px", color: "var(--muted)" }}>{t.reference_number ?? "-"}</td>
-                  </tr>
+                  <TableRow key={t.id}>
+                    <TableCell className="text-xs text-muted-foreground font-mono whitespace-nowrap">
+                      {t.transaction_date_ist ?? t.transaction_date ?? "—"}
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant="secondary" className="text-xs font-semibold">{t.transaction_type}</Badge>
+                    </TableCell>
+                    <TableCell>
+                      {t.order_id ? (
+                        <span className="font-mono text-xs font-semibold bg-muted/50 px-2 py-0.5 rounded border border-border/70 text-foreground">
+                          {t.order_id}
+                        </span>
+                      ) : (
+                        <span className="text-xs text-muted-foreground/60">—</span>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-right font-semibold tabular-nums text-foreground">
+                      {inr(t.amount)}
+                    </TableCell>
+                    <TableCell className="text-right tabular-nums text-muted-foreground">
+                      {inr(t.tax_amount)}
+                    </TableCell>
+                    <TableCell className="text-right tabular-nums text-foreground font-semibold">
+                      {inr(t.net_amount)}
+                    </TableCell>
+                    <TableCell className="text-xs text-muted-foreground font-mono">
+                      {t.reference_number ?? "—"}
+                    </TableCell>
+                  </TableRow>
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", borderTop: "1px solid var(--hairline)" }}>
-            <span style={{ fontSize: "13px", color: "var(--muted)" }}>
+          <div className="flex items-center justify-between border-t border-border px-4 py-3">
+            <span className="text-xs text-muted-foreground">
               Page {safePage + 1} of {totalPages} &middot; {items.length} entries
             </span>
-            <div style={{ display: "flex", gap: "8px" }}>
-              <button onClick={() => setPage((p) => Math.max(0, p - 1))} disabled={safePage === 0} className="btn-secondary" aria-label="Previous page">
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setPage((p) => Math.max(0, p - 1))}
+                disabled={safePage === 0}
+                aria-label="Previous page"
+              >
                 Prev
-              </button>
-              <button onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))} disabled={safePage >= totalPages - 1} className="btn-secondary" aria-label="Next page">
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+                disabled={safePage >= totalPages - 1}
+                aria-label="Next page"
+              >
                 Next
-              </button>
+              </Button>
             </div>
           </div>
-        </div>
+        </Card>
       )}
     </div>
   );

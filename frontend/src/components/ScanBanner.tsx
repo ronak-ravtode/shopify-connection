@@ -2,12 +2,12 @@ import React from "react";
 import { IconAlert, IconSpark } from "./icons";
 
 export default function ScanBanner({ kind, text }: { kind: "ok" | "error" | "warn"; text: string }) {
-  const statusColor = kind === "ok" ? "var(--success)" : kind === "warn" ? "var(--warning)" : "var(--error)";
+  const statusColor = kind === "ok" ? "var(--success)" : kind === "warn" ? "var(--warning)" : "var(--destructive)";
 
   return (
     <div
       role={kind === "error" ? "alert" : "status"}
-      className="content-card"
+      className="rounded-xl border border-border bg-white text-foreground p-6 max-[768px]:p-5"
       style={{
         borderLeft: `4px solid ${statusColor}`,
         display: "flex",
@@ -17,7 +17,7 @@ export default function ScanBanner({ kind, text }: { kind: "ok" | "error" | "war
         fontWeight: 600,
       }}
     >
-      <span style={{ display: "inline-flex", color: "var(--ink)" }}>
+      <span style={{ display: "inline-flex", color: "var(--foreground)" }}>
         {kind === "ok" ? <IconSpark /> : <IconAlert />}
       </span>
       <span>{text}</span>

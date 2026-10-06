@@ -30,6 +30,7 @@ test("topnav centers app sections with active effect and no underline", () => {
   }
   const active = container.querySelector('[aria-current="page"]');
   expect(active?.textContent).toMatch(/Dashboard/);
+  expect(active?.className ?? "").toMatch(/rounded-full/);
 });
 
 test("exactly one current-page marker exists", () => {
@@ -40,7 +41,7 @@ test("exactly one current-page marker exists", () => {
 test("topnav uses enterprise canvas background", () => {
   const { container } = renderNav();
   const header = container.querySelector("header") as HTMLElement;
-  expect(header.outerHTML).toBeTruthy();
+  expect(header.className).toMatch(/bg-background/);
 });
 
 test("topnav groups routes with active trail", () => {

@@ -3,6 +3,18 @@ import { Link } from "react-router-dom";
 import { api } from "../lib/api";
 import SeverityBadge from "../components/SeverityBadge";
 import { IconAlert } from "../components/icons";
+import {
+  Badge,
+  Button,
+  Card,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  Textarea,
+} from "../components/primitives";
 
 type Issue = {
   id: string;
@@ -62,171 +74,177 @@ export default function ExceptionsPage() {
   }
 
   return (
-    <div className="container" style={{ display: "flex", flexDirection: "column", gap: "24px", background: "var(--canvas)" }}>
-
-     
-
+    <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-6 bg-background px-6 max-[480px]:px-4">
       {/* Header */}
-      <div>
-        <h1 className="display" style={{ fontSize: "28px", fontWeight: 700 }}>Mismatch Exceptions Queue</h1>
-        <p style={{ color: "var(--muted)", fontSize: "14px", marginTop: "4px" }}>
-          Review and audit system-detected operational discrepancies between Shopify, physical scans, and returns
-        </p>
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-6">
+        <div>
+          <div className="flex items-center gap-2 mb-1">
+            <h1 className="text-2xl sm:text-3xl font-bold font-heading tracking-tight text-foreground">
+              Mismatch Exceptions Queue
+            </h1>
+            <Badge variant="destructive" className="text-xs">
+              Audit Clearance
+            </Badge>
+          </div>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Review and audit system-detected operational discrepancies between Shopify, physical scans, and returns
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Badge variant="outline" className="text-xs font-mono">
+            {items.length} {status.toLowerCase()} issue{items.length === 1 ? "" : "s"}
+          </Badge>
+        </div>
       </div>
 
       {/* Filter Tabs Bar */}
-      <div className="content-card" style={{ padding: "16px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "16px" }}>
-
+      <Card className="flex flex-wrap items-center justify-between gap-4 p-4 sm:p-5">
         {/* Status Filter Tabs */}
-        <div style={{ display: "flex", gap: "8px" }}>
+        <div className="flex gap-2">
           {(["OPEN", "RESOLVED", "ALL"] as const).map((s) => (
-            <button
+            <Button
               key={s}
+              size="sm"
+              variant={status === s ? "default" : "outline"}
               onClick={() => setStatus(s)}
-              className={status === s ? "btn-primary" : "btn-secondary"}
               aria-pressed={status === s}
-              style={{ fontSize: "13px", padding: "8px 16px" }}
+              className="text-xs font-semibold px-3.5 h-8"
             >
               {s}
-            </button>
+            </Button>
           ))}
         </div>
 
-        {/* Severity Select Dropdown */}
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <label style={{ fontSize: "13px", color: "var(--muted)", fontWeight: 600 }}>SEVERITY:</label>
-          <select
-            className="input-control"
-            value={severity}
-            onChange={(e) => setSeverity(e.target.value)}
-            aria-label="Severity"
-            style={{ width: "160px", padding: "8px 12px" }}
-          >
-            <option value="">All Severities</option>
-            <option value="CRITICAL">CRITICAL</option>
-            <option value="HIGH">HIGH</option>
-            <option value="MEDIUM">MEDIUM</option>
-            <option value="LOW">LOW</option>
-          </select>
-        </div>
+        <div className="flex flex-wrap items-center gap-4">
+          {/* Severity Select Dropdown */}
+          <div className="flex items-center gap-2">
+            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">SEVERITY:</label>
+            <select
+              className="h-9 w-36 rounded-lg border border-input bg-background/90 px-3 py-1.5 text-sm text-foreground focus-visible:outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/20 shadow-xs"
+              value={severity}
+              onChange={(e) => setSeverity(e.target.value)}
+              aria-label="Severity"
+            >
+              <option value="">All Severities</option>
+              <option value="CRITICAL">CRITICAL</option>
+              <option value="HIGH">HIGH</option>
+              <option value="MEDIUM">MEDIUM</option>
+              <option value="LOW">LOW</option>
+            </select>
+          </div>
 
-        {/* Category Select Dropdown */}
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <label style={{ fontSize: "13px", color: "var(--muted)", fontWeight: 600 }}>CATEGORY:</label>
-          <select
-            className="input-control"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            aria-label="Category"
-            style={{ width: "160px", padding: "8px 12px" }}
-          >
-            <option value="">All Categories</option>
-            <option value="COURIER">Courier</option>
-            <option value="MONEY">Money</option>
-            <option value="RETURNS">Returns</option>
-            <option value="SLA">SLA</option>
-          </select>
+          {/* Category Select Dropdown */}
+          <div className="flex items-center gap-2">
+            <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">CATEGORY:</label>
+            <select
+              className="h-9 w-36 rounded-lg border border-input bg-background/90 px-3 py-1.5 text-sm text-foreground focus-visible:outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/20 shadow-xs"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              aria-label="Category"
+            >
+              <option value="">All Categories</option>
+              <option value="COURIER">Courier</option>
+              <option value="MONEY">Money</option>
+              <option value="RETURNS">Returns</option>
+              <option value="SLA">SLA</option>
+            </select>
+          </div>
         </div>
-
-      </div>
+      </Card>
 
       {/* Error Alert */}
       {error && (
-        <div role="alert" className="badge-danger" style={{ padding: "12px 16px", borderRadius: "12px", display: "flex", alignItems: "center", gap: "10px" }}>
+        <div role="alert" className="flex items-center gap-2.5 rounded-xl border border-destructive/20 bg-destructive/10 px-4 py-3 text-sm text-destructive">
           <IconAlert size={16} /> {error}
         </div>
       )}
 
       {/* Main Issues Table */}
-      <div style={{ padding: 0, overflow: "hidden", background: "var(--card)", border: "1px solid var(--hairline)", borderRadius: "12px" }}>
+      <Card className="overflow-hidden p-0 border-border/80">
         {loading ? (
-          <div style={{ padding: "40px", textAlign: "center", color: "var(--muted)" }}>
+          <div className="p-10 text-center text-sm text-muted-foreground">
             Loading exception queue...
           </div>
         ) : items.length === 0 ? (
-          <div style={{ padding: "40px", textAlign: "center", color: "var(--muted)" }}>
+          <div className="p-10 text-center text-sm text-muted-foreground">
             No exception issues found matching selected filters.
           </div>
         ) : (
-          <table className="modern-table">
-            <thead>
-              <tr>
-                <th>Order</th>
-                <th>Issue Code</th>
-                <th>Severity</th>
-                <th>Detected At</th>
-                <th>Status</th>
-                <th style={{ textAlign: "right" }}>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {items.map((i) => (
-                <tr key={i.id}>
-                  <td style={{ fontWeight: 600 }}>
-                    <Link to={`/orders/${i.order_id}`}>
-                      {i.order_name || i.order_id}
-                    </Link>
-                  </td>
-                  <td style={{ fontWeight: 600, color: "var(--ink)" }}>{i.issue_code}</td>
-                  <td>
-                    <SeverityBadge severity={i.severity} />
-                  </td>
-                  <td style={{ color: "var(--muted)", fontSize: "13px" }}>
-                    {i.detected_at ? new Date(i.detected_at).toLocaleString() : "-"}
-                  </td>
-                  <td>
-                    <span className={`badge ${i.resolved ? "badge-success" : "badge-warning"}`}>
-                      {i.resolved ? "RESOLVED" : "OPEN"}
-                    </span>
-                  </td>
-                  <td style={{ textAlign: "right" }}>
-                    {!i.resolved ? (
-                      <button onClick={() => setResolving(i)} className="btn-primary" style={{ padding: "6px 14px", fontSize: "12px" }}>
-                        Resolve Discrepancy
-                      </button>
-                    ) : (
-                      <span style={{ fontSize: "12px", color: "var(--muted)" }}>Resolved</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Order</TableHead>
+                  <TableHead>Issue Code</TableHead>
+                  <TableHead>Severity</TableHead>
+                  <TableHead>Detected At</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="text-right">Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {items.map((i) => (
+                  <TableRow key={i.id}>
+                    <TableCell className="font-semibold">
+                      <Link to={`/orders/${i.order_id}`} className="text-foreground hover:text-primary transition-colors font-semibold">
+                        {i.order_name || i.order_id}
+                      </Link>
+                    </TableCell>
+                    <TableCell>
+                      <span className="font-mono text-xs font-semibold bg-muted/50 px-2 py-0.5 rounded border border-border/70 text-foreground">
+                        {i.issue_code}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <SeverityBadge severity={i.severity} />
+                    </TableCell>
+                    <TableCell className="text-xs text-muted-foreground font-mono">
+                      {i.detected_at ? new Date(i.detected_at).toLocaleString() : "-"}
+                    </TableCell>
+                    <TableCell>
+                      <Badge variant={i.resolved ? "success" : "warning"} className="text-xs font-semibold shadow-xs">
+                        {i.resolved ? "RESOLVED" : "OPEN"}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {!i.resolved ? (
+                        <Button onClick={() => setResolving(i)} size="sm" className="text-xs font-semibold shadow-xs">
+                          Resolve Discrepancy
+                        </Button>
+                      ) : (
+                        <span className="text-xs text-muted-foreground font-medium">Resolved</span>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         )}
-      </div>
+      </Card>
 
       {/* Resolve Dialog Modal */}
       {resolving && (
         <div
           role="dialog"
           aria-label="Resolve issue"
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(15,23,42,0.45)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 1000,
-            padding: "20px"
-          }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4"
         >
-          <div style={{ width: "100%", maxWidth: "540px", padding: "32px", background: "var(--card)", border: "1px solid var(--hairline)", borderRadius: "12px" }}>
-            <h2 className="display" style={{ fontSize: "22px", marginBottom: "8px" }}>Resolve Discrepancy</h2>
-            <p style={{ color: "var(--muted)", fontSize: "14px", marginBottom: "20px" }}>
-              {resolving.order_name || resolving.order_id}: <strong style={{ color: "var(--ink)" }}>{resolving.issue_code}</strong>
+          <Card className="w-full max-w-lg p-6 sm:p-8 shadow-2xl border-border bg-card">
+            <h2 className="text-xl font-bold font-heading tracking-tight text-foreground mb-2">Resolve Discrepancy</h2>
+            <p className="text-sm text-muted-foreground mb-4">
+              {resolving.order_name || resolving.order_id}: <strong className="text-foreground">{resolving.issue_code}</strong>
             </p>
 
-            <div style={{ background: "var(--surface)", padding: "16px", borderRadius: "12px", marginBottom: "20px", fontSize: "14px", border: "1px solid var(--hairline)", color: "var(--body)" }}>
+            <div className="mb-4 rounded-xl border border-border bg-muted/40 p-4 text-sm text-foreground">
               {resolving.issue_message}
             </div>
 
-            <div style={{ marginBottom: "24px" }}>
-              <label style={{ display: "block", fontSize: "13px", fontWeight: 600, color: "var(--muted)", marginBottom: "6px" }}>
+            <div className="mb-6 flex flex-col gap-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                 AUDITED RESOLUTION REASON (MANDATORY)
               </label>
-              <textarea
-                className="input-control"
+              <Textarea
                 rows={3}
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
@@ -235,27 +253,24 @@ export default function ExceptionsPage() {
               />
             </div>
 
-            <div style={{ display: "flex", gap: "12px" }}>
-              <button
+            <div className="flex gap-3">
+              <Button
                 onClick={doResolve}
                 disabled={!reason.trim()}
-                className="btn-primary"
-                style={{ flex: 1, padding: "12px" }}
+                className="flex-1"
               >
-                Confirm Resolution & Audit
-              </button>
-              <button
+                Confirm Resolution &amp; Audit
+              </Button>
+              <Button
+                variant="outline"
                 onClick={() => setResolving(null)}
-                className="btn-secondary"
-                style={{ padding: "12px 20px" }}
               >
                 Cancel
-              </button>
+              </Button>
             </div>
-          </div>
+          </Card>
         </div>
       )}
-
     </div>
   );
 }
