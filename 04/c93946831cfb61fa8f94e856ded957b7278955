@@ -1,0 +1,26 @@
+docs/superpowers/plans/2026-10-06-orders-driven-shipments.md
+  s_3e6ca16e665ff1::t_3974f142370282 525-1148
+  s_3e6ca16e665ff1::t_8e40382d402d3e 1-524
+  s_3e6ca16e665ff1::t_478648786b2b3f 1149-2298
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "04c93946831cfb61fa8f94e856ded957b7278955",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3e6ca16e665ff1": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_efed3a8afffeIvbqeEKOhVZ2On",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
