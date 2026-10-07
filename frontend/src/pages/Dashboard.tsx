@@ -290,7 +290,7 @@ export default function DashboardPage() {
         <>
           {/* Top 4 KPI Metrics Row with Sparklines */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Card className="p-4 shadow-xs border-border/80 flex items-center justify-between">
+            <Card className="relative p-4 shadow-xs border-border/80 flex items-center justify-between overflow-hidden">
               <div>
                 <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground font-heading">Gross Sales</span>
                 <div className="flex items-center gap-2 mt-1">
@@ -303,7 +303,7 @@ export default function DashboardPage() {
               <Sparkline type="gross" />
             </Card>
 
-            <Card className="p-4 shadow-xs border-border/80 flex items-center justify-between">
+            <Card className="relative p-4 shadow-xs border-border/80 flex items-center justify-between overflow-hidden">
               <div>
                 <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground font-heading">RTO &amp; Returns</span>
                 <div className="mt-1">
@@ -313,7 +313,7 @@ export default function DashboardPage() {
               <Sparkline type="rto" />
             </Card>
 
-            <Card className="p-4 shadow-xs border-border/80 flex items-center justify-between">
+            <Card className="relative p-4 shadow-xs border-border/80 flex items-center justify-between overflow-hidden">
               <div>
                 <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground font-heading">Dispatched</span>
                 <div className="mt-1">
@@ -323,7 +323,7 @@ export default function DashboardPage() {
               <Sparkline type="dispatch" />
             </Card>
 
-            <Card className="p-4 shadow-xs border-border/80 flex items-center justify-between">
+            <Card className="relative p-4 shadow-xs border-border/80 flex items-center justify-between overflow-hidden">
               <div>
                 <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground font-heading">Total Orders</span>
                 <div className="mt-1">

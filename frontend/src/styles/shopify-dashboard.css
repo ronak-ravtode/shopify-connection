@@ -162,11 +162,12 @@
 }
 
 .shopify-sparkline-box {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  width: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 80px;
   height: 28px;
+  flex-shrink: 0;
 }
 
 /* Main Dashboard 2-Column Section */
