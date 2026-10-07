@@ -1,0 +1,16 @@
+frontend/src/pages/Dashboard.tsx
+  h_c5a3d01edfee72 293,306,316,326
+frontend/src/styles/shopify-dashboard.css
+  h_c5a3d01edfee72 165-168,170
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4345dec14f47aa827dc7b4b77a1260d952105adb",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
