@@ -1,0 +1,29 @@
+docs/superpowers/specs/2026-10-08-ledger-correctness-wave-a-design.md
+  s_5f85fb3801d9e3::t_8f535f07692c82 167
+  s_5f85fb3801d9e3::t_0f718aee1e7938 143,146-147
+  s_5f85fb3801d9e3::t_4bb426eeb58517 29-30
+  s_5f85fb3801d9e3::t_0a70209a32ee0a 1-28,31-80,86-112,114,124-142,144-145,148-166,168-192
+  s_5f85fb3801d9e3::t_bdfa2ea1403501 81-85
+  s_5f85fb3801d9e3::t_3bc30f1a2fcd8f 113,115-123
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "325c8d33f065070ce74964d091e5d94e929170c2",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_5f85fb3801d9e3": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee872f11cffei0hVWhiZCTQeXw",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
