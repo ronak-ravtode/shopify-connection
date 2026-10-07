@@ -1,0 +1,27 @@
+backend/tests/test_ledger_vouchers.py
+  s_1a5d6d4fa72c51::t_8a4a266f4fcae4 362-384
+backend/app/services/ledger_service.py
+  s_1a5d6d4fa72c51::t_abb8d7c4e4fe3b 225,316-321
+  s_1a5d6d4fa72c51::t_19ff76f9e9a87d 224,226-230,241-247
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6d10bbb5720ddb680fbfaaa8a6040ef6d2963897",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_1a5d6d4fa72c51": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee82b7fddffe05n4Pqw2EHESEp",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
