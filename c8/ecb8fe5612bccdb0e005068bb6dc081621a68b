@@ -1,0 +1,35 @@
+backend/tests/test_ledger_vouchers.py
+  s_1a5d6d4fa72c51::t_4c107ae2856ee9 366-367
+  s_1a5d6d4fa72c51::t_1476a5d7da2095 219-232,236-238,257-336,359,363-365,368-443
+  s_1a5d6d4fa72c51::t_2cdd15831fafae 1-2
+  s_1a5d6d4fa72c51::t_999511d5a13c66 233-235,239-256
+  s_1a5d6d4fa72c51::t_306131168a649d 337-358,360-362
+backend/app/services/ledger_service.py
+  s_1a5d6d4fa72c51::t_079705b13df350 250-252
+  s_1a5d6d4fa72c51::t_089bceb36ff462 166-222,224-225,227-249,253-255,257-260,263-274,276-298,302,304-305,308-314,316-331,336-349
+  s_1a5d6d4fa72c51::t_54a235832b6405 299-301,303
+  s_1a5d6d4fa72c51::t_d3b7b06e066d35 5,12-14,20-43
+  s_1a5d6d4fa72c51::t_3b6550183a70ca 332-335
+  s_1a5d6d4fa72c51::t_c4067e37ab3060 353-360,365-368,376
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c8ecb8fe5612bccdb0e005068bb6dc081621a68b",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_1a5d6d4fa72c51": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee82b7fddffe05n4Pqw2EHESEp",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
