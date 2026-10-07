@@ -1,0 +1,35 @@
+backend/tests/test_ledger_vouchers.py
+  s_de6b8a095591a5::t_ba1781c94f584b 216
+  s_de6b8a095591a5::t_3fb130243ae59b 4-7,10,24-48,56,64-80,101,105-107,112-187,190,194
+backend/app/models/ledger_posting_failure.py
+  s_de6b8a095591a5::t_cc15f540bf8d83 6-8
+  s_de6b8a095591a5::t_ba1781c94f584b 36
+  s_de6b8a095591a5::t_5c05e8d8e64cf2 10,18-26
+backend/alembic/versions/0020_ledger_vouchers.py
+  s_de6b8a095591a5::t_ba1781c94f584b 61
+  s_de6b8a095591a5::t_bc358dd6f0ed3a 55
+  s_de6b8a095591a5::t_aee7e11bbfe9dd 45-46,48-49
+backend/app/models/financial_transaction.py
+  s_de6b8a095591a5::t_d840b7e13637ef 19-24,26-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "aeff052bf0ccfb65ca46622f381695c46b3f4da1",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_de6b8a095591a5": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee8463bfaffexRvCX12Mdh3ICT",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
