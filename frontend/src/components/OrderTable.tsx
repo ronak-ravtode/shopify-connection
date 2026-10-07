@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Badge,
   Button,
@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "./primitives";
 import { isAwaiting, pushStateLabel, statusTone, type OrderShipment } from "../lib/shipments";
+import { IconEdit, IconMoreVertical, IconTrash } from "./icons";
 
 const FINANCIAL_DOTS: Record<string, string> = {
   PAID: "var(--destructive)",
@@ -108,11 +109,15 @@ function ShipmentCell({
 export default function OrderTable({
   orders,
   onAddShipment,
+  onEditOrder,
+  onDeleteOrder,
 }: {
   orders: any[];
   onAddShipment?: (order: any) => void;
+  onEditOrder?: (order: any) => void;
+  onDeleteOrder?: (order: any) => void;
 }) {
-  const navigate = useNavigate();
+  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
 
   if (!orders || orders.length === 0) {
     return (
@@ -133,15 +138,12 @@ export default function OrderTable({
           <TableHead>COD</TableHead>
           <TableHead>City / Pincode</TableHead>
           <TableHead className="text-right">Date</TableHead>
+          <TableHead className="text-right">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {orders.map((o) => (
-          <TableRow
-            key={o.id}
-            onClick={() => navigate(`/orders/${o.id}`)}
-            className="cursor-pointer hover:bg-muted/50 transition-colors"
-          >
+          <TableRow key={o.id} className="hover:bg-muted/40 transition-colors">
             <TableCell>
               <span className="font-mono text-xs font-semibold text-foreground bg-muted/40 px-2 py-1 rounded-md border border-border/70 inline-block">
                 {o.shopify_order_name || o.internal_order_number || o.id}
@@ -168,6 +170,60 @@ export default function OrderTable({
               {(o.order_date ?? o.shopify_created_at ?? o.created_at)
                 ? new Date(o.order_date ?? o.shopify_created_at ?? o.created_at).toLocaleString()
                 : "-"}
+            </TableCell>
+            <TableCell className="text-right relative">
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setOpenMenuId(openMenuId === o.id ? null : o.id);
+                }}
+                className="size-8 p-0 text-muted-foreground hover:text-foreground hover:bg-muted"
+                aria-label="Order actions"
+              >
+                <IconMoreVertical size={16} />
+              </Button>
+
+              {openMenuId === o.id && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpenMenuId(null);
+                    }}
+                  />
+                  <div
+                    className="absolute right-0 top-10 z-50 min-w-[150px] rounded-xl border border-border bg-card p-1.5 shadow-xl animate-in fade-in zoom-in-95 duration-100 text-left"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setOpenMenuId(null);
+                        onEditOrder?.(o);
+                      }}
+                      className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-foreground hover:bg-muted transition-colors"
+                    >
+                      <IconEdit size={14} className="text-primary" />
+                      Edit Order
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setOpenMenuId(null);
+                        onDeleteOrder?.(o);
+                      }}
+                      className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-destructive hover:bg-destructive/10 transition-colors mt-0.5"
+                    >
+                      <IconTrash size={14} />
+                      Delete Order
+                    </button>
+                  </div>
+                </>
+              )}
             </TableCell>
           </TableRow>
         ))}

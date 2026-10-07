@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import Loading from "./components/Loading";
 import NotFound from "./pages/NotFound";
 import TopNav from "./components/TopNav";
@@ -7,7 +7,6 @@ import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Orders from "./pages/Orders";
-import OrderDetail from "./pages/OrderDetail";
 import Exceptions from "./pages/Exceptions";
 import Parcels from "./pages/Parcels";
 import ParcelDetail from "./pages/ParcelDetail";
@@ -51,7 +50,7 @@ export function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/orders/:id" element={<OrderDetail />} />
+        <Route path="/orders/:id" element={<Navigate to="/orders" replace />} />
         <Route path="/parcels" element={<Parcels />} />
         <Route path="/parcels/labels" element={<ParcelLabels />} />
         <Route path="/parcels/test-sheet" element={<ParcelTestSheet />} />

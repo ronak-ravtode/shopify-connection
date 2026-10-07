@@ -3,6 +3,7 @@ import { API, api } from "../lib/api";
 import { buildOrderQuery, downloadXlsx } from "../lib/india-post";
 import AddShipmentDialog from "../components/AddShipmentDialog";
 import NewOrderDialog from "../components/NewOrderDialog";
+import EditOrderDialog from "../components/EditOrderDialog";
 import OrderTable from "../components/OrderTable";
 import ImportResult, { ImportSummary } from "../components/ImportResult";
 import { Button, Card, Checkbox, Input, Label, Badge } from "../components/primitives";
@@ -27,6 +28,7 @@ export default function OrdersPage() {
   const [updatedAt, setUpdatedAt] = useState<string | null>(null);
   const [showNew, setShowNew] = useState(false);
   const [addShipmentOrder, setAddShipmentOrder] = useState<any | null>(null);
+  const [editOrder, setEditOrder] = useState<any | null>(null);
   const [codMode, setCodMode] = useState("");
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
@@ -112,6 +114,20 @@ export default function OrdersPage() {
     } finally {
       setUploading(false);
       if (fileRef.current) fileRef.current.value = "";
+    }
+  };
+
+  const handleDeleteOrder = async (order: any) => {
+    const name = order.shopify_order_name || order.internal_order_number || order.id;
+    if (!window.confirm(`Are you sure you want to delete order ${name}? This action cannot be undone.`)) {
+      return;
+    }
+    try {
+      const token = localStorage.getItem("token") ?? undefined;
+      await api(`/api/v1/orders/${order.id}`, { method: "DELETE" }, token);
+      await fetchOrders(true);
+    } catch (err: any) {
+      alert(err?.message ?? "Failed to delete order");
     }
   };
 
@@ -302,7 +318,12 @@ export default function OrdersPage() {
             </div>
           </div>
         ) : (
-          <OrderTable orders={orders} onAddShipment={(o) => setAddShipmentOrder(o)} />
+          <OrderTable
+            orders={orders}
+            onAddShipment={(o) => setAddShipmentOrder(o)}
+            onEditOrder={(o) => setEditOrder(o)}
+            onDeleteOrder={handleDeleteOrder}
+          />
         )}
       </Card>
 
@@ -312,6 +333,18 @@ export default function OrdersPage() {
           onClose={() => setShowNew(false)}
           onSaved={() => {
             setShowNew(false);
+            fetchOrders(true);
+          }}
+        />
+      )}
+
+      {editOrder && (
+        <EditOrderDialog
+          open={!!editOrder}
+          order={editOrder}
+          onClose={() => setEditOrder(null)}
+          onSaved={() => {
+            setEditOrder(null);
             fetchOrders(true);
           }}
         />

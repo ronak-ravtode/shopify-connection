@@ -373,6 +373,49 @@ def get_order(
     return {"success": True, "data": _to_dict(o, shipment)}
 
 
+@router.put("/{order_id}")
+def update_order(
+    order_id: str,
+    payload: dict,
+    db: Session = Depends(get_db),
+    _user: dict = Depends(get_current_user),
+):
+    from app.models.order import Order
+
+    o = db.query(Order).filter_by(id=order_id).first()
+    if o is None:
+        raise HTTPException(404, "Order not found")
+
+    updatable_fields = (
+        "shopify_order_name",
+        "total_amount",
+        "financial_status",
+        "cod_mode",
+        "cod_value",
+        "receiver_name",
+        "receiver_mobile",
+        "receiver_add1",
+        "receiver_city",
+        "receiver_state",
+        "receiver_pincode",
+        "weight_grams",
+    )
+    for field in updatable_fields:
+        if field in payload:
+            val = payload[field]
+            if field in ("total_amount", "cod_value", "weight_grams") and val is not None:
+                try:
+                    val = float(val)
+                except Exception:
+                    pass
+            setattr(o, field, val)
+
+    db.commit()
+    db.refresh(o)
+    shipment = _shipment_map(db, _user.get("business_id"), [o.id]).get(o.id)
+    return {"success": True, "data": _to_dict(o, shipment)}
+
+
 @router.delete("/{order_id}")
 def delete_order(
     order_id: str,
@@ -407,3 +450,4 @@ def delete_order(
     db.commit()
 
     return {"success": True, "message": "Order deleted successfully"}
+
