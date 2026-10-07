@@ -1,0 +1,34 @@
+backend/app/api/orders.py
+  s_29790315c01921::t_1ea1d0207fae9d 376-418,453
+frontend/src/components/icons.tsx
+  s_f00990e89e9928::t_2d522d10639c97 226-253
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "78d16ba0cd7ab7b06a2332eb82317242014e9a13",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_29790315c01921": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef015041affeuPvosUbdKORi5M",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_f00990e89e9928": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0a9048a5ffeCk2RZL3rbe9SuU",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
