@@ -432,19 +432,82 @@ def delete_order(
 
     oid = o.id
 
-    # Clean up all child entities referencing this order to avoid foreign key violations
+    # 1. Collect IDs for related entities
+    s_ids = [s.id for s in db.query(Shipment).filter_by(order_id=oid).all()]
+    p_ids = [p.id for p in db.query(Parcel).filter_by(order_id=oid).all()]
+    oi_ids = [item.id for item in db.query(OrderItem).filter_by(order_id=oid).all()]
+
+    r_ids = []
+    try:
+        from app.models.return_record import ReturnRecord
+        r_rows = db.query(ReturnRecord).filter(
+            (ReturnRecord.order_id == oid) | (ReturnRecord.parcel_id.in_(p_ids) if p_ids else False)
+        ).all()
+        r_ids = [r.id for r in r_rows]
+    except Exception:
+        pass
+
+    # 2. Delete lowest-level child records first (parcel_items & return_items reference order_items)
+    try:
+        from app.models.parcel_item import ParcelItem
+        if p_ids or oi_ids:
+            db.query(ParcelItem).filter(
+                (ParcelItem.parcel_id.in_(p_ids) if p_ids else False) |
+                (ParcelItem.order_item_id.in_(oi_ids) if oi_ids else False)
+            ).delete(synchronize_session=False)
+    except Exception:
+        pass
+
+    try:
+        from app.models.return_record import ReturnItem
+        if r_ids or oi_ids:
+            db.query(ReturnItem).filter(
+                (ReturnItem.return_id.in_(r_ids) if r_ids else False) |
+                (ReturnItem.order_item_id.in_(oi_ids) if oi_ids else False)
+            ).delete(synchronize_session=False)
+    except Exception:
+        pass
+
+    if s_ids:
+        try:
+            from app.models.shipment_event import ShipsagarRetryJob
+            db.query(ShipsagarRetryJob).filter(ShipsagarRetryJob.shipment_id.in_(s_ids)).delete(synchronize_session=False)
+        except Exception:
+            pass
+        db.query(ShipmentEvent).filter(ShipmentEvent.shipment_id.in_(s_ids)).delete(synchronize_session=False)
+
+    try:
+        from app.models.courier_meta import CourierMeta
+        if p_ids:
+            db.query(CourierMeta).filter(CourierMeta.parcel_id.in_(p_ids)).delete(synchronize_session=False)
+    except Exception:
+        pass
+
+    try:
+        from app.models.scan_event import ScanEvent
+        db.query(ScanEvent).filter(
+            (ScanEvent.order_id == oid) | (ScanEvent.parcel_id.in_(p_ids) if p_ids else False)
+        ).delete(synchronize_session=False)
+    except Exception:
+        pass
+
+    # 3. Delete secondary entities
+    if r_ids:
+        try:
+            from app.models.return_record import ReturnRecord
+            db.query(ReturnRecord).filter(ReturnRecord.id.in_(r_ids)).delete(synchronize_session=False)
+        except Exception:
+            pass
+
+    if s_ids:
+        db.query(Shipment).filter(Shipment.id.in_(s_ids)).delete(synchronize_session=False)
+
+    if p_ids:
+        db.query(Parcel).filter(Parcel.id.in_(p_ids)).delete(synchronize_session=False)
+
     db.query(OrderItem).filter_by(order_id=oid).delete(synchronize_session=False)
 
-    s_ids = [s.id for s in db.query(Shipment).filter_by(order_id=oid).all()]
-    if s_ids:
-        db.query(ShipmentEvent).filter(ShipmentEvent.shipment_id.in_(s_ids)).delete(synchronize_session=False)
-        db.query(Shipment).filter_by(order_id=oid).delete(synchronize_session=False)
-
-    db.query(Parcel).filter_by(order_id=oid).delete(synchronize_session=False)
-
     for model_import, model_name in [
-        ("app.models.scan_event", "ScanEvent"),
-        ("app.models.return_record", "ReturnRecord"),
         ("app.models.payment", "Payment"),
         ("app.models.refund", "Refund"),
         ("app.models.reconciliation", "ReconciliationIssue"),
