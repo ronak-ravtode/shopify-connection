@@ -1,0 +1,27 @@
+backend/tests/test_refund_gst.py
+  s_c0e225456971fa::t_072d67138ef2cb 128-146
+  s_c0e225456971fa::t_0e46d15972e3ac 152
+backend/app/services/ledger_service.py
+  s_c0e225456971fa::t_3365b273b3d21c 482-484,489-492
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a8e740cfa77271e1e51adef45c94d1b28d58f293",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_c0e225456971fa": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee80320d0ffecB94kn0Wx6P7cQ",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
