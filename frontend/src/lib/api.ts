@@ -41,7 +41,7 @@ export async function api<T>(p: string, init?: RequestInit, token?: string): Pro
     return (data.data !== undefined ? data.data : data) as T;
   } catch (err: any) {
     if (err.message === "Failed to fetch") {
-      throw new Error("Cannot connect to backend server. Make sure FastAPI backend is running at " + API);
+      throw new Error(`Cannot connect to backend server at ${API}. Ensure backend is running and CORS is enabled.`);
     }
     throw err;
   }

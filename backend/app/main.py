@@ -116,16 +116,29 @@ async def lifespan(app: FastAPI):
     yield
 
 
+from fastapi import Request
+from fastapi.responses import JSONResponse
+
 app = FastAPI(title="Recon MVP", lifespan=lifespan)
 
-# Configure CORS Middleware so cross-origin requests from frontend (localhost:3000) succeed without CORS errors
-# Prod-safe: wildcard origins only in dev; otherwise explicit frontend origin.
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    import traceback
+    traceback.print_exc()
+    return JSONResponse(
+        status_code=500,
+        content={"success": False, "detail": str(exc)},
+        headers={"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "*"}
+    )
+
+# Configure CORS Middleware so cross-origin requests from any frontend origin (localhost:5173, localhost:3000, ngrok) succeed
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"] if settings.app_env == "dev" else [settings.frontend_origin],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 app.include_router(auth_router)
