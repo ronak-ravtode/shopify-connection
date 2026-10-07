@@ -1,0 +1,35 @@
+docs/superpowers/specs/2026-10-08-ledger-correctness-wave-a-design.md
+  s_5f85fb3801d9e3::t_9793bdd7a7ba58 25-26
+  s_5f85fb3801d9e3::t_cc88714b43efb4 100-101,104
+  s_5f85fb3801d9e3::t_815cf707d6895c 105
+docs/superpowers/plans/2026-10-08-ledger-correctness-wave-a.md
+  s_5f85fb3801d9e3::t_28591df05807d5 664
+  s_5f85fb3801d9e3::t_5aa48a6d30ad69 890-891,898-902
+  s_5f85fb3801d9e3::t_d2fa1830195971 1289
+  s_5f85fb3801d9e3::t_7e230fd701714a 1736
+  s_5f85fb3801d9e3::t_28e97c21aca8b8 1751-1753
+  s_5f85fb3801d9e3::t_817c50d0b24d3c 1664,1666-1671,1673-1674,1677-1684,1686-1688,1691,1694-1706,1709-1720
+  s_5f85fb3801d9e3::t_05b6f5f4551c59 933-935
+  s_5f85fb3801d9e3::t_a8103a8ca03b8f 939-944
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "18ef78c6017e2861529fce9d1a766ff621edc8b7",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_5f85fb3801d9e3": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee872f11cffei0hVWhiZCTQeXw",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
