@@ -430,19 +430,40 @@ def delete_order(
     if o is None:
         raise HTTPException(404, "Order not found")
 
-    # Clean up associated items, shipments, events, and parcels
-    db.query(OrderItem).filter_by(order_id=o.id).delete(synchronize_session=False)
+    oid = o.id
 
-    s_ids = [s.id for s in db.query(Shipment).filter_by(order_id=o.id).all()]
+    # Clean up all child entities referencing this order to avoid foreign key violations
+    db.query(OrderItem).filter_by(order_id=oid).delete(synchronize_session=False)
+
+    s_ids = [s.id for s in db.query(Shipment).filter_by(order_id=oid).all()]
     if s_ids:
         db.query(ShipmentEvent).filter(ShipmentEvent.shipment_id.in_(s_ids)).delete(synchronize_session=False)
-        db.query(Shipment).filter_by(order_id=o.id).delete(synchronize_session=False)
+        db.query(Shipment).filter_by(order_id=oid).delete(synchronize_session=False)
 
-    db.query(Parcel).filter_by(order_id=o.id).delete(synchronize_session=False)
+    db.query(Parcel).filter_by(order_id=oid).delete(synchronize_session=False)
+
+    for model_import, model_name in [
+        ("app.models.scan_event", "ScanEvent"),
+        ("app.models.return_record", "ReturnRecord"),
+        ("app.models.payment", "Payment"),
+        ("app.models.refund", "Refund"),
+        ("app.models.reconciliation", "ReconciliationIssue"),
+        ("app.models.sla", "SlaTracker"),
+        ("app.models.financial_transaction", "FinancialTransaction"),
+        ("app.models.exception", "ExceptionRecord"),
+    ]:
+        try:
+            mod = __import__(model_import, fromlist=[model_name])
+            cls = getattr(mod, model_name)
+            db.query(cls).filter_by(order_id=oid).delete(synchronize_session=False)
+        except Exception:
+            pass
 
     try:
-        from app.models.exception import ExceptionRecord
-        db.query(ExceptionRecord).filter_by(order_id=o.id).delete(synchronize_session=False)
+        from app.models.statement import StatementRecord
+        db.query(StatementRecord).filter_by(matched_order_id=oid).update(
+            {"matched_order_id": None, "reconciled": False}, synchronize_session=False
+        )
     except Exception:
         pass
 
