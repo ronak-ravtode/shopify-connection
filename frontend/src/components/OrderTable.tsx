@@ -33,23 +33,6 @@ function StatusBadge({ status, dotMap }: { status: string; dotMap: Record<string
   );
 }
 
-const PILL_CLASSES: Record<string, string> = {
-  success: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20",
-  info: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20",
-  warning: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20",
-  danger: "bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20",
-  neutral: "bg-muted text-muted-foreground border border-border",
-};
-
-function ShipmentPill({ status }: { status: string }) {
-  const cls = PILL_CLASSES[statusTone(status)] ?? PILL_CLASSES.neutral;
-  return (
-    <span className={`inline-block px-2 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wide ${cls}`}>
-      {status}
-    </span>
-  );
-}
-
 function ShipmentCell({
   shipment,
   onAdd,
@@ -97,10 +80,6 @@ function ShipmentCell({
         </Link>
       ) : (
         <span className="font-mono text-xs text-foreground font-medium">{shipment.awb_number}</span>
-      )}
-      <ShipmentPill status={shipment.tracking_status ?? ""} />
-      {shipment.current_location && (
-        <span className="text-[11px] text-muted-foreground">{shipment.current_location}</span>
       )}
     </div>
   );

@@ -70,8 +70,6 @@ test("a pushed order links its tracking number to the history page", () => {
     push_state: "pushed", current_location: "Delhi" } })]);
   const link = screen.getByText("EG080960145IN").closest("a");
   expect(link?.getAttribute("href")).toBe("/shipments/s9");
-  expect(screen.getByText("IN_TRANSIT")).toBeTruthy();
-  expect(screen.getByText("Delhi")).toBeTruthy();
 });
 
 test("a refused push is labelled, not hidden", () => {
