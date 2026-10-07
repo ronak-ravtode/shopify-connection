@@ -1,0 +1,37 @@
+docs/superpowers/plans/2026-10-08-ledger-correctness-wave-a.md
+  s_5f85fb3801d9e3::t_2c73bedf20e7e9 1915-1920
+  s_5f85fb3801d9e3::t_a7d6283174e292 2199-2200
+  s_5f85fb3801d9e3::t_11395c5af4b7c6 2141-2142,2145-2148,2153-2158,2161-2163
+  s_5f85fb3801d9e3::t_6b6748a9ce76e9 1-772,774-776,778-1413,1459-1512,1514-1523,1525-1655,1682-1691,1693,1696,1706-1708,1711-1914,1921-1925,1928-1929,1931-1938,1943-2009,2011-2074,2076-2087,2089-2102,2104-2140,2143-2144,2149-2152,2159-2160,2164-2167,2173-2187,2190,2192-2198,2201-2208,2210-2446
+  s_5f85fb3801d9e3::t_2f12f0084391b5 773,777
+  s_5f85fb3801d9e3::t_a6dabdf30b7741 1414-1458
+  s_5f85fb3801d9e3::t_5f41e6ab2f9195 1513,1524
+  s_5f85fb3801d9e3::t_daa4ebc88227a1 1692,1694-1695,1697-1705,1709-1710
+  s_5f85fb3801d9e3::t_7474917ecc21ee 1926-1927,1930,1939-1942
+  s_5f85fb3801d9e3::t_ba2d064cc1cd13 2075,2088,2103,2209
+  s_5f85fb3801d9e3::t_426c929405d3a8 2188-2189,2191
+  s_5f85fb3801d9e3::t_ec84b3a670698a 2010
+  s_5f85fb3801d9e3::t_ae94b958df73bb 1656-1681
+  s_5f85fb3801d9e3::t_50bd40485bb897 2168-2172
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e05f9d88818ef2ca10f8b41920aa9c0f02921092",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_5f85fb3801d9e3": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee872f11cffei0hVWhiZCTQeXw",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
