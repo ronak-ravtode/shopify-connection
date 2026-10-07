@@ -1,0 +1,24 @@
+backend/app/api/orders.py
+  s_29790315c01921::t_b93cbb2b2d94de 433,435-438,441-460,463-466
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "785d3ef6e63cea8fb9bc7ecf53933ae664782506",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_29790315c01921": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef015041affeuPvosUbdKORi5M",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
