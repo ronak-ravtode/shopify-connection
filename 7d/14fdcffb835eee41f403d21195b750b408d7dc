@@ -1,0 +1,32 @@
+backend/app/api/statements.py
+  s_b22b64d26e265d::t_6a0143d3d18960 295-299
+  s_b22b64d26e265d::t_423c32041bc8e1 300
+backend/app/services/finance_posting.py
+  s_b22b64d26e265d::t_4aecbb39561ad8 13-14,26-33,40-53,60-72,82-87,104-114,116,118-125,129-133,144-148
+  s_b22b64d26e265d::t_6d3a6cc9e0bf23 164
+backend/tests/test_cod_posting.py
+  s_b22b64d26e265d::t_6d3a6cc9e0bf23 91-110,124-125,127-130,134,137,204-205,207,211,213,217-218,220,228-291,300
+backend/tests/test_statement_cod_settlement.py
+  s_b22b64d26e265d::t_6d3a6cc9e0bf23 1-129
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7d14fdcffb835eee41f403d21195b750b408d7dc",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b22b64d26e265d": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee652aeeeffeBKo1bbzVyBaqLa",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
