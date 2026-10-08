@@ -1,0 +1,64 @@
+backend/app/services/accounting_service.py
+  s_0baa0dcc84c921::t_43fa811b6c901d 237
+  s_0baa0dcc84c921::t_ad9ab345dcaf92 91-102,120-130
+backend/app/config.py
+  s_0baa0dcc84c921::t_11579523f92e26 33-38
+backend/tests/test_period_costs.py
+  s_0baa0dcc84c921::t_3c1fd9c5438006 509,549,551-553,555,565,569,582,586
+  s_0baa0dcc84c921::t_9c963dddc5bc06 561-563,571-576
+  s_0baa0dcc84c921::t_10a52dcc1d53c1 442,446
+  s_0baa0dcc84c921::t_e7370a43174156 567,584
+  s_0baa0dcc84c921::t_7949eaae0d2077 359-361
+  s_0baa0dcc84c921::t_341a4f1f956d51 1-160,176-269,272-278,283-312,314-317,320-326,328,330,334-336,339-342,344-349,355-358,362-379,397-399,401-408,417-418,421-429,431-441,445,447-508,510-548,550,554,556-560,564,566,568,570,577-581,583,585,587-595
+  s_0baa0dcc84c921::t_32b14c8221e38b 400,409,430
+  s_0baa0dcc84c921::t_24312689f14fbb 337-338
+  s_0baa0dcc84c921::t_c2915a8171fb11 270-271,279-282
+  s_0baa0dcc84c921::t_045aa121ac3178 313,318-319,329,331-333,351-354
+  s_0baa0dcc84c921::t_a375fd9ced431b 327,343,350
+  s_0baa0dcc84c921::t_e616573fc2d648 161-175
+  s_0baa0dcc84c921::t_2d19ebc214365d 410-416
+  s_0baa0dcc84c921::t_bb87e6f14d24db 419-420
+  s_0baa0dcc84c921::t_748abd837b5cdf 443-444
+  s_0baa0dcc84c921::t_4412cd73d489e8 380-396
+backend/app/api/ledger.py
+  s_0baa0dcc84c921::t_3153a7869b2aa7 144-146
+  s_0baa0dcc84c921::t_4a566349bd7f7e 120-143,147-149
+.env.example
+  s_0baa0dcc84c921::t_e5470c589b1248 50-54
+backend/app/services/finance_posting.py
+  s_0baa0dcc84c921::t_e3898d1656535a 219,224,230
+  s_0baa0dcc84c921::t_6428da3ecb33eb 9,14,56-57,71-74,82-83,104-105,113-115,126-134,143-144,185-212,223,225,227-229,231-320,323-327,329,333-334,337-340,342-367,372-375,377,382-409,411,448,452,457,459-467,472-501,503-513,515,517,519-520,527-561
+  s_0baa0dcc84c921::t_133a2d045876e4 421-431,433-441
+  s_0baa0dcc84c921::t_cce8225ddd0c72 468-471,502,525
+  s_0baa0dcc84c921::t_ca6aed56e9afc5 321-322,328,330-332,335-336,368,378
+  s_0baa0dcc84c921::t_92aee2bf4a90f9 218
+  s_0baa0dcc84c921::t_fb10c57ca3fc97 213-217
+  s_0baa0dcc84c921::t_34bf6cacda0227 369-371,376,379-381,410,412-420,432,442-447,449-451,453-456,458
+  s_0baa0dcc84c921::t_de1dfb393558e4 514,516
+  s_0baa0dcc84c921::t_23b850fa4ae3f8 518,521-524,526
+  s_0baa0dcc84c921::t_54d5ba044afc3d 220-222,226
+  s_0baa0dcc84c921::t_79cc13236de301 341
+backend/app/services/tally_service.py
+  s_0baa0dcc84c921::t_9384ffe35c56b8 624-629
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5678b656bd7ac08c6fd00314e67b88a7fbf9b6ac",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_0baa0dcc84c921": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee630d23cffeWkBjq16V1I30ul",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
