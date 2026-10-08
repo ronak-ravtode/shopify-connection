@@ -1,0 +1,39 @@
+backend/app/services/finance_posting.py
+  s_0baa0dcc84c921::t_f19b1b004d6312 327-332
+  s_0baa0dcc84c921::t_57a3337655becb 425-426,428,431,452-453,455-461
+  s_0baa0dcc84c921::t_09ee5d49b7bab0 499
+  s_0baa0dcc84c921::t_e87be6fbf43b00 319-326
+  s_0baa0dcc84c921::t_4b771b81e7406a 393-424,427,429-430,432-451,454,462-464
+  s_0baa0dcc84c921::t_38c23c74068694 528-543,551-556,563,575-591,599,601-617,619,623,628-629,632-633,636,644-647,649,652-653,655,660,663-670,672-673,675-677,679-688
+  s_0baa0dcc84c921::t_2690db55b9a09b 9
+  s_0baa0dcc84c921::t_7b9b6a9e2c53e1 213-228
+backend/tests/test_period_costs.py
+  s_0baa0dcc84c921::t_772955a07ff407 830-831,841
+  s_0baa0dcc84c921::t_eb9cd006e89cfa 540-541
+  s_0baa0dcc84c921::t_44f605a8d9de8c 788-829,832-840,842-877,883-887,890-891,894-900,902-903,905,912-925,928-959,962,980-1023
+  s_0baa0dcc84c921::t_8328262c2682d6 878-882,888-889,892-893,901,904,906-911
+  s_0baa0dcc84c921::t_296f852dcf2cbb 926-927
+  s_0baa0dcc84c921::t_d521a894ab6cd6 960-961,963-979
+  s_0baa0dcc84c921::t_dd0aa9a61eb1ee 517-521,524,526-527,529,533-539
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "722c8fc0aa7cc50dff6a9f570dcd7d731f7ccb81",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_0baa0dcc84c921": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee630d23cffeWkBjq16V1I30ul",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
