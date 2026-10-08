@@ -1,0 +1,38 @@
+backend/app/services/report_service.py
+  s_c0e225456971fa::t_21bc9f767eb8d7 274-280,285
+backend/app/services/ledger_service.py
+  s_c0e225456971fa::t_11865c166341f7 474-476,480-481,487,489,495-497,501,504
+  s_c0e225456971fa::t_d2f62cc7f03680 473,525
+  s_c0e225456971fa::t_82cbcdc5b7bdc3 477-478,482-483
+  s_c0e225456971fa::t_4b7d0a82904978 432,434-441
+  s_c0e225456971fa::t_4753245576229f 523-524,526,534-537,547-548,551-552
+  s_c0e225456971fa::t_29f611f9cbb24a 433,442
+backend/tests/test_refund_gst.py
+  s_c0e225456971fa::t_6b88541a144bd5 3
+  s_c0e225456971fa::t_b98d4ab1442388 114-118
+  s_c0e225456971fa::t_d3c5c60fe74e98 167-193,195-206,209-210,213-219,221-258
+  s_c0e225456971fa::t_7689b46683dfa2 207-208,220
+  s_c0e225456971fa::t_c9adc58894d98c 211-212
+  s_c0e225456971fa::t_7fb7b67bb31d82 194
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "db0c5f72d3720b9d8e632f55a77f766add90514c",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_c0e225456971fa": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee80320d0ffecB94kn0Wx6P7cQ",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
