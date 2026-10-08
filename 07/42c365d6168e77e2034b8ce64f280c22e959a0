@@ -1,0 +1,60 @@
+backend/app/services/webhook_service.py
+  s_3bdcaec1739f41::t_7a006979f037f4 77-82
+  s_3bdcaec1739f41::t_50cf047f7908d5 113-117
+backend/app/services/ledger_service.py
+  s_3bdcaec1739f41::t_ea85f194aa8e4b 496-497,506
+  s_3bdcaec1739f41::t_39f554826c89cb 17
+  s_3bdcaec1739f41::t_7aee9b2b440695 477-478
+  s_3bdcaec1739f41::t_ea9d11ba61ef28 476,479-495,507-521,524-534,536-544
+  s_3bdcaec1739f41::t_7cb939477317e8 617-626
+  s_3bdcaec1739f41::t_60e35309093c00 6-7,21
+  s_3bdcaec1739f41::t_27094d4ebc8a4b 522-523
+  s_a3ed333f47be2c::t_06e3b19d0a65a4 498-505,535
+backend/app/services/accounting_service.py
+  s_3bdcaec1739f41::t_6ae413460a7b3f 115
+  s_3bdcaec1739f41::t_cfab8b4fbe0fb6 233
+  s_3bdcaec1739f41::t_1a2bbf27d121e6 227-232,234-237
+backend/tests/test_posting_failures.py
+  s_3bdcaec1739f41::t_9b983dc8b92ff4 55-60,62-64,67-68
+  s_3bdcaec1739f41::t_35d81658fc7e70 48-51
+  s_3bdcaec1739f41::t_ebf693c1ee8eb4 3-5
+  s_3bdcaec1739f41::t_eb06cf75ed4212 61,66
+  s_3bdcaec1739f41::t_a6fce2788f3b59 65
+  s_3bdcaec1739f41::t_f0d23a04c3c54b 41-42,52
+  s_3bdcaec1739f41::t_cb624847830266 130
+  s_3bdcaec1739f41::t_234ff9862635b7 163-172,176-179,181-182
+  s_3bdcaec1739f41::t_6c8f2e8a4c37ff 174
+  s_3bdcaec1739f41::t_4cf1f80eb904e7 1-2,6-40,43-47,53-54,69-111
+  s_3bdcaec1739f41::t_68fb4c796a5cb8 112-129,131-162,173,175,180,183
+backend/tests/test_ledger_vouchers.py
+  s_3bdcaec1739f41::t_8a2c361ffc90ef 781-787
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0742c365d6168e77e2034b8ce64f280c22e959a0",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_3bdcaec1739f41": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee55aa178ffefGQNCA6MiIXcLY",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_a3ed333f47be2c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0ce3f95fffegqN60DuM6gqc8n",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
