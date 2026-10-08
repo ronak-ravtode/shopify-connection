@@ -1,0 +1,38 @@
+backend/tests/test_ledger_vouchers.py
+  s_f7605e4414dfd9::t_8ebaa31ce1a6d4 517-603,605-625,627,629-739
+  s_f7605e4414dfd9::t_fd0430b6e7b4f7 604
+  s_f7605e4414dfd9::t_39bdf077fa395b 626,628
+backend/app/services/tally_service.py
+  s_f7605e4414dfd9::t_4aca07cabe7513 212
+backend/app/services/ledger_service.py
+  s_f7605e4414dfd9::t_a3dfd34f5a3bee 147
+  s_f7605e4414dfd9::t_94b618070bb8f7 163,166
+  s_f7605e4414dfd9::t_aefbebde392243 308-311
+  s_f7605e4414dfd9::t_5481624d310b7e 731
+  s_f7605e4414dfd9::t_3c4f54bf1efbea 124
+  s_f7605e4414dfd9::t_7c681323d01814 701-702
+  s_f7605e4414dfd9::t_ab73c752d6fcd0 698,703-730,732,734,736-753,769-770
+  s_f7605e4414dfd9::t_d9860997515723 733,735
+  s_f7605e4414dfd9::t_0636960df353d1 90-98,123,125-145,148-154,156,159,162,167-171,173-174,179-181,191-199,201,209
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ea8d1340f9d63ee4ffde3754c03553688a434194",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_f7605e4414dfd9": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee592d7dfffe6Uho3if8Cb2qcI",
+        "model": "unknown"
+      },
+      "human_author": null
+    }
+  }
+}
