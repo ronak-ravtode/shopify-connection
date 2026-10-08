@@ -1,0 +1,35 @@
+backend/tests/test_refund_gst.py
+  s_c0e225456971fa::t_ee6665cc96b571 241
+  s_c0e225456971fa::t_6e72d6c58ba2bc 206
+  s_c0e225456971fa::t_71ea3edd7bae60 207,219-227,230-231
+  s_c0e225456971fa::t_0e3249b9063f26 276-300,306-312,338-342,345-346
+  s_c0e225456971fa::t_175d2a36a85281 316-319
+  s_c0e225456971fa::t_585f4d72214ea5 218
+  s_c0e225456971fa::t_ba4d15e4deef68 301-305,313-315,320-337,343-344
+backend/app/services/ledger_service.py
+  s_c0e225456971fa::t_837955c3d3c3f5 620-627,637-639
+  s_c0e225456971fa::t_7332455084c11d 88-99
+backend/app/services/tally_service.py
+  s_c0e225456971fa::t_b4e249e9192bc9 584,587-600
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "19bb8123e36cce6ddf6a4d2b9c510b58e38fa1f4",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_c0e225456971fa": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ee80320d0ffecB94kn0Wx6P7cQ",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
