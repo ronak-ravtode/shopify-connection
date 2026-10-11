@@ -1,0 +1,80 @@
+backend/app/api/dashboard.py
+  s_a3ed333f47be2c::t_d735b0e13db31b 2,11-19,21-32,34-44
+backend/app/api/orders.py
+  s_29790315c01921::t_eaf5f2248c3766 162-216,229-250,272,274,277,280-283,285-286,288,292,319,335,339,343,350-352,365-370,393-407,412,423-450,486-526,529,540-541,570-573,578,588-589,598,601,603-612,625-629,631-638,640-646,649-650,652,654-655,657-667,670-671,675,679,681,683-686
+backend/app/api/shipments.py
+  s_a3ed333f47be2c::t_32c3cb14d6e68f 336-342
+backend/app/config.py
+  s_a3ed333f47be2c::t_ae9dd7ad0c2220 26,59-70,85-90
+backend/app/main.py
+  s_a3ed333f47be2c::t_5f8e667a07b861 29-32,36-37,43,96-99
+backend/app/models/__init__.py
+  s_a3ed333f47be2c::t_c97f8d51f7b516 35-36
+backend/app/models/business.py
+  s_a3ed333f47be2c::t_558ded89475b09 19-20,22
+backend/app/models/order.py
+  s_a3ed333f47be2c::t_2bbc30a324c5e6 90
+backend/app/services/dashboard_service.py
+  s_a3ed333f47be2c::t_d505ef45bacd30 2,4,11-33,35,38-44,46-53,55-65,67-78,81-91,95-96,98-99,106-107
+backend/app/services/ledger_service.py
+  s_a3ed333f47be2c::t_4bf369f3db74e9 247-259
+backend/app/services/shipsagar_service.py
+  s_a3ed333f47be2c::t_c81bc938a2897c 530-544
+backend/app/services/shopify_service.py
+  s_a3ed333f47be2c::t_6516aa40ad73fe 9,13,21-51,95-127,137,146-156,223-313,328,333-335,339,343,347-351,360-361,371,391,441-451
+backend/app/services/statement_service.py
+  s_a3ed333f47be2c::t_cc6b31a9b568d5 19-21
+backend/app/services/webhook_service.py
+  s_a3ed333f47be2c::t_c985a774577bd6 124-158
+backend/tests/test_shipsagar.py
+  s_a3ed333f47be2c::t_7737e5b757dd90 4644-4645,4667
+frontend/src/components/AddShipmentDialog.tsx
+  s_9dd9761bdefbdb::t_aa1a18b385d49e 4,6,11,17-18,24,26-29,46-47,52,55,60-61,65,67,72,74-91,93-103,150-159,192-235,298-308
+frontend/src/lib/app-nav.ts
+  s_f00990e89e9928::t_565818e929f263 6,11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5dd5cb7cde943a7ed11cf1e568316cff8be45325",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_29790315c01921": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef015041affeuPvosUbdKORi5M",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_9dd9761bdefbdb": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef2b86c89ffefeu6xiMGDadbR8",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_a3ed333f47be2c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0ce3f95fffegqN60DuM6gqc8n",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_f00990e89e9928": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0a9048a5ffeCk2RZL3rbe9SuU",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
