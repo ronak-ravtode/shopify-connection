@@ -1,0 +1,116 @@
+backend/app/api/auth.py
+  h_c5a3d01edfee72 41-48
+backend/tests/test_auth.py
+  h_c5a3d01edfee72 1-60,64-140
+frontend/package-lock.json
+  h_c5a3d01edfee72 103,611,635,3631,3764,3782,3794,3956,4263,4952-4953,5697,6056,7032,7080,7381,7420,8731,9067
+frontend/src/App.tsx
+  h_c5a3d01edfee72 46,58
+frontend/src/components/AddShipmentDialog.tsx
+  h_c5a3d01edfee72 10,38,40,96-106,171,173-181,212,227,263-264,271,296-297,301,316,318-319
+frontend/src/components/DateRangePicker.tsx
+  h_c5a3d01edfee72 39,47,89
+frontend/src/components/EditOrderDialog.tsx
+  h_c5a3d01edfee72 76-85,95,97-105
+frontend/src/components/Footer.tsx
+  h_c5a3d01edfee72 10,15-24,42,49-50,52,55,57,62,65,76,79,84,97,99,101-105,107-108,111-113
+frontend/src/components/HeroSection.tsx
+  h_c5a3d01edfee72 138,150,158,166,215
+frontend/src/components/NewOrderDialog.tsx
+  h_c5a3d01edfee72 70-80,197,199-207,242,292,361,376,473,546,620,623
+frontend/src/components/OrderDetailDialog.tsx
+  h_c5a3d01edfee72 4,48-53,56,58,80-83,89-92,96,131,134,144,172-225,231,235,251,258,264,268,280,284,290,294,301,335,337,347,382,392-490,494,498,501,503-504,509,512,514-515,529,534-541
+frontend/src/components/OrderTable.tsx
+  h_c5a3d01edfee72 1,12-28,185,189-191,266,278,281-283,285-289,291-302,304-306,308-313,315,317-319,321-329,331-356
+frontend/src/components/ProductAvatar.tsx
+  h_c5a3d01edfee72 57
+frontend/src/components/SelectField.tsx
+  h_c5a3d01edfee72 19,25,70
+frontend/src/components/TopNav.tsx
+  h_c5a3d01edfee72 209
+frontend/src/components/WhatsAppDialog.tsx
+  h_c5a3d01edfee72 2,55-65,92-95,97-100,105,155,167,180,188,207,224,281
+frontend/src/components/primitives.tsx
+  h_c5a3d01edfee72 85,97,232
+frontend/src/components/ui/dropdown-menu.tsx
+  h_c5a3d01edfee72 43-46,76
+frontend/src/components/ui/input.tsx
+  h_c5a3d01edfee72 10
+frontend/src/components/ui/select.tsx
+  h_c5a3d01edfee72 44,120
+frontend/src/components/ui/table.tsx
+  h_c5a3d01edfee72 72
+frontend/src/components/ui/textarea.tsx
+  h_c5a3d01edfee72 9
+frontend/src/pages/CarriersSettings.tsx
+  h_c5a3d01edfee72 118
+frontend/src/pages/CodRemittance.tsx
+  h_c5a3d01edfee72 231,248,265,282,303,318,323-326,358,375,412,428,441,450,481,522,524,529,535,549,561,574
+frontend/src/pages/CreateOrder.tsx
+  h_c5a3d01edfee72 6,18,181-193,209-231,242-244,248,254-258,261-262,267-268,281-285,361,377,400,470,484,489,495,505,519-538,544,550,562,573,586,592,598,606,618,626,632,638,650,656,668,675,687,693,723,732,741,750,792,797,815,825,828,840,843,874,887,895-913,915-917,923-936,945,968-980,988,995,1029
+frontend/src/pages/Dashboard.tsx
+  h_c5a3d01edfee72 1,4,25,352,364,373,446
+frontend/src/pages/Exceptions.tsx
+  h_c5a3d01edfee72 229,231-239
+frontend/src/pages/FinanceClose.tsx
+  h_c5a3d01edfee72 337,355
+frontend/src/pages/FinanceLedger.tsx
+  h_c5a3d01edfee72 2,130-131,133-143
+frontend/src/pages/Landing.tsx
+  h_c5a3d01edfee72 180,265,366,433,495,499,539,549,562
+frontend/src/pages/Login.tsx
+  h_c5a3d01edfee72 67
+frontend/src/pages/MonthlyReport.tsx
+  h_c5a3d01edfee72 2,170-179
+frontend/src/pages/NotFound.tsx
+  h_c5a3d01edfee72 70
+frontend/src/pages/OrderDetail.tsx
+  h_c5a3d01edfee72 106,119,126,147
+frontend/src/pages/Orders.tsx
+  h_c5a3d01edfee72 2,24,253,272,441,463,477,517,608-610,624,642
+frontend/src/pages/Parcels.tsx
+  h_c5a3d01edfee72 17
+frontend/src/pages/RtoManagement.tsx
+  h_c5a3d01edfee72 185,207,226,246,316,374,412,432,437,459,478,516,522,528,536,552,559,571,584,613,617,629
+frontend/src/pages/ServerError.tsx
+  h_c5a3d01edfee72 2
+frontend/src/pages/ShipmentHistory.tsx
+  h_c5a3d01edfee72 132,168,178,185,260
+frontend/src/pages/ShipmentsTracking.tsx
+  h_c5a3d01edfee72 152,156,160
+frontend/src/pages/StatementDetail.tsx
+  h_c5a3d01edfee72 115
+frontend/src/pages/StatementList.tsx
+  h_c5a3d01edfee72 350,398,400-408
+frontend/src/pages/TallySettings.tsx
+  h_c5a3d01edfee72 2,313-315,317-325,568
+frontend/src/pages/Tracking.tsx
+  h_c5a3d01edfee72 247,251,255,259
+frontend/src/styles/globals.css
+  h_c5a3d01edfee72 137-139,143,451-464
+frontend/src/styles/orders-dialog.css
+  h_c5a3d01edfee72 148,222
+frontend/tests/add-shipment-dialog.test.tsx
+  h_c5a3d01edfee72 282-296
+frontend/tests/ledger.test.tsx
+  h_c5a3d01edfee72 91-92,94-98,100
+frontend/tests/new-order.test.tsx
+  h_c5a3d01edfee72 2-3,15-25
+frontend/tests/orders.test.tsx
+  h_c5a3d01edfee72 3,10-14,29-51
+frontend/tests/shell.test.tsx
+  h_c5a3d01edfee72 28-34
+frontend/tests/tally-export.test.tsx
+  h_c5a3d01edfee72 120
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "928e63f2e224133c6d18c8babaf6cd6d6b82d2fb",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
