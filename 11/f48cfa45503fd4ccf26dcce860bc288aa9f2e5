@@ -1,0 +1,14 @@
+backend/app/api/auth.py
+  h_c5a3d01edfee72 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "11f48cfa45503fd4ccf26dcce860bc288aa9f2e5",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
