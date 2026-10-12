@@ -13,7 +13,7 @@ bearer = HTTPBearer(auto_error=False)
 
 def _decode(token: str) -> dict:
     try:
-        return jwt.decode(settings.jwt_secret, algorithms=["HS256"])
+        return jwt.decode(token, settings.jwt_secret, algorithms=["HS256"])
     except JWTError:
         raise HTTPException(401, "Invalid token")
 
