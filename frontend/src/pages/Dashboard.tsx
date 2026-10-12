@@ -291,63 +291,130 @@ function SalesOverTimeChart({
   );
 }
 
+const DEFAULT_DATE_PRESET = "TODAY";
+
+const fmtDate = (d: Date) => {
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+};
+
+function resolveDashboardPresetRange(preset: string, now = new Date()): { from: string; to: string } {
+  if (preset === "TODAY") {
+    const todayStr = fmtDate(now);
+    return { from: todayStr, to: todayStr };
+  }
+  if (preset === "YESTERDAY") {
+    const y = new Date(now);
+    y.setDate(y.getDate() - 1);
+    const yStr = fmtDate(y);
+    return { from: yStr, to: yStr };
+  }
+  if (preset === "THIS_MONTH") {
+    const firstDay = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-01`;
+    const lastDay = fmtDate(new Date(now.getFullYear(), now.getMonth() + 1, 0));
+    return { from: firstDay, to: lastDay };
+  }
+  if (preset === "LAST_MONTH") {
+    const lm = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const firstDay = `${lm.getFullYear()}-${String(lm.getMonth() + 1).padStart(2, "0")}-01`;
+    const lastDay = fmtDate(new Date(lm.getFullYear(), lm.getMonth() + 1, 0));
+    return { from: firstDay, to: lastDay };
+  }
+  return { from: "", to: "" };
+}
+
+function getInitialDashboardFilters() {
+  if (typeof window === "undefined") {
+    const def = resolveDashboardPresetRange(DEFAULT_DATE_PRESET);
+    return { preset: DEFAULT_DATE_PRESET, from: def.from, to: def.to, codMode: "" };
+  }
+
+  try {
+    const savedPreset = localStorage.getItem("dashboard_date_preset");
+    const savedCodMode = localStorage.getItem("dashboard_cod_mode") || "";
+
+    const preset = savedPreset || DEFAULT_DATE_PRESET;
+
+    if (preset === "CUSTOM") {
+      const savedFrom = localStorage.getItem("dashboard_date_from") || "";
+      const savedTo = localStorage.getItem("dashboard_date_to") || "";
+      return { preset: "CUSTOM", from: savedFrom, to: savedTo, codMode: savedCodMode };
+    }
+
+    const range = resolveDashboardPresetRange(preset);
+    return { preset, from: range.from, to: range.to, codMode: savedCodMode };
+  } catch {
+    const def = resolveDashboardPresetRange(DEFAULT_DATE_PRESET);
+    return { preset: DEFAULT_DATE_PRESET, from: def.from, to: def.to, codMode: "" };
+  }
+}
+
 export default function DashboardPage() {
   const [data, setData] = useState<any>(null);
   const [live, setLive] = useState(true);
   const [updatedAt, setUpdatedAt] = useState<string | null>(null);
 
-  // Filter States - matching Orders section
-  const [datePreset, setDatePreset] = useState("ALL");
-  const [dateFrom, setDateFrom] = useState("");
-  const [dateTo, setDateTo] = useState("");
-  const [codMode, setCodMode] = useState(""); // "" (ALL), "PREPAID", "COD"
+  // Filter States - defaulted to TODAY and persisted across reloads/page transitions
+  const [initialFilters] = useState(getInitialDashboardFilters);
+  const [datePreset, setDatePreset] = useState(initialFilters.preset);
+  const [dateFrom, setDateFrom] = useState(initialFilters.from);
+  const [dateTo, setDateTo] = useState(initialFilters.to);
+  const [codMode, setCodMode] = useState(initialFilters.codMode); // "" (ALL), "PREPAID", "COD"
 
   const handleDatePresetChange = (preset: string) => {
     setDatePreset(preset);
-    const now = new Date();
-    const fmt = (d: Date) => {
-      const yyyy = d.getFullYear();
-      const mm = String(d.getMonth() + 1).padStart(2, "0");
-      const dd = String(d.getDate()).padStart(2, "0");
-      return `${yyyy}-${mm}-${dd}`;
-    };
+    try {
+      localStorage.setItem("dashboard_date_preset", preset);
+    } catch {}
 
-    if (preset === "TODAY") {
-      const todayStr = fmt(now);
-      setDateFrom(todayStr);
-      setDateTo(todayStr);
-    } else if (preset === "YESTERDAY") {
-      const y = new Date(now);
-      y.setDate(y.getDate() - 1);
-      const yStr = fmt(y);
-      setDateFrom(yStr);
-      setDateTo(yStr);
-    } else if (preset === "THIS_MONTH") {
-      const firstDay = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-01`;
-      const lastDay = fmt(new Date(now.getFullYear(), now.getMonth() + 1, 0));
-      setDateFrom(firstDay);
-      setDateTo(lastDay);
-    } else if (preset === "LAST_MONTH") {
-      const lastMonthDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-      const firstDay = `${lastMonthDate.getFullYear()}-${String(lastMonthDate.getMonth() + 1).padStart(2, "0")}-01`;
-      const lastDay = fmt(new Date(lastMonthDate.getFullYear(), lastMonthDate.getMonth() + 1, 0));
-      setDateFrom(firstDay);
-      setDateTo(lastDay);
-    } else if (preset === "ALL") {
-      setDateFrom("");
-      setDateTo("");
+    if (preset === "CUSTOM") {
+      return;
     }
+
+    const { from, to } = resolveDashboardPresetRange(preset);
+    setDateFrom(from);
+    setDateTo(to);
+    try {
+      localStorage.setItem("dashboard_date_from", from);
+      localStorage.setItem("dashboard_date_to", to);
+    } catch {}
+  };
+
+  const handleCodModeChange = (val: string) => {
+    setCodMode(val);
+    try {
+      localStorage.setItem("dashboard_cod_mode", val);
+    } catch {}
+  };
+
+  const handleCustomDateChange = ({ from, to }: { from: string; to: string }) => {
+    setDateFrom(from);
+    setDateTo(to);
+    try {
+      localStorage.setItem("dashboard_date_preset", "CUSTOM");
+      localStorage.setItem("dashboard_date_from", from);
+      localStorage.setItem("dashboard_date_to", to);
+    } catch {}
   };
 
   const clearFilters = () => {
-    setDatePreset("ALL");
-    setDateFrom("");
-    setDateTo("");
+    const def = resolveDashboardPresetRange(DEFAULT_DATE_PRESET);
+    setDatePreset(DEFAULT_DATE_PRESET);
+    setDateFrom(def.from);
+    setDateTo(def.to);
     setCodMode("");
+    try {
+      localStorage.setItem("dashboard_date_preset", DEFAULT_DATE_PRESET);
+      localStorage.setItem("dashboard_date_from", def.from);
+      localStorage.setItem("dashboard_date_to", def.to);
+      localStorage.setItem("dashboard_cod_mode", "");
+    } catch {}
   };
 
   const activeFiltersCount =
-    (datePreset !== "ALL" || dateFrom || dateTo ? 1 : 0) + (codMode ? 1 : 0);
+    (datePreset !== DEFAULT_DATE_PRESET ? 1 : 0) + (codMode ? 1 : 0);
 
   const loadSummary = () => {
     const params = new URLSearchParams();
@@ -433,7 +500,7 @@ export default function DashboardPage() {
             ariaLabel="Payment Mode"
             value={codMode}
             allLabel="ALL"
-            onChange={setCodMode}
+            onChange={handleCodModeChange}
             options={[
               { value: "PREPAID", label: "PREPAID" },
               { value: "COD", label: "COD" },
@@ -498,10 +565,7 @@ export default function DashboardPage() {
           <DateRangePicker
             from={dateFrom}
             to={dateTo}
-            onChange={({ from, to }) => {
-              setDateFrom(from);
-              setDateTo(to);
-            }}
+            onChange={handleCustomDateChange}
             className="w-[280px] max-w-full"
           />
         </div>
