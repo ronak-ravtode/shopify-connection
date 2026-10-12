@@ -1,0 +1,20 @@
+backend/app/api/auth.py
+  h_c5a3d01edfee72 8,16,40,57-112
+backend/app/schemas/auth.py
+  h_c5a3d01edfee72 7-14
+frontend/src/lib/api.ts
+  h_c5a3d01edfee72 1-12,15-16,26
+frontend/src/pages/Login.tsx
+  h_c5a3d01edfee72 19-21,33-45,47-63,66-71,77-81,96,104,107-109,113-144,156-184,200-204,213,220,222-228,230-244,248-267,269
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b7806f9ce10f60463e491b9af5c26a73de8e5081",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
