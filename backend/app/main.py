@@ -32,10 +32,16 @@ from app.api.rto import router as rto_router
 from app.api.cod_remittance import router as cod_remittance_router
 
 
-def seed_initial_data():
-    """Lightweight startup initialization."""
-    pass
+from app.seeds.seeder import auto_seed_if_empty
 
+
+def seed_initial_data():
+    """Lightweight startup initialization to ensure database tables and initial operational data exist."""
+    try:
+        auto_seed_if_empty()
+    except Exception as e:
+        import logging
+        logging.getLogger("app.main").error(f"Startup seeding error: {e}")
 
 
 @asynccontextmanager
