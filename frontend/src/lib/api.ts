@@ -1,9 +1,19 @@
-export const API = import.meta.env?.VITE_API_URL ?? "http://localhost:8000";
+const envApi = (import.meta.env?.VITE_API_URL || "").trim();
+const isLocalhost =
+  typeof window !== "undefined" &&
+  (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
 
-
+export const API = (
+  envApi && envApi !== "/" && envApi !== "http://localhost:8000"
+    ? envApi
+    : isLocalhost
+    ? "http://localhost:8000"
+    : "https://shopify-recon-backend.onrender.com"
+).replace(/\/+$/, "");
 
 export async function api<T>(p: string, init?: RequestInit, token?: string): Promise<T> {
-  const path = p.startsWith("/") ? p : `/${p}`;
+  const cleanPath = p.startsWith("/") ? p : `/${p}`;
+  const fullUrl = `${API}${cleanPath}`.replace(/([^:]\/)\/+/g, "$1");
   const authToken = token || (typeof window !== "undefined" ? localStorage.getItem("token") : null);
 
   const headers: Record<string, string> = {
@@ -13,7 +23,7 @@ export async function api<T>(p: string, init?: RequestInit, token?: string): Pro
   };
 
   try {
-    const r = await fetch(`${API}${path}`, {
+    const r = await fetch(fullUrl, {
       ...init,
       headers,
     });

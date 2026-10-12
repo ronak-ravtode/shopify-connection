@@ -16,6 +16,9 @@ const DEMO_ACCOUNTS = [
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const [mode, setMode] = useState<"login" | "signup">("login");
+  const [name, setName] = useState("");
+  const [businessName, setBusinessName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,28 +30,55 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const data = await api<{ token: string; user?: any }>(`/api/v1/auth/login`, {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-      });
-      localStorage.setItem("token", data.token);
-      if (data.user) {
-        localStorage.setItem("user", JSON.stringify(data.user));
+      if (mode === "login") {
+        const data = await api<{ token: string; user?: any }>(`/api/v1/auth/login`, {
+          method: "POST",
+          body: JSON.stringify({ email, password }),
+        });
+        localStorage.setItem("token", data.token);
+        if (data.user) {
+          localStorage.setItem("user", JSON.stringify(data.user));
+        } else {
+          localStorage.setItem("user", JSON.stringify({ email }));
+        }
+        window.dispatchEvent(new Event("auth-change"));
+        navigate("/dashboard");
       } else {
-        localStorage.setItem("user", JSON.stringify({ email }));
+        const data = await api<{ token: string; user?: any }>(`/api/v1/auth/signup`, {
+          method: "POST",
+          body: JSON.stringify({
+            name: name || undefined,
+            email,
+            password,
+            business_name: businessName || undefined,
+          }),
+        });
+        localStorage.setItem("token", data.token);
+        if (data.user) {
+          localStorage.setItem("user", JSON.stringify(data.user));
+        } else {
+          localStorage.setItem("user", JSON.stringify({ email }));
+        }
+        window.dispatchEvent(new Event("auth-change"));
+        navigate("/dashboard");
       }
-      window.dispatchEvent(new Event("auth-change"));
-      navigate("/dashboard");
     } catch (err: any) {
-      setError(err?.message ?? "Login failed. Please check your credentials.");
+      setError(
+        err?.message ??
+          (mode === "login"
+            ? "Login failed. Please check your credentials."
+            : "Registration failed. Please try again.")
+      );
     } finally {
       setLoading(false);
     }
   }
 
-  const fillDemoCreds = (email: string, password: string) => {
-    setEmail(email);
-    setPassword(password);
+  const fillDemoCreds = (em: string, pw: string) => {
+    setMode("login");
+    setEmail(em);
+    setPassword(pw);
+    setError(null);
   };
 
   return (
@@ -63,7 +93,7 @@ export default function LoginPage() {
 
       <Card className="relative z-10 w-full max-w-[440px] p-8 sm:p-10 shadow-xl border-border/80 bg-card rounded-2xl">
         {/* Brand Header */}
-        <div className="mb-8 text-center">
+        <div className="mb-6 text-center">
           <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-primary font-semibold text-xl shadow-xs">
             R
           </div>
@@ -71,11 +101,45 @@ export default function LoginPage() {
             Shopify ReconHub
           </Badge>
           <h1 className="font-heading font-medium tracking-tight text-foreground text-2xl sm:text-3xl mb-1.5">
-            Welcome Back
+            {mode === "login" ? "Welcome Back" : "Create Account"}
           </h1>
           <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
-            Sign in to access your Shopify Order Reconciliation platform
+            {mode === "login"
+              ? "Sign in to access your Shopify Order Reconciliation platform"
+              : "Register to manage orders, reconciliations, and analytics"}
           </p>
+        </div>
+
+        {/* Mode Switch Tabs */}
+        <div className="mb-6 flex rounded-xl bg-muted/50 p-1 border border-border/60">
+          <button
+            type="button"
+            onClick={() => {
+              setMode("login");
+              setError(null);
+            }}
+            className={`flex-1 rounded-lg py-1.5 text-xs font-semibold transition-all ${
+              mode === "login"
+                ? "bg-card text-foreground shadow-xs"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Sign In
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setMode("signup");
+              setError(null);
+            }}
+            className={`flex-1 rounded-lg py-1.5 text-xs font-semibold transition-all ${
+              mode === "signup"
+                ? "bg-card text-foreground shadow-xs"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Sign Up
+          </button>
         </div>
 
         {/* Error Alert */}
@@ -89,8 +153,35 @@ export default function LoginPage() {
           </div>
         )}
 
-        {/* Login Form */}
-        <form onSubmit={onSubmit} className="flex flex-col gap-4.5">
+        {/* Form */}
+        <form onSubmit={onSubmit} className="flex flex-col gap-4">
+          {mode === "signup" && (
+            <>
+              <div className="flex flex-col gap-1.5">
+                <Label htmlFor="name">Your Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="e.g. Ronak Ravtode"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <Label htmlFor="businessName">Store / Company Name</Label>
+                <Input
+                  id="businessName"
+                  type="text"
+                  placeholder="e.g. Reshamgath"
+                  value={businessName}
+                  onChange={(e) => setBusinessName(e.target.value)}
+                />
+              </div>
+            </>
+          )}
+
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="email">Email Address</Label>
             <Input
@@ -106,9 +197,11 @@ export default function LoginPage() {
           <div className="flex flex-col gap-1.5">
             <div className="flex items-center justify-between">
               <Label htmlFor="password">Password</Label>
-              <span className="text-[11px] text-muted-foreground">
-                Demo: {DEMO_ACCOUNTS[0].password}
-              </span>
+              {mode === "login" && (
+                <span className="text-[11px] text-muted-foreground">
+                  Demo: {DEMO_ACCOUNTS[0].password}
+                </span>
+              )}
             </div>
             <Input
               id="password"
@@ -117,39 +210,63 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              minLength={6}
             />
           </div>
 
           <Button
             type="submit"
             disabled={loading}
-            className="mt-3 w-full h-10 font-semibold shadow-xs hover:shadow-md"
+            className="mt-2 w-full h-10 font-semibold shadow-xs hover:shadow-md"
           >
-            {loading ? "Signing in..." : "Sign In to ReconHub"}
+            {loading
+              ? mode === "login"
+                ? "Signing in..."
+                : "Creating Account..."
+              : mode === "login"
+              ? "Sign In to ReconHub"
+              : "Create ReconHub Account"}
           </Button>
+
+          <div className="text-center mt-1">
+            <button
+              type="button"
+              onClick={() => {
+                setMode(mode === "login" ? "signup" : "login");
+                setError(null);
+              }}
+              className="text-xs text-muted-foreground hover:text-foreground underline underline-offset-4"
+            >
+              {mode === "login"
+                ? "Don't have an account? Sign up"
+                : "Already have an account? Sign in"}
+            </button>
+          </div>
         </form>
 
         {/* Demo Credentials Quick Fill */}
-        <div className="mt-8 border-t border-border/80 pt-6 text-center">
-          <p className="mb-3 text-xs text-muted-foreground">
-            Testing locally? Quick-fill demo credentials:
-          </p>
-          <div className="flex justify-center gap-2">
-            {DEMO_ACCOUNTS.map((acc) => (
-              <Button
-                key={acc.email}
-                type="button"
-                variant="outline"
-                size="sm"
-                className="h-8 px-3 text-xs gap-1.5"
-                onClick={() => fillDemoCreds(acc.email, acc.password)}
-              >
-                <IconSpark size={13} />
-                {acc.label}
-              </Button>
-            ))}
+        {mode === "login" && (
+          <div className="mt-6 border-t border-border/80 pt-5 text-center">
+            <p className="mb-2.5 text-xs text-muted-foreground">
+              Testing locally? Quick-fill demo credentials:
+            </p>
+            <div className="flex justify-center gap-2">
+              {DEMO_ACCOUNTS.map((acc) => (
+                <Button
+                  key={acc.email}
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  className="h-8 px-3 text-xs gap-1.5"
+                  onClick={() => fillDemoCreds(acc.email, acc.password)}
+                >
+                  <IconSpark size={13} />
+                  {acc.label}
+                </Button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </Card>
     </div>
   );
