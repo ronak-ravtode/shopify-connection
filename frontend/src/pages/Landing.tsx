@@ -177,7 +177,7 @@ export default function Landing() {
                     </div>
 
                     <div className="mt-5">
-                      <div className="tabular-nums font-heading font-bold text-3xl sm:text-[32px] tracking-tight text-foreground">
+                      <div className="tabular-nums font-heading font-semibold text-3xl sm:text-[32px] tracking-tight text-foreground">
                         {m.value}
                       </div>
                       <div className="text-sm font-semibold text-foreground mt-1">
@@ -262,7 +262,7 @@ export default function Landing() {
             <Card className="p-6 sm:p-7 shadow-lg border-border/90 bg-card overflow-hidden">
               <div className="flex items-center justify-between pb-4 border-b border-border">
                 <div className="flex items-center gap-2.5">
-                  <span className="flex size-8 items-center justify-center rounded-lg bg-destructive/10 text-destructive font-bold text-xs">
+                  <span className="flex size-8 items-center justify-center rounded-lg bg-destructive/10 text-destructive font-semibold text-xs">
                     !
                   </span>
                   <div>
@@ -363,7 +363,7 @@ export default function Landing() {
                   "Direct Tally XML reversal vouchers created when orders are cancelled or returned",
                 ].map((pt) => (
                   <div key={pt} className="flex items-start gap-2.5 text-sm text-foreground">
-                    <span className="size-5 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                    <span className="size-5 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5 text-xs font-semibold">
                       <IconCheck size={12} />
                     </span>
                     <span>{pt}</span>
@@ -430,7 +430,7 @@ export default function Landing() {
                 <Card className="h-full p-7 flex flex-col justify-between transition-all duration-300 hover:shadow-lg hover:border-primary/40 relative group">
                   <div>
                     <div className="flex items-center justify-between mb-6">
-                      <span className="size-11 rounded-2xl bg-primary/10 text-primary font-bold font-heading text-base flex items-center justify-center border border-primary/20">
+                      <span className="size-11 rounded-2xl bg-primary/10 text-primary font-semibold font-heading text-base flex items-center justify-center border border-primary/20">
                         {s.n}
                       </span>
                       <Badge variant="secondary" className="text-xs font-semibold">
@@ -492,11 +492,11 @@ export default function Landing() {
                   </div>
 
                   <div className="pt-4 border-t border-border flex items-center gap-3.5">
-                    <span className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary font-bold text-xs border border-primary/20">
+                    <span className="flex size-10 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-xs border border-primary/20">
                       {t.initials}
                     </span>
                     <div>
-                      <div className="font-bold text-foreground text-sm font-heading">{t.name}</div>
+                      <div className="font-semibold text-foreground text-sm font-heading">{t.name}</div>
                       <div className="text-xs text-muted-foreground">{t.role}</div>
                     </div>
                   </div>
@@ -536,7 +536,7 @@ export default function Landing() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <span className="text-xl font-bold font-heading text-foreground">{p.name}</span>
+                      <span className="text-xl font-semibold font-heading text-foreground">{p.name}</span>
                       {p.featured && (
                         <Badge variant="default" className="bg-primary text-primary-foreground font-semibold text-xs">
                           Most popular
@@ -546,7 +546,7 @@ export default function Landing() {
 
                     <div className="mb-4">
                       <div className="flex items-baseline gap-1.5">
-                        <span className="text-4xl font-bold font-heading tracking-tight text-foreground">{p.price}</span>
+                        <span className="text-4xl font-semibold font-heading tracking-tight text-foreground">{p.price}</span>
                         <span className="text-xs text-muted-foreground font-medium">/ {p.period}</span>
                       </div>
                       <p className="mt-2 text-xs text-muted-foreground leading-relaxed">{p.blurb}</p>
@@ -559,7 +559,7 @@ export default function Landing() {
                       <ul className="flex flex-col gap-2.5">
                         {p.features.map((f) => (
                           <li key={f} className="flex items-center gap-2.5 text-xs sm:text-sm text-foreground/90">
-                            <span className="size-4 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 text-[10px] font-bold">
+                            <span className="size-4 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 text-[10px] font-semibold">
                               <IconCheck size={10} />
                             </span>
                             <span>{f}</span>

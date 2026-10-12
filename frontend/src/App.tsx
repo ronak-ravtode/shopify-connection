@@ -43,6 +43,7 @@ const BARE_ROUTES = ["/login", "/signup"];
 export function AppShell() {
   const { pathname } = useLocation();
   const bare = BARE_ROUTES.includes(pathname);
+  const isLanding = pathname === "/";
 
   return (
     <ThemeProvider>
@@ -54,7 +55,7 @@ export function AppShell() {
             <Outlet />
           </Suspense>
         </main>
-        {!bare && <Footer />}
+        {isLanding && <Footer />}
       </div>
     </ThemeProvider>
   );

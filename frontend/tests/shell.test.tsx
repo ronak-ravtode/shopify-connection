@@ -25,8 +25,11 @@ test("login renders without the top nav or the footer", () => {
   expect(screen.getByLabelText(/email/i)).toBeTruthy();
 });
 
-test("app routes keep the nav and footer", () => {
-  const { container } = renderAt("/dashboard");
-  expect(container.querySelector("header")).toBeTruthy();
-  expect(container.querySelector("footer")).toBeTruthy();
+test("landing page renders footer, app routes keep nav without footer", () => {
+  const landing = renderAt("/");
+  expect(landing.container.querySelector("footer")).toBeTruthy();
+
+  const app = renderAt("/dashboard");
+  expect(app.container.querySelector("header")).toBeTruthy();
+  expect(app.container.querySelector("footer")).toBeNull();
 });

@@ -3,13 +3,11 @@ import SelectField from "./SelectField";
 import { Button, Input } from "./primitives";
 import {
   CourierOption,
-  OrderStockVerification,
   PushShipmentResult,
-  checkOrderStock,
   getShipmentCouriers,
   pushShipment,
 } from "../lib/api";
-import { IconAlert, IconClose, IconMapPin, IconPhone, IconTruck, IconUpload } from "./icons";
+import { IconAlert, IconClose, IconMapPin, IconMessage, IconPhone, IconTruck, IconUpload } from "./icons";
 import ProductAvatar from "./ProductAvatar";
 
 export type AddShipmentDialogProps = {
@@ -37,9 +35,9 @@ function isQueuedRetry(err: unknown): boolean {
 }
 
 const inputClass =
-  "w-full px-3 py-2 bg-white border border-slate-300 rounded-lg text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition shadow-xs";
+  "w-full px-3 py-2 bg-card border border-border/80 rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition shadow-xs";
 const labelClass =
-  "block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5";
+  "block text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5";
 
 export default function AddShipmentDialog({
   open,
@@ -59,8 +57,6 @@ export default function AddShipmentDialog({
   const [notice, setNotice] = useState<string | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [stockInfo, setStockInfo] = useState<OrderStockVerification | null>(null);
-  const [loadingStock, setLoadingStock] = useState(false);
   const [whatsappResult, setWhatsappResult] = useState<PushShipmentResult["whatsapp"] | null>(null);
   const [showWaPreview, setShowWaPreview] = useState(false);
 
@@ -73,7 +69,6 @@ export default function AddShipmentDialog({
     setNotice(null);
     setSubmitError(null);
     setSubmitting(false);
-    setStockInfo(null);
     setWhatsappResult(null);
     setShowWaPreview(false);
     void getShipmentCouriers().then((rows) => {
@@ -96,17 +91,18 @@ export default function AddShipmentDialog({
         setCouriers([...priorityCouriers, ...otherCouriers]);
       }
     });
-
-    if (orderId) {
-      setLoadingStock(true);
-      void checkOrderStock(orderId)
-        .then((res) => {
-          if (res) setStockInfo(res);
-        })
-        .catch(() => {})
-        .finally(() => setLoadingStock(false));
-    }
   }, [open, orderId]);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open, onClose]);
 
   if (!open) return null;
 
@@ -172,8 +168,17 @@ export default function AddShipmentDialog({
       role="dialog"
       aria-modal="true"
       aria-label="Add Shipment"
+      onClick={onClose}
     >
-      <div className="w-full max-w-lg max-h-[90vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-200">
+      <div
+        className="fixed inset-0"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <div
+        className="relative z-10 w-full max-w-lg max-h-[90vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-200"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="px-6 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
           <div>
             <h2 className="text-lg font-medium text-slate-900 flex items-center gap-2">
@@ -204,7 +209,7 @@ export default function AddShipmentDialog({
             <div className="rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-xs text-slate-700 flex flex-col gap-3">
               <div className="flex items-start justify-between border-b border-slate-200 pb-2">
                 <div>
-                  <span className="font-bold text-slate-900 text-sm block">{customerName}</span>
+                  <span className="font-semibold text-slate-900 text-sm block">{customerName}</span>
                   {customerMobile && (
                     <span className="text-slate-500 font-mono flex items-center gap-1 mt-0.5">
                       <IconPhone size={12} className="inline mr-1 text-slate-400" />
@@ -219,7 +224,7 @@ export default function AddShipmentDialog({
                   )}
                 </div>
                 <div className="text-right">
-                  <span className="font-mono font-bold text-slate-900 text-sm block">₹{Number(order.total_amount || 0).toLocaleString()}</span>
+                  <span className="font-mono font-semibold text-slate-900 text-sm block">₹{Number(order.total_amount || 0).toLocaleString()}</span>
                   <span className="inline-block bg-slate-200 text-slate-800 font-semibold px-2 py-0.5 rounded text-[10px] mt-0.5">
                     {order.cod_mode || "PREPAID"}
                   </span>
@@ -255,15 +260,15 @@ export default function AddShipmentDialog({
           <div className="rounded-xl border border-emerald-500/30 bg-emerald-50/60 p-3 text-xs flex flex-col gap-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="text-base">💬</span>
-                <span className="font-bold text-emerald-900 text-xs">
+                <IconMessage size={16} className="text-emerald-700" />
+                <span className="font-semibold text-emerald-900 text-xs">
                   WhatsApp Customer Notification
                 </span>
               </div>
               <button
                 type="button"
                 onClick={() => setShowWaPreview(!showWaPreview)}
-                className="text-[11px] font-bold text-emerald-700 hover:text-emerald-900 underline cursor-pointer"
+                className="text-[11px] font-semibold text-emerald-700 hover:text-emerald-900 underline cursor-pointer"
               >
                 {showWaPreview ? "Hide Preview" : "Preview Message"}
               </button>
@@ -288,12 +293,12 @@ export default function AddShipmentDialog({
               <div className="bg-emerald-50 border border-emerald-300 rounded-xl p-4 flex flex-col gap-2.5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-base">💬</span>
-                    <span className="text-xs font-bold text-emerald-900">
+                    <IconMessage size={16} className="text-emerald-700" />
+                    <span className="text-xs font-semibold text-emerald-900">
                       WhatsApp Dispatch Notification
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-900 font-bold">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-200 text-emerald-900 font-semibold">
                     {whatsappResult.status}
                   </span>
                 </div>
@@ -308,9 +313,10 @@ export default function AddShipmentDialog({
                       href={whatsappResult.wa_me_url}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs shadow-xs transition"
+                      className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold text-xs shadow-xs transition"
                     >
-                      <span>📲 Open in WhatsApp Web / App</span>
+                      <IconMessage size={14} className="text-white" />
+                      <span>Open in WhatsApp Web / App</span>
                     </a>
                     <button
                       type="button"

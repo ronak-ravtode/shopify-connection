@@ -4,7 +4,6 @@
 @import "@fontsource/poppins/400.css";
 @import "@fontsource/poppins/500.css";
 @import "@fontsource/poppins/600.css";
-@import "@fontsource/poppins/700.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -135,10 +134,13 @@
   --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
   --font-heading: 'Poppins', system-ui, -apple-system, sans-serif;
   --default-font-family: var(--font-sans);
+  --font-weight-bold: 600;
+  --font-weight-extrabold: 600;
+  --font-weight-black: 600;
   /* DESIGN.md asks for Neue Haas Grotesk Display (commercial, not
      installable) and Inter Variable. The measured reference (Zeevra) uses
      Poppins for every role, so both slots point at Poppins; weights 400/500/
-     600/700 are bundled in styles/globals.css. */
+     600 are bundled in styles/globals.css. */
   /* Type scale from the measured reference. It reports four roles:
        Heading 40/60 w500, Section heading 32/48 w500, Body 16/25.6 w400,
        Button 20/30 w500. Names are kept from the previous scale so existing
@@ -446,4 +448,18 @@ button:focus-visible {
   display: none !important; /* Chrome, Safari and Opera */
   width: 0 !important;
   height: 0 !important;
+}
+
+/* Ensure no 700+ font weights anywhere on the entire site */
+.font-bold,
+.font-extrabold,
+.font-black,
+[class*="font-bold"],
+[class*="font-extrabold"],
+[class*="font-black"] {
+  font-weight: 600 !important;
+}
+
+b, strong, th {
+  font-weight: 600 !important;
 }

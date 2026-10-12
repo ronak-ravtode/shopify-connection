@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { DatePicker } from "../components/DatePicker";
+import DateRangePicker from "../components/DateRangePicker";
 import { API, api } from "../lib/api";
 import {
   TallyValidation,
@@ -310,26 +310,19 @@ export default function TallySettingsPage() {
         </div>
 
         <div className="flex flex-wrap items-end gap-3">
-          <div className="flex flex-col gap-1.5 min-w-[180px] flex-1">
-            <Label htmlFor="tally-from" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              From
+          <div className="flex flex-col gap-1.5 min-w-[260px] flex-1 max-w-[340px]">
+            <Label htmlFor="tally-date-range" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+              Date Range
             </Label>
-            <DatePicker
-              id="tally-from"
-              value={from}
-              onChange={setFrom}
-              ariaLabel="From date"
-            />
-          </div>
-          <div className="flex flex-col gap-1.5 min-w-[180px] flex-1">
-            <Label htmlFor="tally-to" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              To
-            </Label>
-            <DatePicker
-              id="tally-to"
-              value={to}
-              onChange={setTo}
-              ariaLabel="To date"
+            <DateRangePicker
+              id="tally-date-range"
+              ariaLabel="Date range"
+              from={from}
+              to={to}
+              onChange={({ from: f, to: t }) => {
+                setFrom(f);
+                setTo(t);
+              }}
             />
           </div>
           <Button variant="outline" onClick={handleValidate} disabled={validating}>
@@ -572,7 +565,7 @@ export default function TallySettingsPage() {
                       <TableCell>
                         <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold bg-muted/50 border border-border/70">
                           <SeverityBadge severity={sev} />
-                          <span className="text-xs font-bold text-foreground">{b.status}</span>
+                          <span className="text-xs font-semibold text-foreground">{b.status}</span>
                         </div>
                       </TableCell>
                       <TableCell className="text-right">

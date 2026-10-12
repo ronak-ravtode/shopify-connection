@@ -145,7 +145,7 @@
 
 .modal-dialog-title {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 600;
   color: #0f172a;
   margin: 0;
   display: flex;
@@ -219,7 +219,7 @@
 
 .form-section-title {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 600;
   color: #1e293b;
   display: flex;
   align-items: center;

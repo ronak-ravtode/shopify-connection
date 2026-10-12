@@ -103,7 +103,7 @@ export default function OrderDetailPage() {
             </p>
           </div>
           <div className="text-right">
-            <span className="tabular-nums text-3xl font-extrabold text-foreground">
+            <span className="tabular-nums text-3xl font-semibold text-foreground">
               ₹{Number(order.total_amount || 0).toLocaleString()}
             </span>
             <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{order.currency || "INR"} Net</p>
@@ -116,14 +116,14 @@ export default function OrderDetailPage() {
         <Card className="p-5 border-border/80 shadow-xs">
           <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Financial Status</div>
           <div className="mt-3 flex items-center gap-2">
-            <Badge variant={getFinancialBadgeVariant(finStatus)} className="text-xs font-bold uppercase tracking-wider">
+            <Badge variant={getFinancialBadgeVariant(finStatus)} className="text-xs font-semibold uppercase tracking-wider">
               {finStatus}
             </Badge>
           </div>
         </Card>
         <Card className="p-5 border-border/80 shadow-xs">
           <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Payment Details</div>
-          <div className="mt-2 text-base font-bold text-foreground">
+          <div className="mt-2 text-base font-semibold text-foreground">
             {order.payment_gateway || "Standard Gateway"}
           </div>
           <p className="text-xs text-muted-foreground">Currency: {order.currency || "INR"}</p>
@@ -144,7 +144,7 @@ export default function OrderDetailPage() {
             {shipments.map((s) => (
               <div key={s.id} className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-border/70 p-3.5 hover:bg-muted/30 transition-colors">
                 <div>
-                  <Link to={`/shipments/${s.id}`} className="font-bold text-foreground text-sm hover:underline">
+                  <Link to={`/shipments/${s.id}`} className="font-semibold text-foreground text-sm hover:underline">
                     {s.carrier_code} · {s.awb_number}
                   </Link>
                   <div className="mt-1 text-xs text-muted-foreground">

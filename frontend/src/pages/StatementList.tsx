@@ -347,7 +347,7 @@ export default function StatementsPage() {
                           <TableCell>
                             <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold bg-muted/50 border border-border/70">
                               <SeverityBadge severity={statusSeverity(st)} />
-                              <span className="text-xs font-bold text-foreground">{st}</span>
+                              <span className="text-xs font-semibold text-foreground">{st}</span>
                             </div>
                           </TableCell>
                           <TableCell className="text-right">
@@ -395,8 +395,17 @@ export default function StatementsPage() {
           role="dialog"
           aria-label="Mismatch drill-down"
           className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-xs p-4"
+          onClick={() => setSelected(null)}
         >
-          <Card className="w-full max-w-lg p-6">
+          <div
+            className="fixed inset-0"
+            onClick={() => setSelected(null)}
+            aria-hidden="true"
+          />
+          <Card
+            className="relative z-10 w-full max-w-lg p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
             <h2 className="text-xl font-medium tracking-tight text-foreground">Drill-down</h2>
             <p className="mt-1 text-xs text-muted-foreground">
               Order &rarr; payment &rarr; settlement &rarr; bank reference &middot; {selStatus}

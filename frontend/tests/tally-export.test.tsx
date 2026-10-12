@@ -117,8 +117,7 @@ test("markTallyImported POSTs imported body to mark-imported endpoint", async ()
 test("tally page shows date range + Validate and keeps mapping form intact", async () => {
   vi.stubGlobal("fetch", baseStub());
   renderPage();
-  await waitFor(() => expect(screen.getByLabelText("From date")).toBeTruthy());
-  expect(screen.getByLabelText("To date")).toBeTruthy();
+  await waitFor(() => expect(screen.getByLabelText("Date range")).toBeTruthy());
   expect(screen.getByRole("button", { name: /Validate/i })).toBeTruthy();
   expect(screen.getByRole("button", { name: /Generate workbook/i })).toBeTruthy();
   // Mapping form untouched.

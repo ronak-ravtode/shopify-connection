@@ -17,7 +17,6 @@ export default function ParcelPage() {
   const [data, setData] = useState<ParcelData | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [returns, setReturns] = useState<any[]>([]);
-  const [msg, setMsg] = useState<string | null>(null);
 
   async function openLabel() {
     if (!data) return;
@@ -168,12 +167,6 @@ export default function ParcelPage() {
             ))}
           </div>
         </Card>
-      )}
-
-      {msg && (
-        <p role="status" className="rounded-xl border border-success/30 bg-success/15 px-4 py-3 text-sm font-semibold text-foreground">
-          {msg}
-        </p>
       )}
     </main>
   );

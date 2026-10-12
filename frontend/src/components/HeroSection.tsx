@@ -135,7 +135,7 @@ export default function HeroSection({ onVideoClick }: HeroSectionProps) {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-xs sm:text-sm font-bold text-foreground leading-tight">
+                    <span className="text-xs sm:text-sm font-semibold text-foreground leading-tight">
                       1,000+
                     </span>
                     <span className="text-[11px] sm:text-xs text-muted-foreground">
@@ -147,7 +147,7 @@ export default function HeroSection({ onVideoClick }: HeroSectionProps) {
                 {/* 3-Column Metrics Row */}
                 <div className="mt-12 pt-8 border-t border-border grid grid-cols-3 gap-4 sm:gap-8 max-w-[480px]">
                   <div>
-                    <div className="text-2xl sm:text-3xl lg:text-[34px] font-bold font-heading tracking-tight text-foreground">
+                    <div className="text-2xl sm:text-3xl lg:text-[34px] font-semibold font-heading tracking-tight text-foreground">
                       50+
                     </div>
                     <div className="text-xs sm:text-sm text-muted-foreground mt-1 font-medium">
@@ -155,7 +155,7 @@ export default function HeroSection({ onVideoClick }: HeroSectionProps) {
                     </div>
                   </div>
                   <div>
-                    <div className="text-2xl sm:text-3xl lg:text-[34px] font-bold font-heading tracking-tight text-foreground">
+                    <div className="text-2xl sm:text-3xl lg:text-[34px] font-semibold font-heading tracking-tight text-foreground">
                       10+
                     </div>
                     <div className="text-xs sm:text-sm text-muted-foreground mt-1 font-medium">
@@ -163,7 +163,7 @@ export default function HeroSection({ onVideoClick }: HeroSectionProps) {
                     </div>
                   </div>
                   <div>
-                    <div className="text-2xl sm:text-3xl lg:text-[34px] font-bold font-heading tracking-tight text-foreground">
+                    <div className="text-2xl sm:text-3xl lg:text-[34px] font-semibold font-heading tracking-tight text-foreground">
                       21+
                     </div>
                     <div className="text-xs sm:text-sm text-muted-foreground mt-1 font-medium">
@@ -212,7 +212,7 @@ export default function HeroSection({ onVideoClick }: HeroSectionProps) {
       <Dialog open={isVideoModalOpen} onOpenChange={setIsVideoModalOpen}>
         <DialogContent className="sm:max-w-xl bg-card border-border">
           <DialogHeader>
-            <DialogTitle className="text-lg font-bold text-foreground">
+            <DialogTitle className="text-lg font-semibold text-foreground">
               Shopify Order &amp; ShipSagar Logistics Demo
             </DialogTitle>
             <DialogDescription className="text-xs text-muted-foreground">

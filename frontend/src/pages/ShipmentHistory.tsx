@@ -73,7 +73,6 @@ export default function ShipmentHistoryPage() {
   };
 
   const tone = statusTone(data?.status);
-  const latestEvent = data?.events?.[0];
 
   return (
     <div className="page-shell py-6 flex flex-col gap-6 bg-background min-h-screen">
@@ -130,7 +129,7 @@ export default function ShipmentHistoryPage() {
           {/* Action Buttons & Status Badge */}
           <div className="flex flex-wrap items-center gap-3">
             {data && (
-              <span className={`px-2.5 py-1 rounded-full border text-xs font-bold uppercase tracking-wide ${TONE_CLASS[tone]}`}>
+              <span className={`px-2.5 py-1 rounded-full border text-xs font-semibold uppercase tracking-wide ${TONE_CLASS[tone]}`}>
                 {data.status}
               </span>
             )}
@@ -166,7 +165,7 @@ export default function ShipmentHistoryPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           <Card className="p-4 border-border/70 bg-card rounded-xl shadow-2xs flex flex-col justify-between">
             <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Courier Partner</span>
-            <span className="text-sm font-bold font-heading text-foreground mt-1 truncate">{data.courier_code || "Standard"}</span>
+            <span className="text-sm font-semibold font-heading text-foreground mt-1 truncate">{data.courier_code || "Standard"}</span>
           </Card>
 
           <Card className="p-4 border-border/70 bg-card rounded-xl shadow-2xs flex flex-col justify-between">
@@ -176,14 +175,14 @@ export default function ShipmentHistoryPage() {
 
           <Card className="p-4 border-border/70 bg-card rounded-xl shadow-2xs flex flex-col justify-between">
             <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Checkpoints</span>
-            <span className="text-sm font-bold font-heading text-foreground mt-1">
+            <span className="text-sm font-semibold font-heading text-foreground mt-1">
               {data.events?.length ?? 0} Scans
             </span>
           </Card>
 
           <Card className="p-4 border-border/70 bg-card rounded-xl shadow-2xs flex flex-col justify-between">
             <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Tracking Mode</span>
-            <span className="text-sm font-bold font-heading text-foreground mt-1 capitalize">{tone}</span>
+            <span className="text-sm font-semibold font-heading text-foreground mt-1 capitalize">{tone}</span>
           </Card>
         </div>
       )}
@@ -258,7 +257,7 @@ export default function ShipmentHistoryPage() {
                         {e.action_description}
                       </span>
                       {isLatest && (
-                        <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-primary text-primary-foreground shadow-2xs">
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-primary text-primary-foreground shadow-2xs">
                           Latest Status
                         </span>
                       )}

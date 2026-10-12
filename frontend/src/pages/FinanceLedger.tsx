@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { DatePicker } from "../components/DatePicker";
+import DateRangePicker from "../components/DateRangePicker";
 import EmptyState from "../components/EmptyState";
 import MetricCard from "../components/MetricCard";
 import SelectField from "../components/SelectField";
@@ -127,27 +127,20 @@ export default function LedgerPage() {
 
       <Card className="flex flex-wrap items-end gap-3 p-5 border-border/80 shadow-xs">
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="ledger-from" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            From
+          <Label htmlFor="ledger-date-range" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Date Range
           </Label>
-          <DatePicker
-            id="ledger-from"
-            value={from}
-            onChange={setFrom}
-            ariaLabel="From date"
-            className="w-[190px]"
-          />
-        </div>
-        <div className="flex flex-col gap-1.5">
-          <Label htmlFor="ledger-to" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            To
-          </Label>
-          <DatePicker
-            id="ledger-to"
-            value={to}
-            onChange={setTo}
-            ariaLabel="To date"
-            className="w-[190px]"
+          <DateRangePicker
+            id="ledger-date-range"
+            ariaLabel="Date range"
+            from={from}
+            to={to}
+            onChange={({ from: f, to: t }) => {
+              setFrom(f);
+              setTo(t);
+              setPage(0);
+            }}
+            className="w-[260px]"
           />
         </div>
         <div className="flex flex-col gap-1.5">

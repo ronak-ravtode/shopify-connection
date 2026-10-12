@@ -1,19 +1,11 @@
-﻿import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { api } from "../lib/api";
 import MetricCard from "../components/MetricCard";
-import EmptyState from "../components/EmptyState";
-import { Button, buttonVariants, Badge, Card, Input, Label, Checkbox } from "../components/primitives";
+import { Button, Badge, Card, Label, Checkbox } from "../components/primitives";
 import {
-  IconAlert,
   IconBox,
   IconClock,
-  IconCoin,
-  IconReceipt,
-  IconRefund,
   IconReturn,
-  IconSpark,
-  IconTag,
   IconTruck,
   IconArrowUpRight,
 } from "../components/icons";
@@ -30,7 +22,7 @@ import "../styles/shopify-dashboard.css";
 
 /* Matches the other filter controls in this header row. */
 const DASH_TRIGGER =
-  "w-full h-9 px-3 bg-card border border-border/80 rounded-lg text-xs font-semibold text-foreground shadow-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors";
+  "w-full h-9 px-3 bg-card border border-border/80 rounded-md font-sans text-sm font-normal text-foreground shadow-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors";
 
 interface SparklineProps {
   type: "gross" | "rto" | "pending" | "orders" | "shipping";
@@ -301,7 +293,6 @@ function SalesOverTimeChart({
 
 export default function DashboardPage() {
   const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
   const [live, setLive] = useState(true);
   const [updatedAt, setUpdatedAt] = useState<string | null>(null);
 
@@ -358,8 +349,7 @@ export default function DashboardPage() {
   const activeFiltersCount =
     (datePreset !== "ALL" || dateFrom || dateTo ? 1 : 0) + (codMode ? 1 : 0);
 
-  const loadSummary = (silent = false) => {
-    if (!silent) setLoading(true);
+  const loadSummary = () => {
     const params = new URLSearchParams();
     if (dateFrom) params.append("date_from", dateFrom);
     if (dateTo) params.append("date_to", dateTo);
@@ -371,10 +361,7 @@ export default function DashboardPage() {
         setData(res?.data || res);
         setUpdatedAt(new Date().toLocaleTimeString());
       })
-      .catch(() => {})
-      .finally(() => {
-        if (!silent) setLoading(false);
-      });
+      .catch(() => {});
   };
 
   useEffect(() => {
@@ -383,7 +370,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (!live) return;
-    const interval = setInterval(() => loadSummary(true), 15000);
+    const interval = setInterval(() => loadSummary(), 15000);
     return () => clearInterval(interval);
   }, [live, dateFrom, dateTo, codMode]);
 
@@ -419,9 +406,6 @@ export default function DashboardPage() {
   const pendingOrdersVal = kpis?.pending_orders !== undefined ? `${kpis.pending_orders}` : "0";
   const inRtoVal = kpis?.in_rto !== undefined ? `${kpis.in_rto}` : "0";
   const totalOrdersVal = kpis?.orders_total !== undefined ? `${kpis.orders_total}` : "0";
-
-  const selectClass =
-    "w-full h-9 px-3 bg-card border border-border/80 rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition shadow-xs";
 
   return (
     <div className="page-shell flex flex-col gap-6 bg-background">
@@ -459,7 +443,7 @@ export default function DashboardPage() {
           {/* Date Range Preset Filter. Uses a raw Select because "ALL" is a real
               preset here, not an empty-string sentinel. */}
           <div className="flex flex-col gap-1">
-            <span className="font-heading text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            <span className="font-heading text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               Date Range
             </span>
             <Select value={datePreset} onValueChange={handleDatePresetChange}>

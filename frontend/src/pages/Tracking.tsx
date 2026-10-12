@@ -244,19 +244,19 @@ export default function GeneralTrackingPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="border-t-4 border-t-primary p-5 border-border/80 shadow-xs">
           <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Total Tracked</div>
-          <div className="mt-1 text-3xl font-extrabold text-foreground">{counts.total}</div>
+          <div className="mt-1 text-3xl font-semibold text-foreground">{counts.total}</div>
         </Card>
         <Card className="border-t-4 border-t-destructive p-5 border-border/80 shadow-xs">
           <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Critical / NDR</div>
-          <div className="mt-1 text-3xl font-extrabold text-destructive">{counts.critical}</div>
+          <div className="mt-1 text-3xl font-semibold text-destructive">{counts.critical}</div>
         </Card>
         <Card className="border-t-4 border-t-warning p-5 border-border/80 shadow-xs">
           <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Delayed / Warning</div>
-          <div className="mt-1 text-3xl font-extrabold text-warning">{counts.warn}</div>
+          <div className="mt-1 text-3xl font-semibold text-warning">{counts.warn}</div>
         </Card>
         <Card className="border-t-4 border-t-success p-5 border-border/80 shadow-xs">
           <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">On Track</div>
-          <div className="mt-1 text-3xl font-extrabold text-foreground">{counts.ok}</div>
+          <div className="mt-1 text-3xl font-semibold text-foreground">{counts.ok}</div>
         </Card>
       </div>
 

@@ -280,3 +280,18 @@ test("the submit button is disabled while the push is in flight", async () => {
   release(null);
   await waitFor(() => expect(screen.getByText("Push shipment")).toBeTruthy());
 });
+
+test("clicking outside the dialog or pressing Escape invokes onClose", async () => {
+  stubFetch();
+  const onClose = vi.fn();
+  render(<AddShipmentDialog open orderId="o1" orderLabel="MAN-1" onClose={onClose} />);
+  
+  // Click on the backdrop (outer dialog overlay)
+  const dialog = screen.getByRole("dialog");
+  fireEvent.click(dialog);
+  expect(onClose).toHaveBeenCalledTimes(1);
+
+  // Pressing Escape key
+  fireEvent.keyDown(window, { key: "Escape" });
+  expect(onClose).toHaveBeenCalledTimes(2);
+});

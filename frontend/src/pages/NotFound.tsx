@@ -5,7 +5,6 @@ import {
   IconBox,
   IconChevronLeft,
   IconCoin,
-  IconReturn,
   IconSearch,
   IconTruck,
   IconWarning,
@@ -68,7 +67,7 @@ export default function NotFound() {
 
           {/* Quick Helpful Directory Links */}
           <div className="pt-6 border-t border-border/70 space-y-3">
-            <span className="text-[11px] font-bold font-heading uppercase tracking-wider text-muted-foreground block">
+            <span className="text-[11px] font-semibold font-heading uppercase tracking-wider text-muted-foreground block">
               Quick Navigation
             </span>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">

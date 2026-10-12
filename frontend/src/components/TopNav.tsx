@@ -206,7 +206,7 @@ export default function TopNav() {
         >
           <span
             aria-hidden="true"
-            className="grid size-7 shrink-0 place-items-center rounded-md bg-primary text-[13px] font-bold text-primary-foreground transition-transform duration-300 ease-linear group-hover:-rotate-6"
+            className="grid size-7 shrink-0 place-items-center rounded-md bg-primary text-[13px] font-semibold text-primary-foreground transition-transform duration-300 ease-linear group-hover:-rotate-6"
           >
             R
           </span>

@@ -7,7 +7,6 @@ import {
   Badge,
   Button,
   Card,
-  Input,
   Table,
   TableBody,
   TableCell,
@@ -335,7 +334,7 @@ export default function MonthClosePage() {
                       <TableCell>
                         <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold bg-muted/50 border border-border/70">
                           <SeverityBadge severity={gateSeverity(g.count)} />
-                          <span className="text-xs font-bold text-foreground">
+                          <span className="text-xs font-semibold text-foreground">
                             {g.count > 0 ? "BLOCKER" : "CLEAR"}
                           </span>
                         </div>
@@ -353,7 +352,7 @@ export default function MonthClosePage() {
                       <TableCell>
                         <div className="inline-flex items-center gap-2">
                           <SeverityBadge severity="HIGH" />
-                          <span className="text-xs font-bold text-foreground">BLOCKER</span>
+                          <span className="text-xs font-semibold text-foreground">BLOCKER</span>
                         </div>
                       </TableCell>
                     </TableRow>

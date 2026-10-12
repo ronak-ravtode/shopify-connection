@@ -16,13 +16,13 @@ export const ALL = "__all__";
 const fromSelect = (v: string) => (v === ALL ? "" : v);
 
 const TRIGGER =
-  "w-full h-9 px-3 bg-card border border-border/80 rounded-md text-sm font-normal text-foreground shadow-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors";
+  "w-full h-9 px-3 bg-card border border-border/80 rounded-md font-sans text-sm font-normal text-foreground shadow-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors";
 
 /* The tracking pages originally used a taller native select (min-h-11) that did
    not line up with the h-9 Input beside it. Height now matches the Input so the
    filter row reads as one baseline; only the width behaviour differs. */
 const TALL_TRIGGER =
-  "h-9 w-full flex-1 min-w-[140px] px-3 py-1.5 rounded-md border border-input bg-background text-sm font-normal text-foreground shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/20 transition-colors";
+  "h-9 w-full flex-1 min-w-[140px] px-3 py-1.5 rounded-md border border-border/80 bg-card font-sans text-sm font-normal text-foreground shadow-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 transition-colors";
 
 export type SelectOption = {
   value: string;
@@ -67,7 +67,7 @@ export function SelectField({
   return (
     <div className={cn("flex flex-col gap-1", className)}>
       {label && (
-        <span className="font-heading text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+        <span className="font-heading text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
           {label}
         </span>
       )}

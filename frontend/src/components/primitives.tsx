@@ -6,14 +6,6 @@ import {
 import { Input as ShadcnInput } from "./ui/input";
 import { Textarea as ShadcnTextarea } from "./ui/textarea";
 import {
-  Card as ShadcnCard,
-  CardHeader as ShadcnCardHeader,
-  CardTitle as ShadcnCardTitle,
-  CardDescription as ShadcnCardDescription,
-  CardContent as ShadcnCardContent,
-  CardFooter as ShadcnCardFooter,
-} from "./ui/card";
-import {
   Table as ShadcnTable,
   TableHeader as ShadcnTableHeader,
   TableBody as ShadcnTableBody,
@@ -90,7 +82,7 @@ function Input({ className, ...props }: React.ComponentProps<typeof ShadcnInput>
   return (
     <ShadcnInput
       className={cn(
-        "h-9 w-full min-w-0 rounded-md border border-input bg-background/90 px-3 py-1.5 text-sm shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/20 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+        "h-9 w-full min-w-0 rounded-md border border-border/80 bg-card px-3 py-1.5 text-sm text-foreground shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}
@@ -102,7 +94,7 @@ function Textarea({ className, ...props }: React.ComponentProps<typeof ShadcnTex
   return (
     <ShadcnTextarea
       className={cn(
-        "min-h-20 w-full rounded-md border border-input bg-background/90 px-3 py-2 text-sm shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/20 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
+        "min-h-20 w-full rounded-md border border-border/80 bg-card px-3 py-2 text-sm text-foreground shadow-xs transition-colors placeholder:text-muted-foreground focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}
@@ -237,7 +229,7 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
   return (
     <ShadcnTableHead
       className={cn(
-        "h-11 px-4 py-2.5 text-left align-middle text-[11px] font-bold uppercase tracking-wider text-muted-foreground font-heading select-none whitespace-nowrap",
+        "h-11 px-4 py-2.5 text-left align-middle text-[11px] font-semibold uppercase tracking-wider text-muted-foreground font-heading select-none whitespace-nowrap",
         className,
       )}
       {...props}

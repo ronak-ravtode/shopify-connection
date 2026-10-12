@@ -36,6 +36,7 @@ export function DateRangePicker({
   className,
   disabled,
   id,
+  ariaLabel = "Date range",
 }: {
   from: string;
   to: string;
@@ -43,6 +44,7 @@ export function DateRangePicker({
   className?: string;
   disabled?: boolean;
   id?: string;
+  ariaLabel?: string;
 }) {
   const [open, setOpen] = React.useState(false);
 
@@ -84,6 +86,7 @@ export function DateRangePicker({
           type="button"
           variant="outline"
           disabled={disabled}
+          aria-label={ariaLabel}
           className={cn(
             "h-9 w-full justify-start gap-2 rounded-md px-3 text-sm font-normal",
             // Mirror the native date input's chrome so this reads as the same

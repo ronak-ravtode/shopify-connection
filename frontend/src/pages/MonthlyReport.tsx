@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { DatePicker } from "../components/DatePicker";
+import DateRangePicker from "../components/DateRangePicker";
 import { MonthPicker } from "../components/MonthPicker";
 import { API } from "../lib/api";
 import { api } from "../lib/api";
@@ -11,7 +11,6 @@ import {
   Badge,
   Button,
   Card,
-  Input,
   Label,
 } from "../components/primitives";
 import {
@@ -168,20 +167,16 @@ export default function MonthlyPage() {
             options={REPORT_PRESETS.map((p) => ({ value: p, label: p }))}
           />
           {preset === "custom" && (
-            <div className="flex flex-wrap gap-2">
-              <DatePicker
-                value={from}
-                onChange={setFrom}
-                ariaLabel="From"
-                className="w-[170px]"
-              />
-              <DatePicker
-                value={to}
-                onChange={setTo}
-                ariaLabel="To"
-                className="w-[170px]"
-              />
-            </div>
+            <DateRangePicker
+              from={from}
+              to={to}
+              onChange={({ from: f, to: t }) => {
+                setFrom(f);
+                setTo(t);
+              }}
+              ariaLabel="Date range"
+              className="w-[260px]"
+            />
           )}
           <Button variant="outline" onClick={loadCards} disabled={cardsLoading}>
             Apply period

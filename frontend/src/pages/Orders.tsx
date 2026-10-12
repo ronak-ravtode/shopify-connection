@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { API, api } from "../lib/api";
 import { buildOrderQuery, downloadXlsx } from "../lib/india-post";
 import AddShipmentDialog from "../components/AddShipmentDialog";
@@ -21,7 +21,7 @@ import {
 /* Shared trigger styling so the shadcn Selects on this page match the native
    inputs in the same filter row (h-9, text-sm, card surface). */
 const DATE_TRIGGER_CLASS =
-  "w-full h-9 px-3 bg-card border border-border/80 rounded-md text-sm font-normal text-foreground shadow-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors";
+  "w-full h-9 px-3 bg-card border border-border/80 rounded-md font-sans text-sm font-normal text-foreground shadow-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors";
 import { Button, Card, Checkbox, Input, Label, Badge } from "../components/primitives";
 import { CarrierIcon, CARRIER_OPTIONS } from "../components/CarrierIcon";
 import {
@@ -76,7 +76,6 @@ function resolvePresetRange(preset: string, now = new Date()): { from: string; t
 }
 
 export default function OrdersPage() {
-  const navigate = useNavigate();
   const [orders, setOrders] = useState<any[]>([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
@@ -159,11 +158,6 @@ export default function OrdersPage() {
     const t = setInterval(() => fetchOrders(true), 15000);
     return () => clearInterval(t);
   }, [live, search, status, codMode, dateFrom, dateTo, city, pincode, carrier, page, pageSize]);
-
-  const handleFilterChange = (setter: (val: any) => void, val: any) => {
-    setter(val);
-    setPage(1);
-  };
 
   const handleSyncShopify = async () => {
     setSyncing(true);
@@ -256,7 +250,7 @@ export default function OrdersPage() {
             to="/orders/new"
             className="inline-flex items-center justify-center font-medium transition-all duration-150 cursor-pointer select-none active:scale-[0.98] bg-primary text-primary-foreground hover:bg-primary/90 h-8 px-3 text-xs rounded-md shadow-xs font-semibold gap-1.5"
           >
-            <IconBox size={15} /> + New Order
+            <IconBox size={15} /> New Order
           </Link>
 
           {/* Multi-Carrier Export Dropdown Menu */}
@@ -275,7 +269,7 @@ export default function OrdersPage() {
               <>
                 <div className="fixed inset-0 z-40" onClick={() => setShowExportMenu(false)} />
                 <div className="absolute right-0 mt-1.5 w-64 rounded-xl border border-border bg-card p-1.5 shadow-xl z-50 animate-in fade-in-50 zoom-in-95 duration-150">
-                  <div className="px-2.5 py-1.5 text-[11px] font-bold text-muted-foreground uppercase tracking-wider border-b border-border/60 mb-1">
+                  <div className="px-2.5 py-1.5 text-[11px] font-semibold text-muted-foreground uppercase tracking-wider border-b border-border/60 mb-1">
                     Select Carrier Export Format
                   </div>
 
@@ -444,7 +438,7 @@ export default function OrdersPage() {
             options={CARRIER_OPTIONS}
           />
           <div className="flex flex-col gap-1">
-            <span className="font-heading text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+            <span className="font-heading text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
               Date Range
             </span>
             <Select
@@ -466,7 +460,7 @@ export default function OrdersPage() {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider font-heading">City</span>
+            <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider font-heading">City</span>
             <Input
               className="h-9"
               placeholder="Filter city"
@@ -480,7 +474,7 @@ export default function OrdersPage() {
           </div>
 
           <div className="flex flex-col gap-1">
-            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider font-heading">Pincode</span>
+            <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider font-heading">Pincode</span>
             <Input
               className="h-9"
               placeholder="6-digit pincode"
@@ -520,7 +514,7 @@ export default function OrdersPage() {
         {/* Custom Date Range picker - shown only when 'Custom Date' is selected */}
         {datePreset === "CUSTOM" && (
           <div className="flex flex-wrap items-end gap-3 pt-3 mt-1 border-t border-border/50 bg-muted/20 px-3.5 py-3 rounded-lg animate-in fade-in-50 duration-200">
-            <span className="text-[11px] font-bold text-muted-foreground uppercase tracking-wider font-heading flex items-center gap-1.5 pb-2.5">
+            <span className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider font-heading flex items-center gap-1.5 pb-2.5">
               <IconCalendar size={13} className="text-muted-foreground" /> Custom Date Range:
             </span>
             <div className="flex flex-col gap-1 min-w-[260px] flex-1 sm:max-w-[320px]">
@@ -611,9 +605,9 @@ export default function OrdersPage() {
             <div className="flex flex-wrap items-center justify-between gap-4 p-4 border-t border-border bg-muted/20">
               <div className="flex items-center gap-3 text-xs text-muted-foreground font-medium">
                 <span>
-                  Showing <span className="font-bold font-mono text-foreground">{Math.min((page - 1) * pageSize + 1, totalOrders)}</span> to{" "}
-                  <span className="font-bold font-mono text-foreground">{Math.min(page * pageSize, totalOrders)}</span> of{" "}
-                  <span className="font-bold font-mono text-foreground">{totalOrders}</span> orders
+                  Showing <span className="font-semibold font-mono text-foreground">{Math.min((page - 1) * pageSize + 1, totalOrders)}</span> to{" "}
+                  <span className="font-semibold font-mono text-foreground">{Math.min(page * pageSize, totalOrders)}</span> of{" "}
+                  <span className="font-semibold font-mono text-foreground">{totalOrders}</span> orders
                 </span>
                 
                 {/* Page Size Selector */}
@@ -627,7 +621,7 @@ export default function OrdersPage() {
                       setPageSize(Number(v));
                       setPage(1);
                     }}
-                    triggerClassName="h-7 w-auto px-2 text-xs font-mono font-bold"
+                    triggerClassName="h-7 w-auto px-2 text-xs font-mono font-semibold"
                     options={[5, 10, 15, 25, 50].map((n) => ({ value: String(n), label: String(n) }))}
                   />
                 </div>
@@ -645,7 +639,7 @@ export default function OrdersPage() {
                   <span>Previous</span>
                 </Button>
 
-                <div className="flex items-center gap-1 text-xs font-bold font-mono px-3 py-1 rounded-lg bg-background border border-border">
+                <div className="flex items-center gap-1 text-xs font-semibold font-mono px-3 py-1 rounded-lg bg-background border border-border">
                   <span>Page {page} of {Math.max(1, Math.ceil(totalOrders / pageSize))}</span>
                 </div>
 

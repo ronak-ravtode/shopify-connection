@@ -112,7 +112,7 @@ export default function StatementDetailPage() {
                 <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                   {k}
                 </div>
-                <div className="mt-1 text-2xl font-extrabold text-foreground">{v as number}</div>
+                <div className="mt-1 text-2xl font-semibold text-foreground">{v as number}</div>
               </div>
             ))}
         </Card>

@@ -73,6 +73,16 @@ export default function EditOrderDialog({
     }
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
   const inputClass =
     "w-full h-9 px-3 bg-card border border-border/80 rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition shadow-xs";
 
@@ -82,8 +92,17 @@ export default function EditOrderDialog({
       aria-modal="true"
       aria-labelledby="edit-order-title"
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150"
+      onClick={onClose}
     >
-      <Card className="w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 shadow-2xl border-border/80 bg-background rounded-2xl">
+      <div
+        className="fixed inset-0"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <Card
+        className="relative z-10 w-full max-w-lg max-h-[90vh] overflow-y-auto p-6 shadow-2xl border-border/80 bg-background rounded-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="flex items-center justify-between border-b border-border/80 pb-4 mb-4">
           <div>
             <h2 id="edit-order-title" className="text-xl font-medium font-heading text-foreground">

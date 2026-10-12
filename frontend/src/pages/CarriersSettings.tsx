@@ -115,7 +115,7 @@ export default function CarriersPage() {
             className={`p-5 border-border/80 shadow-xs ${h.configured ? "border-t-4 border-t-success" : "border-t-4 border-t-muted"}`}
           >
             <div className="flex items-center justify-between">
-              <span className="font-bold text-foreground">{h.code}</span>
+              <span className="font-semibold text-foreground">{h.code}</span>
               <Badge variant={h.configured ? "default" : "secondary"}>
                 {h.configured ? "Connected" : "Not connected"}
               </Badge>

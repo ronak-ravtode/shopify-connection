@@ -54,7 +54,7 @@ export function ProductAvatar({
 
   return (
     <div
-      className={`${className} rounded-lg bg-gradient-to-br ${gradient} border flex items-center justify-center font-bold text-[10px] tracking-wider shrink-0 shadow-2xs`}
+      className={`${className} rounded-lg bg-gradient-to-br ${gradient} border flex items-center justify-center font-semibold text-[10px] tracking-wider shrink-0 shadow-2xs`}
       title={name}
     >
       {initials}

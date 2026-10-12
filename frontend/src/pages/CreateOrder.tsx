@@ -3,7 +3,7 @@ import SelectField from "../components/SelectField";
 import { Link, useNavigate } from "react-router-dom";
 import { api, pushShipment } from "../lib/api";
 import { newOrderDefaults } from "../lib/india-post";
-import { Button, Card, Badge, Input, Textarea } from "../components/primitives";
+import { Button, Card, Badge, Input } from "../components/primitives";
 import { CarrierIcon } from "../components/CarrierIcon";
 import {
   IconAlert,
@@ -15,6 +15,7 @@ import {
   IconMapPin,
   IconPackage,
   IconSearch,
+  IconSpark,
   IconTruck,
 } from "../components/icons";
 
@@ -177,6 +178,19 @@ export default function CreateOrder() {
     setSelectedItems((prev) => prev.filter((it) => it.product.id !== prodId));
   };
 
+  const handleQuickFillCustomer = () => {
+    setCustomerName("Riya Patel");
+    setCustomerMobile("9825101234");
+    setCustomerEmail("riya.patel@gmail.com");
+    setAddressLine1("Flat 402, Royal Residency, Station Road");
+    setAddressLine2("Opp. City Mall");
+    setCity("Surat");
+    setState("Gujarat");
+    setPincode("395002");
+    setFieldErrors({});
+    setError(null);
+  };
+
   const validateForm = () => {
     const errs: Record<string, string> = {};
     if (!customerName.trim()) errs.customerName = "Customer name is required";
@@ -192,7 +206,29 @@ export default function CreateOrder() {
     if (selectedItems.length === 0) errs.items = "Please select at least one saree";
 
     setFieldErrors(errs);
-    return Object.keys(errs).length === 0;
+
+    if (Object.keys(errs).length > 0) {
+      const missingLabels: string[] = [];
+      if (errs.items) missingLabels.push("Select Saree");
+      if (errs.customerName) missingLabels.push("Customer Name");
+      if (errs.customerMobile) missingLabels.push("Mobile");
+      if (errs.addressLine1) missingLabels.push("Address");
+      if (errs.pincode) missingLabels.push("PIN Code");
+
+      setError(`Please complete required delivery details: ${missingLabels.join(", ")}`);
+
+      // Auto-scroll to the customer details section so inputs are visible
+      const target = document.getElementById("customer-details-section");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "center" });
+        const firstInput = target.querySelector("input[value='']") as HTMLInputElement | null;
+        if (firstInput) firstInput.focus();
+      }
+      return false;
+    }
+
+    setError(null);
+    return true;
   };
 
   const handleCreateOrder = async (e: React.FormEvent) => {
@@ -203,30 +239,33 @@ export default function CreateOrder() {
     setSubmitting(true);
     const defaults = newOrderDefaults();
 
+    const cleanMob = customerMobile.replace(/\D/g, "");
+    const normalizedMobile = cleanMob.length === 12 && cleanMob.startsWith("91") ? cleanMob.slice(2) : cleanMob.slice(-10);
+
     const payload = {
       ...defaults,
       receiver_name: customerName.trim(),
-      receiver_mobile: customerMobile.replace(/\D/g, "").slice(-10),
+      receiver_mobile: normalizedMobile,
       receiver_email: customerEmail.trim() || undefined,
       receiver_add1: addressLine1.trim(),
       receiver_add2: addressLine2.trim() || undefined,
       receiver_city: city.trim(),
       receiver_state: state.trim(),
-      receiver_pincode: pincode.trim(),
-      weight_grams: weightGrams,
-      length_cm: lengthCm,
-      breadth_cm: breadthCm,
-      height_cm: heightCm,
+      receiver_pincode: pincode.replace(/\D/g, "").trim(),
+      weight_grams: Number(weightGrams) || 930,
+      length_cm: Number(lengthCm) || 30,
+      breadth_cm: Number(breadthCm) || 20,
+      height_cm: Number(heightCm) || 5,
       shape: "NROL",
       cod_mode: paymentMode,
-      total_amount: subtotal,
-      cod_value: paymentMode === "COD" ? codCollectableAmount : 0,
+      total_amount: Number(subtotal),
+      cod_value: paymentMode === "COD" ? Number(codCollectableAmount) : 0,
       line_items: selectedItems.map((it) => ({
         id: it.product.shopify_product_id || it.product.id,
         title: it.product.title,
         sku: it.product.sku,
-        price: it.product.price,
-        quantity: it.quantity,
+        price: Number(it.product.price),
+        quantity: Number(it.quantity),
         image_url: it.product.image_url,
       })),
     };
@@ -239,7 +278,11 @@ export default function CreateOrder() {
       const order = res?.data || res;
       setCreatedOrder(order);
     } catch (err: any) {
-      setError(err?.message || "Failed to create order. Please check inputs.");
+      if (err?.status === 401 || err?.message?.toLowerCase().includes("authenticated")) {
+        setError("Your session has expired. Please sign in to create orders.");
+      } else {
+        setError(err?.message || "Failed to create order. Please check inputs.");
+      }
     } finally {
       setSubmitting(false);
     }
@@ -315,7 +358,7 @@ export default function CreateOrder() {
               </div>
 
               {selectedItems.length > 0 && (
-                <Badge variant="secondary" className="bg-primary/10 text-primary font-bold text-xs px-3 py-1 flex items-center gap-1">
+                <Badge variant="secondary" className="bg-primary/10 text-primary font-semibold text-xs px-3 py-1 flex items-center gap-1">
                   <IconCheck size={12} />
                   <span>{totalSareeCount} Saree{totalSareeCount > 1 ? "s" : ""} Added</span>
                 </Badge>
@@ -331,7 +374,7 @@ export default function CreateOrder() {
                     placeholder="Search sarees by title, colour, design, or SKU..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-9 pr-10 py-2.5 bg-background border border-border/80 rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-2 focus:ring-primary shadow-2xs transition"
+                    className="w-full pl-9 pr-10 py-2.5 bg-card border border-border/80 rounded-xl text-sm text-foreground placeholder:text-muted-foreground focus:outline-hidden focus:ring-2 focus:ring-primary shadow-2xs transition"
                   />
                   {searchQuery && (
                     <button
@@ -354,7 +397,7 @@ export default function CreateOrder() {
                     onClick={() => setActiveCategory(cat)}
                     className={`px-3 py-1.5 rounded-full font-medium transition cursor-pointer shrink-0 ${
                       activeCategory === cat
-                        ? "bg-primary text-primary-foreground shadow-2xs font-bold"
+                        ? "bg-primary text-primary-foreground shadow-2xs font-semibold"
                         : "bg-muted text-muted-foreground hover:bg-muted/80 hover:text-foreground"
                     }`}
                   >
@@ -424,7 +467,7 @@ export default function CreateOrder() {
                             </span>
                           )}
                           <div className="mt-1.5 flex items-center gap-2">
-                            <span className="font-mono text-sm sm:text-base font-extrabold text-primary">
+                            <span className="font-mono text-sm sm:text-base font-semibold text-primary">
                               ₹{Number(prod.price || 0).toLocaleString()}
                             </span>
                           </div>
@@ -438,18 +481,18 @@ export default function CreateOrder() {
                             <button
                               type="button"
                               onClick={() => handleUpdateQuantity(prod.id, -1)}
-                              className="size-8 rounded-lg bg-muted flex items-center justify-center text-sm font-bold hover:bg-muted/80 text-foreground"
+                              className="size-8 rounded-lg bg-muted flex items-center justify-center text-sm font-semibold hover:bg-muted/80 text-foreground"
                               title="Decrease quantity"
                             >
                               -
                             </button>
-                            <span className="font-mono font-bold text-sm px-1.5 min-w-[20px] text-center text-foreground">
+                            <span className="font-mono font-semibold text-sm px-1.5 min-w-[20px] text-center text-foreground">
                               {selected.quantity}
                             </span>
                             <button
                               type="button"
                               onClick={() => handleUpdateQuantity(prod.id, 1)}
-                              className="size-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold hover:bg-primary/90"
+                              className="size-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-sm font-semibold hover:bg-primary/90"
                               title="Increase quantity"
                             >
                               +
@@ -459,7 +502,7 @@ export default function CreateOrder() {
                           <button
                             type="button"
                             onClick={() => handleAddProduct(prod)}
-                            className="px-4 py-2 bg-primary/10 hover:bg-primary text-primary hover:text-primary-foreground font-bold text-xs rounded-xl transition shadow-2xs"
+                            className="px-4 py-2 bg-primary/10 hover:bg-primary text-primary hover:text-primary-foreground font-semibold text-xs rounded-xl transition shadow-2xs"
                           >
                             + Select Saree
                           </button>
@@ -473,26 +516,38 @@ export default function CreateOrder() {
           </Card>
 
           {/* Section 2: Customer Shipping Address */}
-          <Card className="p-6 border-border/80 shadow-xs space-y-5">
-            <div className="border-b border-border/60 pb-3">
-              <h2 className="text-lg font-medium font-heading text-foreground flex items-center gap-2">
-                <IconMapPin size={18} className="text-primary" /> Customer & Delivery Address
-              </h2>
-              <p className="text-xs text-muted-foreground mt-0.5">
-                Exact shipping details where the saree parcel will be delivered.
-              </p>
+          <Card id="customer-details-section" className="p-6 border-border/80 shadow-xs space-y-5">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border/60 pb-3">
+              <div>
+                <h2 className="text-lg font-medium font-heading text-foreground flex items-center gap-2">
+                  <IconMapPin size={18} className="text-primary" /> Customer & Delivery Address
+                </h2>
+                <p className="text-xs text-muted-foreground mt-0.5">
+                  Exact shipping details where the saree parcel will be delivered.
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={handleQuickFillCustomer}
+                className="text-xs font-semibold text-primary hover:bg-primary/10 gap-1.5 cursor-pointer"
+              >
+                <IconSpark size={13} />
+                <span>Quick Fill Sample Customer</span>
+              </Button>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Customer Name */}
               <div className="sm:col-span-2 space-y-1.5">
-                <label className="text-xs font-bold text-foreground">Customer Full Name *</label>
+                <label className="text-xs font-semibold text-foreground">Customer Full Name *</label>
                 <Input
                   type="text"
                   placeholder="e.g. Sonal Sharma"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary shadow-2xs"
+                  className="w-full px-3.5 py-2.5 bg-card border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary shadow-2xs"
                   required
                 />
                 {fieldErrors.customerName && (
@@ -504,7 +559,7 @@ export default function CreateOrder() {
 
               {/* Mobile Phone */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-foreground">Mobile Number (10 Digits) *</label>
+                <label className="text-xs font-semibold text-foreground">Mobile Number (10 Digits) *</label>
                 <div className="relative">
                   <span className="absolute left-3 top-2.5 text-xs text-muted-foreground font-mono">
                     +91
@@ -515,7 +570,7 @@ export default function CreateOrder() {
                     maxLength={10}
                     value={customerMobile}
                     onChange={(e) => setCustomerMobile(e.target.value)}
-                    className="w-full pl-10 pr-3.5 py-2.5 bg-background border border-border rounded-xl text-sm font-mono focus:ring-2 focus:ring-primary shadow-2xs"
+                    className="w-full pl-10 pr-3.5 py-2.5 bg-card border border-border rounded-xl text-sm font-mono focus:ring-2 focus:ring-primary shadow-2xs"
                     required
                   />
                 </div>
@@ -528,19 +583,19 @@ export default function CreateOrder() {
 
               {/* Email */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-foreground">Email Address (Optional)</label>
+                <label className="text-xs font-semibold text-foreground">Email Address (Optional)</label>
                 <Input
                   type="email"
                   placeholder="customer@gmail.com"
                   value={customerEmail}
                   onChange={(e) => setCustomerEmail(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary shadow-2xs"
+                  className="w-full px-3.5 py-2.5 bg-card border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary shadow-2xs"
                 />
               </div>
 
               {/* Street Address Line 1 */}
               <div className="sm:col-span-2 space-y-1.5">
-                <label className="text-xs font-bold text-foreground">
+                <label className="text-xs font-semibold text-foreground">
                   Address Line 1 (Flat / House No, Building, Road) *
                 </label>
                 <Input
@@ -548,7 +603,7 @@ export default function CreateOrder() {
                   placeholder="e.g. Flat 402, Royal Residency, Station Road"
                   value={addressLine1}
                   onChange={(e) => setAddressLine1(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary shadow-2xs"
+                  className="w-full px-3.5 py-2.5 bg-card border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary shadow-2xs"
                   required
                 />
                 {fieldErrors.addressLine1 && (
@@ -560,7 +615,7 @@ export default function CreateOrder() {
 
               {/* Street Address Line 2 */}
               <div className="sm:col-span-2 space-y-1.5">
-                <label className="text-xs font-bold text-foreground">
+                <label className="text-xs font-semibold text-foreground">
                   Address Line 2 (Area, Colony, Landmark)
                 </label>
                 <Input
@@ -568,19 +623,19 @@ export default function CreateOrder() {
                   placeholder="e.g. Near Shreyas School, Opp. City Mall"
                   value={addressLine2}
                   onChange={(e) => setAddressLine2(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary shadow-2xs"
+                  className="w-full px-3.5 py-2.5 bg-card border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary shadow-2xs"
                 />
               </div>
 
               {/* City */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-foreground">City *</label>
+                <label className="text-xs font-semibold text-foreground">City *</label>
                 <Input
                   type="text"
                   placeholder="e.g. Surat"
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary shadow-2xs"
+                  className="w-full px-3.5 py-2.5 bg-card border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary shadow-2xs"
                   required
                 />
                 {fieldErrors.city && (
@@ -592,13 +647,13 @@ export default function CreateOrder() {
 
               {/* State */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-foreground">State *</label>
+                <label className="text-xs font-semibold text-foreground">State *</label>
                 <Input
                   type="text"
                   placeholder="e.g. Gujarat"
                   value={state}
                   onChange={(e) => setState(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary shadow-2xs"
+                  className="w-full px-3.5 py-2.5 bg-card border border-border rounded-xl text-sm focus:ring-2 focus:ring-primary shadow-2xs"
                   required
                 />
                 {fieldErrors.state && (
@@ -610,14 +665,14 @@ export default function CreateOrder() {
 
               {/* PIN Code */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-foreground">PIN Code (6 Digits) *</label>
+                <label className="text-xs font-semibold text-foreground">PIN Code (6 Digits) *</label>
                 <Input
                   type="text"
                   placeholder="395002"
                   maxLength={6}
                   value={pincode}
                   onChange={(e) => setPincode(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-sm font-mono focus:ring-2 focus:ring-primary shadow-2xs"
+                  className="w-full px-3.5 py-2.5 bg-card border border-border rounded-xl text-sm font-mono focus:ring-2 focus:ring-primary shadow-2xs"
                   required
                 />
                 {fieldErrors.pincode && (
@@ -629,13 +684,13 @@ export default function CreateOrder() {
 
               {/* Preferred Courier */}
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-foreground">Preferred Delivery Partner</label>
+                <label className="text-xs font-semibold text-foreground">Preferred Delivery Partner</label>
                 <SelectField
                   ariaLabel="Preferred Delivery Partner"
                   value={carrierCode}
                   includeAll={false}
                   onChange={setCarrierCode}
-                  triggerClassName="w-full px-3.5 py-2.5 rounded-xl bg-background"
+                  triggerClassName="w-full px-3.5 py-2.5 rounded-xl bg-card"
                   options={[
                     { value: "IP", label: "India Post (Speed Post)", icon: <CarrierIcon code="INDIA_POST" /> },
                     { value: "DELHIVERY", label: "Delhivery (Surface/Express)", icon: <CarrierIcon code="DELHIVERY" /> },
@@ -665,7 +720,7 @@ export default function CreateOrder() {
                   type="number"
                   value={weightGrams}
                   onChange={(e) => setWeightGrams(Number(e.target.value))}
-                  className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm font-mono"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-sm font-mono"
                 />
               </div>
               <div className="space-y-1">
@@ -674,7 +729,7 @@ export default function CreateOrder() {
                   type="number"
                   value={lengthCm}
                   onChange={(e) => setLengthCm(Number(e.target.value))}
-                  className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm font-mono"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-sm font-mono"
                 />
               </div>
               <div className="space-y-1">
@@ -683,7 +738,7 @@ export default function CreateOrder() {
                   type="number"
                   value={breadthCm}
                   onChange={(e) => setBreadthCm(Number(e.target.value))}
-                  className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm font-mono"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-sm font-mono"
                 />
               </div>
               <div className="space-y-1">
@@ -692,7 +747,7 @@ export default function CreateOrder() {
                   type="number"
                   value={heightCm}
                   onChange={(e) => setHeightCm(Number(e.target.value))}
-                  className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm font-mono"
+                  className="w-full px-3 py-2 bg-card border border-border rounded-lg text-sm font-mono"
                 />
               </div>
             </div>
@@ -734,12 +789,12 @@ export default function CreateOrder() {
                         className="size-10 object-cover rounded-lg border border-border shrink-0 bg-muted"
                       />
                       <div className="flex-1 min-w-0">
-                        <p className="font-bold text-foreground truncate">{it.product.title}</p>
+                        <p className="font-semibold text-foreground truncate">{it.product.title}</p>
                         <p className="text-muted-foreground font-mono">
                           Qty: {it.quantity} × ₹{it.product.price}
                         </p>
                       </div>
-                      <span className="font-mono font-bold text-foreground shrink-0">
+                      <span className="font-mono font-semibold text-foreground shrink-0">
                         ₹{(it.product.price * it.quantity).toLocaleString()}
                       </span>
                       <button
@@ -757,7 +812,7 @@ export default function CreateOrder() {
 
               {/* Payment Mode Selector */}
               <div className="space-y-2 pt-2 border-t border-border">
-                <label className="text-xs font-bold text-foreground uppercase tracking-wider block">
+                <label className="text-xs font-semibold text-foreground uppercase tracking-wider block">
                   Payment Mode
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -767,10 +822,10 @@ export default function CreateOrder() {
                     className={`p-3 rounded-xl border text-left transition cursor-pointer ${
                       paymentMode === "COD"
                         ? "border-amber-500 bg-amber-50/70 dark:bg-amber-950/20 text-foreground ring-1 ring-amber-500"
-                        : "border-border bg-background hover:bg-muted text-muted-foreground"
+                        : "border-border bg-card hover:bg-muted text-muted-foreground"
                     }`}
                   >
-                    <span className="font-bold text-sm flex items-center gap-1.5"><IconPackage size={14} /> COD Order</span>
+                    <span className="font-semibold text-sm flex items-center gap-1.5"><IconPackage size={14} /> COD Order</span>
                     <span className="text-[11px] text-muted-foreground block mt-0.5">
                       ₹300 Advance + Remainder on Delivery
                     </span>
@@ -782,10 +837,10 @@ export default function CreateOrder() {
                     className={`p-3 rounded-xl border text-left transition cursor-pointer ${
                       paymentMode === "PREPAID"
                         ? "border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/20 text-foreground ring-1 ring-emerald-500"
-                        : "border-border bg-background hover:bg-muted text-muted-foreground"
+                        : "border-border bg-card hover:bg-muted text-muted-foreground"
                     }`}
                   >
-                    <span className="font-bold text-sm flex items-center gap-1.5"><IconCoin size={14} /> Prepaid</span>
+                    <span className="font-semibold text-sm flex items-center gap-1.5"><IconCoin size={14} /> Prepaid</span>
                     <span className="text-[11px] text-muted-foreground block mt-0.5">
                       Full Payment Collected Online
                     </span>
@@ -816,7 +871,7 @@ export default function CreateOrder() {
                     <span className="font-mono">+₹{codHandlingFee.toLocaleString()}</span>
                   </div>
 
-                  <div className="pt-2 border-t border-amber-500/20 flex items-center justify-between font-extrabold text-sm text-foreground">
+                  <div className="pt-2 border-t border-amber-500/20 flex items-center justify-between font-semibold text-sm text-foreground">
                     <span>Cash on Delivery to Collect</span>
                     <span className="font-mono text-base text-amber-700 dark:text-amber-400">
                       ₹{codCollectableAmount.toLocaleString()}
@@ -829,7 +884,7 @@ export default function CreateOrder() {
                 </div>
               ) : (
                 <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 space-y-2 text-xs">
-                  <div className="flex items-center justify-between font-bold text-sm text-foreground">
+                  <div className="flex items-center justify-between font-semibold text-sm text-foreground">
                     <span>Total Amount Paid</span>
                     <span className="font-mono text-base text-emerald-600">
                       ₹{subtotal.toLocaleString()}
@@ -837,15 +892,48 @@ export default function CreateOrder() {
                   </div>
                   <div className="flex items-center justify-between text-muted-foreground">
                     <span>Collectable on Delivery</span>
-                    <span className="font-mono font-bold text-foreground">₹0 (Prepaid)</span>
+                    <span className="font-mono font-semibold text-foreground">₹0 (Prepaid)</span>
                   </div>
+                </div>
+              )}
+
+              {/* Delivery Details Status Prompt */}
+              {(!customerName.trim() || !customerMobile.trim() || !addressLine1.trim()) && (
+                <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="font-semibold text-amber-700 dark:text-amber-400 flex items-center gap-1.5">
+                      <IconMapPin size={14} /> Customer Details Required
+                    </span>
+                    <button
+                      type="button"
+                      onClick={handleQuickFillCustomer}
+                      className="text-[11px] font-semibold text-primary hover:underline cursor-pointer"
+                    >
+                      Quick Fill
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    Name, mobile & delivery address must be filled before creating the order.
+                  </p>
                 </div>
               )}
 
               {/* Submit Error */}
               {error && (
-                <div className="bg-destructive/10 border border-destructive/20 text-destructive text-xs p-3 rounded-xl flex items-center gap-2">
-                  <IconAlert size={14} /> {error}
+                <div className="bg-destructive/10 border border-destructive/20 text-destructive text-xs p-3 rounded-xl flex items-start gap-2">
+                  <IconAlert size={14} className="shrink-0 mt-0.5" />
+                  <div className="space-y-1">
+                    <p className="font-semibold">{error}</p>
+                    {(!customerName.trim() || !customerMobile.trim() || !addressLine1.trim()) && (
+                      <button
+                        type="button"
+                        onClick={handleQuickFillCustomer}
+                        className="text-[11px] font-semibold underline cursor-pointer text-destructive hover:text-destructive/80"
+                      >
+                        Auto-fill sample customer details & try again
+                      </button>
+                    )}
+                  </div>
                 </div>
               )}
 
@@ -854,7 +942,7 @@ export default function CreateOrder() {
                 <Button
                   type="submit"
                   disabled={submitting || selectedItems.length === 0}
-                  className="w-full h-11 text-sm font-bold bg-primary hover:bg-primary/90 text-primary-foreground shadow-md transition disabled:opacity-50 gap-2"
+                  className="w-full h-11 text-sm font-semibold bg-primary hover:bg-primary/90 text-primary-foreground shadow-md transition disabled:opacity-50 gap-2"
                 >
                   <IconCheck size={16} />
                   {submitting ? "Creating Order..." : "Create & Confirm Order"}
@@ -877,8 +965,19 @@ export default function CreateOrder() {
 
       {/* Post-Creation Tracking Modal */}
       {createdOrder && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
-          <Card className="w-full max-w-md p-6 bg-card border-border shadow-2xl space-y-5">
+        <div
+          className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in"
+          onClick={() => navigate("/orders")}
+        >
+          <div
+            className="fixed inset-0"
+            onClick={() => navigate("/orders")}
+            aria-hidden="true"
+          />
+          <Card
+            className="relative z-10 w-full max-w-md p-6 bg-card border-border shadow-2xl space-y-5"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="text-center space-y-1.5">
               <span className="size-12 rounded-full bg-emerald-500/10 text-emerald-600 text-2xl flex items-center justify-center mx-auto">
                 <IconCheck size={24} />
@@ -886,14 +985,14 @@ export default function CreateOrder() {
               <h3 className="text-lg font-medium font-heading text-foreground">
                 Order Created Successfully!
               </h3>
-              <p className="font-mono text-xs text-primary font-bold">
+              <p className="font-mono text-xs text-primary font-semibold">
                 Order ID: {createdOrder.shopify_order_name || createdOrder.internal_order_number || createdOrder.id}
               </p>
             </div>
 
             {paymentMode === "COD" && (
               <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs space-y-1 text-foreground">
-                <p className="font-bold">COD Collection Summary:</p>
+                <p className="font-semibold">COD Collection Summary:</p>
                 <p>Advance: <strong>₹300 Paid</strong></p>
                 <p>Collect on Delivery: <strong className="text-amber-600 font-mono">₹{codCollectableAmount}</strong></p>
               </div>
@@ -927,7 +1026,7 @@ export default function CreateOrder() {
                 <Button
                   type="submit"
                   disabled={trackingSubmitting || !trackingNo.trim()}
-                  className="flex-1 text-xs font-bold bg-primary"
+                  className="flex-1 text-xs font-semibold bg-primary"
                 >
                   {trackingSubmitting ? "Pushing..." : "Attach Tracking"}
                 </Button>

@@ -1,6 +1,6 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import { expect, test } from "vitest";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { expect, test, vi } from "vitest";
 import { validateNewOrder, buildOrderQuery } from "../src/lib/india-post";
 import NewOrderDialog from "../src/components/NewOrderDialog";
 test("pin validation", ()=>{
@@ -11,4 +11,15 @@ test("dialog renders as fixed overlay", ()=>{
   render(<NewOrderDialog open onClose={()=>{}} onSaved={()=>{}} />);
   const dialog = screen.getByRole("dialog");
   expect(dialog).toBeTruthy();
+});
+
+test("clicking outside or pressing Escape closes NewOrderDialog", () => {
+  const onClose = vi.fn();
+  render(<NewOrderDialog open onClose={onClose} onSaved={() => {}} />);
+  const dialog = screen.getByRole("dialog");
+  fireEvent.click(dialog);
+  expect(onClose).toHaveBeenCalledTimes(1);
+
+  fireEvent.keyDown(window, { key: "Escape" });
+  expect(onClose).toHaveBeenCalledTimes(2);
 });

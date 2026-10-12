@@ -226,8 +226,17 @@ export default function ExceptionsPage() {
           role="dialog"
           aria-label="Resolve issue"
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4"
+          onClick={() => setResolving(null)}
         >
-          <Card className="w-full max-w-lg p-6 sm:p-8 shadow-2xl border-border bg-card">
+          <div
+            className="fixed inset-0"
+            onClick={() => setResolving(null)}
+            aria-hidden="true"
+          />
+          <Card
+            className="relative z-10 w-full max-w-lg p-6 sm:p-8 shadow-2xl border-border bg-card"
+            onClick={(e) => e.stopPropagation()}
+          >
             <h2 className="text-xl font-medium font-heading tracking-tight text-foreground mb-2">Resolve Discrepancy</h2>
             <p className="text-sm text-muted-foreground mb-4">
               {resolving.order_name || resolving.order_id}: <strong className="text-foreground">{resolving.issue_code}</strong>

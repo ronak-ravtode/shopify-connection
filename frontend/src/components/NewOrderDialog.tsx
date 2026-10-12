@@ -67,6 +67,17 @@ export default function NewOrderDialog({ open, onClose, onSaved }: NewOrderDialo
       .finally(() => setLoadingProducts(false));
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open, onClose]);
+
   const handleSelectProduct = (prod: any) => {
     setSelectedProduct(prod);
     setForm((f) => ({
@@ -183,8 +194,17 @@ export default function NewOrderDialog({ open, onClose, onSaved }: NewOrderDialo
       role="dialog"
       aria-modal="true"
       aria-label="Create New Order"
+      onClick={onClose}
     >
-      <div className="w-full max-w-2xl max-h-[90vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-200">
+      <div
+        className="fixed inset-0"
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <div
+        className="relative z-10 w-full max-w-2xl max-h-[90vh] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-200"
+        onClick={(e) => e.stopPropagation()}
+      >
         
         {/* Modal Header */}
         <div className="px-6 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
@@ -219,7 +239,7 @@ export default function NewOrderDialog({ open, onClose, onSaved }: NewOrderDialo
             {/* Sender Section (Prefilled) */}
             <div className="border border-slate-200 rounded-xl p-5 bg-white flex flex-col gap-4 shadow-xs">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <span className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                <span className="text-sm font-semibold text-slate-800 flex items-center gap-2">
                   <IconTruck size={16} /> Sender Details (Default Pickup)
                 </span>
                 <button
@@ -269,7 +289,7 @@ export default function NewOrderDialog({ open, onClose, onSaved }: NewOrderDialo
             {/* Shopify Product Selector */}
             <div className="border border-emerald-500/30 rounded-xl p-5 bg-emerald-50/40 flex flex-col gap-3 shadow-xs">
               <div className="flex items-center justify-between border-b border-emerald-200/60 pb-3">
-                <span className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                <span className="text-sm font-semibold text-slate-800 flex items-center gap-2">
                   <IconPackage size={16} /> Select Shopify Product (Catalog)
                 </span>
                 {selectedProduct && (
@@ -338,7 +358,7 @@ export default function NewOrderDialog({ open, onClose, onSaved }: NewOrderDialo
                           </div>
                         </div>
                         {isSelected && (
-                          <span className="text-emerald-700 font-bold text-xs shrink-0 flex items-center">
+                          <span className="text-emerald-700 font-semibold text-xs shrink-0 flex items-center">
                             <IconCheck size={14} />
                           </span>
                         )}
@@ -353,7 +373,7 @@ export default function NewOrderDialog({ open, onClose, onSaved }: NewOrderDialo
             {/* Receiver Section */}
             <div className="border border-slate-200 rounded-xl p-5 bg-white flex flex-col gap-4 shadow-xs">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <span className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                <span className="text-sm font-semibold text-slate-800 flex items-center gap-2">
                   <IconTag size={16} /> Receiver Delivery Info
                 </span>
               </div>
@@ -450,7 +470,7 @@ export default function NewOrderDialog({ open, onClose, onSaved }: NewOrderDialo
             {/* Parcel Specs Section */}
             <div className="border border-slate-200 rounded-xl p-5 bg-white flex flex-col gap-4 shadow-xs">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <span className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                <span className="text-sm font-semibold text-slate-800 flex items-center gap-2">
                   <IconBox size={16} /> Parcel & Dimensions
                 </span>
               </div>
@@ -523,7 +543,7 @@ export default function NewOrderDialog({ open, onClose, onSaved }: NewOrderDialo
             {/* Payment & COD Section */}
             <div className="border border-slate-200 rounded-xl p-5 bg-white flex flex-col gap-4 shadow-xs">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                <span className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                <span className="text-sm font-semibold text-slate-800 flex items-center gap-2">
                   <IconCoin size={16} /> COD & Payment Details
                 </span>
               </div>
@@ -597,10 +617,10 @@ export default function NewOrderDialog({ open, onClose, onSaved }: NewOrderDialo
 
               <div className="border border-slate-200 rounded-xl p-5 bg-white flex flex-col gap-4 shadow-xs">
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                  <span className="text-sm font-bold text-slate-800 flex items-center gap-2">
+                  <span className="text-sm font-semibold text-slate-800 flex items-center gap-2">
                     <IconTruck size={16} /> Tracking Number
                   </span>
-                  <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                  <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
                     Step 2 of 2
                   </span>
                 </div>

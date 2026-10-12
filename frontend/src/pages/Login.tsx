@@ -64,7 +64,7 @@ export default function LoginPage() {
       <Card className="relative z-10 w-full max-w-[440px] p-8 sm:p-10 shadow-xl border-border/80 bg-card rounded-2xl">
         {/* Brand Header */}
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-primary font-bold text-xl shadow-xs">
+          <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-primary font-semibold text-xl shadow-xs">
             R
           </div>
           <Badge variant="secondary" className="mb-2.5 text-[11px] font-semibold tracking-wider uppercase">

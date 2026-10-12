@@ -14,7 +14,7 @@ import {
   TableRow,
   buttonVariants,
 } from "../components/primitives";
-import { IconBox, IconTag, IconAlert } from "../components/icons";
+import { IconTag, IconAlert } from "../components/icons";
 import SelectField from "../components/SelectField";
 
 type ParcelRow = {

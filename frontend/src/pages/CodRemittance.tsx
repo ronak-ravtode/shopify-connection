@@ -12,7 +12,6 @@ import {
   IconSpark,
 } from "../components/icons";
 import { Card, Button, Badge, Input, Textarea, Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "../components/primitives";
-import { getRtoSummary } from "../lib/api";
 import { API, api } from "../lib/api";
 
 export async function getCodRemittanceSummary() {
@@ -98,7 +97,6 @@ export default function CodRemittance() {
   const [loading, setLoading] = useState(true);
   const [summary, setSummary] = useState<any>(null);
   const [orders, setOrders] = useState<any[]>([]);
-  const [totalCount, setTotalCount] = useState(0);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
@@ -128,7 +126,6 @@ export default function CodRemittance() {
       ]);
       setSummary(sumData);
       setOrders(ordData.items || []);
-      setTotalCount(ordData.total || 0);
     } catch (err) {
       console.error("Failed to fetch COD remittance data:", err);
     } finally {
@@ -231,7 +228,7 @@ export default function CodRemittance() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="p-5 border-border  shadow-2xs">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold font-heading uppercase text-status-success">
+            <span className="text-xs font-semibold font-heading uppercase text-status-success">
               Total Expected COD
             </span>
             <span className="flex size-8 items-center justify-center rounded-lg bg-status-success/10 text-status-success"><IconRefund size={16} /></span>
@@ -248,7 +245,7 @@ export default function CodRemittance() {
 
         <Card className="p-5 border-border  shadow-2xs">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold font-heading uppercase text-status-info">
+            <span className="text-xs font-semibold font-heading uppercase text-status-info">
               Total COD Remitted
             </span>
             <span className="flex size-8 items-center justify-center rounded-lg bg-status-info/10 text-status-info"><IconRefund size={16} /></span>
@@ -265,7 +262,7 @@ export default function CodRemittance() {
 
         <Card className="p-5 border-border  shadow-2xs">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold font-heading uppercase text-status-warning">
+            <span className="text-xs font-semibold font-heading uppercase text-status-warning">
               Pending Remittance
             </span>
             <span className="flex size-8 items-center justify-center rounded-lg bg-status-warning/10 text-status-warning"><IconRefund size={16} /></span>
@@ -282,7 +279,7 @@ export default function CodRemittance() {
 
         <Card className="p-5 border-border  shadow-2xs">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold font-heading uppercase text-status-danger">
+            <span className="text-xs font-semibold font-heading uppercase text-status-danger">
               Shortfall / Discrepancy
             </span>
             <span className="flex size-8 items-center justify-center rounded-lg bg-status-danger/10 text-status-danger"><IconRefund size={16} /></span>
@@ -303,7 +300,7 @@ export default function CodRemittance() {
 
       {/* Upload Banner / Result Notification */}
       {uploading && (
-        <div className="p-4 rounded-xl border border-status-success/30 bg-status-success/10 text-status-success text-xs font-bold flex items-center gap-3">
+        <div className="p-4 rounded-xl border border-status-success/30 bg-status-success/10 text-status-success text-xs font-semibold flex items-center gap-3">
           <span className="flex size-8 items-center justify-center rounded-lg"><IconRefresh size={16} className="animate-spin" /></span>
           <span>Parsing remittance report, executing 4-level matching engine & auto-posting ledger...</span>
         </div>
@@ -318,15 +315,15 @@ export default function CodRemittance() {
 
       {uploadResult && (
         <div className="p-4 rounded-xl border border-status-success/30 bg-status-success/10 text-xs font-medium space-y-2">
-          <div className="flex items-center justify-between font-bold text-status-success">
+          <div className="flex items-center justify-between font-semibold text-status-success">
             <span className="flex items-center gap-1.5"><IconCheck size={16} /> Report {uploadResult.filename} Processed!</span>
             <button type="button" onClick={() => setUploadResult(null)} aria-label="Dismiss"><IconClose size={14} /></button>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-muted-foreground pt-1">
-            <div>Total Rows: <span className="font-bold text-foreground">{uploadResult.total_rows}</span></div>
-            <div>Matched: <span className="font-bold text-status-success">{uploadResult.matched_count}</span></div>
-            <div>Shortfalls: <span className="font-bold text-status-danger">{uploadResult.short_count}</span></div>
-            <div>Total Net Remitted: <span className="font-bold text-foreground">₹{uploadResult.total_net_remitted?.toLocaleString()}</span></div>
+            <div>Total Rows: <span className="font-semibold text-foreground">{uploadResult.total_rows}</span></div>
+            <div>Matched: <span className="font-semibold text-status-success">{uploadResult.matched_count}</span></div>
+            <div>Shortfalls: <span className="font-semibold text-status-danger">{uploadResult.short_count}</span></div>
+            <div>Total Net Remitted: <span className="font-semibold text-foreground">₹{uploadResult.total_net_remitted?.toLocaleString()}</span></div>
           </div>
         </div>
       )}
@@ -358,7 +355,7 @@ export default function CodRemittance() {
                 setStatusFilter(v);
                 setPage(1);
               }}
-              triggerClassName="rounded-xl px-3 py-2 text-xs font-medium"
+              triggerClassName="w-full sm:w-[220px]"
               options={[
                 { value: "MATCHED", label: "Matched (Settled)" },
                 { value: "SHORT_REMITTANCE", label: "Short Remittance (Discrepancy)" },
@@ -375,7 +372,7 @@ export default function CodRemittance() {
                 setCarrierFilter(v);
                 setPage(1);
               }}
-              triggerClassName="rounded-xl px-3 py-2 text-xs font-medium"
+              triggerClassName="w-full sm:w-[200px]"
               options={[
                 { value: "DELHIVERY", label: "Delhivery" },
                 { value: "INDIA_POST", label: "India Post" },
@@ -412,7 +409,7 @@ export default function CodRemittance() {
               <TableBody>
                 {orders.map((item) => (
                   <TableRow key={item.order_id} className="hover:bg-muted/30 transition-colors">
-                    <TableCell className="font-mono text-xs font-bold text-foreground">
+                    <TableCell className="font-mono text-xs font-semibold text-foreground">
                       {item.order_name}
                     </TableCell>
 
@@ -428,7 +425,7 @@ export default function CodRemittance() {
 
                     <TableCell>
                       <div className="text-xs">
-                        <span className="font-bold text-primary font-mono block">{item.awb_number}</span>
+                        <span className="font-semibold text-primary font-mono block">{item.awb_number}</span>
                         <span className="text-muted-foreground text-[11px] block">{item.carrier_code}</span>
                       </div>
                     </TableCell>
@@ -441,7 +438,7 @@ export default function CodRemittance() {
                       ₹{item.expected_cod.toLocaleString("en-IN")}
                     </TableCell>
 
-                    <TableCell className="text-right font-mono text-xs font-bold text-status-success">
+                    <TableCell className="text-right font-mono text-xs font-semibold text-status-success">
                       ₹{item.remitted_amount.toLocaleString("en-IN")}
                       {item.fee_amount > 0 && (
                         <span className="text-[10px] text-muted-foreground block font-normal">
@@ -450,7 +447,7 @@ export default function CodRemittance() {
                       )}
                     </TableCell>
 
-                    <TableCell className="text-right font-mono text-xs font-bold">
+                    <TableCell className="text-right font-mono text-xs font-semibold">
                       {item.difference > 0 ? (
                         <span className="text-status-danger">+₹{item.difference.toLocaleString("en-IN")} Short</span>
                       ) : item.difference < 0 ? (
@@ -481,7 +478,7 @@ export default function CodRemittance() {
                           type="button"
                           size="sm"
                           onClick={() => handleOpenResolve(item)}
-                          className="bg-status-danger hover:bg-status-danger/90 text-white font-bold text-xs gap-1.5 h-7 px-2.5 shadow-2xs"
+                          className="bg-status-danger hover:bg-status-danger/90 text-white font-semibold text-xs gap-1.5 h-7 px-2.5 shadow-2xs"
                         >
                           <IconSpark size={13} />
                           Resolve Shortfall
@@ -522,20 +519,20 @@ export default function CodRemittance() {
 
             <form onSubmit={handleResolveSubmit} className="space-y-4 text-xs">
               <div className="p-3 rounded-xl bg-status-danger/10 border border-border text-status-danger">
-                <p className="font-bold">Order: {selectedOrder.order_name}</p>
+                <p className="font-semibold">Order: {selectedOrder.order_name}</p>
                 <p className="mt-1">
-                  Expected COD: <span className="font-mono font-bold">₹{selectedOrder.expected_cod}</span> • Remitted: <span className="font-mono font-bold">₹{selectedOrder.remitted_amount}</span> • Shortfall: <span className="font-mono font-bold text-status-danger">₹{selectedOrder.difference}</span>
+                  Expected COD: <span className="font-mono font-semibold">₹{selectedOrder.expected_cod}</span> • Remitted: <span className="font-mono font-semibold">₹{selectedOrder.remitted_amount}</span> • Shortfall: <span className="font-mono font-semibold text-status-danger">₹{selectedOrder.difference}</span>
                 </p>
               </div>
 
               <div>
-                <label className="font-bold text-muted-foreground block mb-1">Resolution Action</label>
+                <label className="font-semibold text-muted-foreground block mb-1">Resolution Action</label>
                 <SelectField
                   ariaLabel="Resolution Action"
                   value={resolveAction}
                   includeAll={false}
                   onChange={setResolveAction}
-                  triggerClassName="w-full p-2.5 text-xs"
+                  triggerClassName="w-full"
                   options={[
                     {
                       value: "ACCEPT_SHORT",
@@ -549,7 +546,7 @@ export default function CodRemittance() {
 
               {resolveAction === "ACCEPT_SHORT" && (
                 <div>
-                  <label className="font-bold text-muted-foreground block mb-1">Write-off Amount (₹)</label>
+                  <label className="font-semibold text-muted-foreground block mb-1">Write-off Amount (₹)</label>
 <Input
                   type="number"
                   aria-label="Write-off amount"
@@ -561,7 +558,7 @@ export default function CodRemittance() {
               )}
 
               <div>
-                <label className="font-bold text-muted-foreground block mb-1">Notes / Remarks</label>
+                <label className="font-semibold text-muted-foreground block mb-1">Notes / Remarks</label>
                 <Textarea
                   aria-label="Resolve notes"
                   value={resolveNotes}
@@ -574,7 +571,7 @@ export default function CodRemittance() {
 
               <div className="flex justify-end gap-2 pt-2 border-t border-border">
                 <Button type="button" variant="outline" size="sm" onClick={() => setShowResolveModal(false)}>Cancel</Button>
-                <Button type="submit" disabled={submitting} size="sm" className="bg-status-success hover:bg-status-success/90 text-white font-bold">
+                <Button type="submit" disabled={submitting} size="sm" className="bg-status-success hover:bg-status-success/90 text-white font-semibold">
                   {submitting ? "Resolving..." : "Confirm & Save Resolution"}
                 </Button>
               </div>

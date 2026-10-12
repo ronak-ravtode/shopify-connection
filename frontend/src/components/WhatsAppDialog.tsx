@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, Badge } from "./primitives";
+import { Button, Badge } from "./primitives";
 import { getWhatsAppHistory, sendWhatsAppAlert } from "../lib/api";
 import {
   IconAlert,
@@ -52,6 +52,17 @@ export default function WhatsAppDialog({ open, order, onClose }: WhatsAppDialogP
     }
   }, [open, order]);
 
+  useEffect(() => {
+    if (!open) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [open, onClose]);
+
   if (!open || !order) return null;
 
   const handleSendApi = async () => {
@@ -78,14 +89,20 @@ export default function WhatsAppDialog({ open, order, onClose }: WhatsAppDialogP
   const customerMobile = order.receiver_mobile || data?.customer_mobile;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-150">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs animate-in fade-in duration-150"
+      onClick={onClose}
+    >
       <div className="fixed inset-0" onClick={onClose} aria-hidden="true" />
-      <div className="relative z-10 w-full max-w-xl max-h-[90vh] flex flex-col rounded-2xl border border-emerald-500/30 bg-card text-card-foreground shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150">
+      <div
+        className="relative z-10 w-full max-w-xl max-h-[90vh] flex flex-col rounded-2xl border border-emerald-500/30 bg-card text-card-foreground shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150"
+        onClick={(e) => e.stopPropagation()}
+      >
         
         {/* Header */}
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border px-4 sm:px-6 py-3 sm:py-4 bg-emerald-950/40 text-white">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-[#25D366] flex items-center justify-center text-white text-lg font-bold shadow-md shrink-0">
+            <div className="w-9 h-9 rounded-full bg-[#25D366] flex items-center justify-center text-white text-lg font-semibold shadow-md shrink-0">
               <IconMessage size={18} />
             </div>
             <div>
@@ -135,7 +152,7 @@ export default function WhatsAppDialog({ open, order, onClose }: WhatsAppDialogP
             <button
               type="button"
               onClick={() => setSelectedType("order_dispatched")}
-              className={`flex-1 py-2 px-3 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2 px-3 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 ${
                 selectedType === "order_dispatched"
                   ? "bg-[#25D366] text-white shadow-xs"
                   : "text-muted-foreground hover:text-foreground"
@@ -147,7 +164,7 @@ export default function WhatsAppDialog({ open, order, onClose }: WhatsAppDialogP
             <button
               type="button"
               onClick={() => setSelectedType("order_confirmation")}
-              className={`flex-1 py-2 px-3 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-1.5 ${
+              className={`flex-1 py-2 px-3 text-xs font-semibold rounded-lg transition-all flex items-center justify-center gap-1.5 ${
                 selectedType === "order_confirmation"
                   ? "bg-[#25D366] text-white shadow-xs"
                   : "text-muted-foreground hover:text-foreground"
@@ -160,7 +177,7 @@ export default function WhatsAppDialog({ open, order, onClose }: WhatsAppDialogP
 
           {/* Live Message Preview (WhatsApp Chat Bubble style) */}
           <div className="rounded-xl border border-emerald-500/20 bg-emerald-950/20 dark:bg-emerald-950/40 p-4">
-            <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2">
+            <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 mb-2">
               <span>Message Preview</span>
               <span className="text-[11px] font-normal text-muted-foreground">Automated WhatsApp Template</span>
             </div>
@@ -168,7 +185,7 @@ export default function WhatsAppDialog({ open, order, onClose }: WhatsAppDialogP
             <div className="bg-[#0b141a] text-[#e9edef] rounded-xl p-4 font-sans text-xs sm:text-sm whitespace-pre-wrap leading-relaxed border border-[#233138] shadow-inner relative">
               <div className="absolute top-2 right-2 text-[10px] text-[#8696a0] font-mono flex items-center gap-1">
                 <span>14:07</span>
-                <span className="text-[#53bdeb] text-xs font-bold leading-none">✓✓</span>
+                <span className="text-[#53bdeb] text-xs font-semibold leading-none">✓✓</span>
               </div>
               {selectedType === "order_dispatched" ? (
                 data?.dispatch_preview || (
@@ -187,7 +204,7 @@ export default function WhatsAppDialog({ open, order, onClose }: WhatsAppDialogP
               type="button"
               disabled={sending || !customerMobile}
               onClick={handleSendApi}
-              className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs h-9 flex items-center justify-center gap-2 shadow-md"
+              className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold text-xs h-9 flex items-center justify-center gap-2 shadow-md"
             >
               {sending ? (
                 <span>Sending...</span>
@@ -204,7 +221,7 @@ export default function WhatsAppDialog({ open, order, onClose }: WhatsAppDialogP
               href={data?.quick_wa_me_url || `https://wa.me/${data?.normalized_phone || ""}`}
               target="_blank"
               rel="noreferrer"
-              className={`w-full h-9 px-3 rounded-lg border border-emerald-500/40 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-bold text-xs flex items-center justify-center gap-2 transition text-center ${
+              className={`w-full h-9 px-3 rounded-lg border border-emerald-500/40 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-semibold text-xs flex items-center justify-center gap-2 transition text-center ${
                 !data?.normalized_phone ? "pointer-events-none opacity-50" : ""
               }`}
             >
@@ -261,7 +278,7 @@ export default function WhatsAppDialog({ open, order, onClose }: WhatsAppDialogP
                         href={log.wa_me_url}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-[11px] font-bold text-[#25D366] hover:underline"
+                        className="text-[11px] font-semibold text-[#25D366] hover:underline"
                       >
                         Resend
                       </a>

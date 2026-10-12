@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import {
-  Badge,
   Button,
   Table,
   TableBody,
@@ -10,8 +9,23 @@ import {
   TableHeader,
   TableRow,
 } from "./primitives";
-import { isAwaiting, pushStateLabel, statusTone, type OrderShipment } from "../lib/shipments";
-import { IconEdit, IconMoreVertical, IconTrash } from "./icons";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { isAwaiting, pushStateLabel, type OrderShipment } from "../lib/shipments";
+import {
+  IconArrowUpRight,
+  IconEdit,
+  IconMessage,
+  IconMoreVertical,
+  IconPackage,
+  IconReceipt,
+  IconTrash,
+} from "./icons";
 import ProductAvatar from "./ProductAvatar";
 import { downloadInvoicePdf } from "../lib/api";
 
@@ -110,8 +124,6 @@ export default function OrderTable({
   onViewOrder?: (order: any) => void;
   onWhatsApp?: (order: any) => void;
 }) {
-  const [openMenuId, setOpenMenuId] = useState<string | null>(null);
-
   if (!orders || orders.length === 0) {
     return (
       <div className="rounded-xl border border-border/80 bg-card p-12 text-center text-sm text-muted-foreground shadow-xs">
@@ -170,12 +182,13 @@ export default function OrderTable({
 
                   <div className="flex flex-col min-w-0">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="font-mono text-xs font-bold text-foreground inline-block">
+                      <span className="font-mono text-xs font-semibold text-foreground inline-block">
                         {o.shopify_order_name || o.internal_order_number || o.id}
                       </span>
                       {itemCount > 1 && (
-                        <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
-                          📦 {itemCount} Sarees
+                        <span className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20">
+                          <IconPackage size={11} className="inline shrink-0" />
+                          <span>{itemCount} Sarees</span>
                         </span>
                       )}
                     </div>
@@ -250,7 +263,7 @@ export default function OrderTable({
                   : "-"}
               </TableCell>
 
-              <TableCell className="text-center relative">
+              <TableCell className="text-center" onClick={(e) => e.stopPropagation()}>
                 <div className="flex justify-center items-center gap-1">
                   {onWhatsApp && (
                     <button
@@ -262,98 +275,85 @@ export default function OrderTable({
                       }}
                       className="size-7 rounded-lg flex items-center justify-center text-xs hover:bg-emerald-500/10 text-[#25D366] transition cursor-pointer"
                     >
-                      💬
+                      <IconMessage size={15} />
                     </button>
                   )}
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setOpenMenuId(openMenuId === o.id ? null : o.id);
-                    }}
-                    className="size-8 p-0 text-muted-foreground hover:text-foreground hover:bg-muted"
-                    aria-label="Order actions"
-                  >
-                    <IconMoreVertical size={16} />
-                  </Button>
-                </div>
-
-                {openMenuId === o.id && (
-                  <>
-                    <div
-                      className="fixed inset-0 z-40"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setOpenMenuId(null);
-                      }}
-                    />
-                    <div
-                      className="absolute right-0 top-10 z-50 min-w-[150px] rounded-xl border border-border bg-card p-1.5 shadow-xl animate-in fade-in zoom-in-95 duration-100 text-left"
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={(e) => e.stopPropagation()}
+                        className="size-8 p-0 text-muted-foreground hover:text-foreground hover:bg-muted"
+                        aria-label="Order actions"
+                      >
+                        <IconMoreVertical size={16} />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent
+                      align="end"
+                      sideOffset={4}
+                      className="w-52 text-left"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setOpenMenuId(null);
-                          onViewOrder?.(o);
-                        }}
-                        className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-foreground hover:bg-muted transition-colors"
+                      <DropdownMenuItem
+                        onSelect={() => onViewOrder?.(o)}
+                        className="flex items-center gap-2 cursor-pointer"
                       >
-                        View Order Details
-                      </button>
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setOpenMenuId(null);
-                          void downloadInvoicePdf(o.id, `GST_Tax_Invoice_${(o.shopify_order_name || o.internal_order_number || o.id).replace('#', '')}.pdf`);
-                        }}
-                        className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-emerald-700 hover:bg-emerald-50 dark:text-emerald-400 dark:hover:bg-emerald-950/50 transition-colors"
-                      >
-                        📄 Download GST Invoice
-                      </button>
+                        <IconArrowUpRight size={14} className="text-muted-foreground" />
+                        <span>View Order Details</span>
+                      </DropdownMenuItem>
 
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setOpenMenuId(null);
-                          if (onWhatsApp) onWhatsApp(o);
-                          else onViewOrder?.(o);
+                      <DropdownMenuItem
+                        onSelect={() => {
+                          void downloadInvoicePdf(
+                            o.id,
+                            `GST_Tax_Invoice_${(o.shopify_order_name || o.internal_order_number || o.id).replace('#', '')}.pdf`
+                          );
                         }}
-                        className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-bold text-[#25D366] hover:bg-emerald-50 dark:hover:bg-emerald-950/50 transition-colors"
+                        className="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 focus:text-emerald-700 dark:focus:text-emerald-400 focus:bg-emerald-50 dark:focus:bg-emerald-950/50 cursor-pointer"
                       >
-                        💬 WhatsApp Alert
-                      </button>
+                        <IconReceipt size={14} className="text-emerald-600 dark:text-emerald-400" />
+                        <span>Download GST Invoice</span>
+                      </DropdownMenuItem>
 
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setOpenMenuId(null);
-                          onEditOrder?.(o);
-                        }}
-                        className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-foreground hover:bg-muted transition-colors"
-                      >
-                        <IconEdit size={14} className="text-primary" />
-                        Edit Order
-                      </button>
+                      {onWhatsApp && (
+                        <DropdownMenuItem
+                          onSelect={() => onWhatsApp(o)}
+                          className="flex items-center gap-2 text-[#25D366] focus:text-[#25D366] focus:bg-emerald-50 dark:focus:bg-emerald-950/50 font-medium cursor-pointer"
+                        >
+                          <IconMessage size={14} className="text-[#25D366]" />
+                          <span>WhatsApp Alert</span>
+                        </DropdownMenuItem>
+                      )}
 
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setOpenMenuId(null);
-                          onDeleteOrder?.(o);
-                        }}
-                        className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-destructive hover:bg-destructive/10 transition-colors mt-0.5"
-                      >
-                        <IconTrash size={14} />
-                        Delete Order
-                      </button>
-                    </div>
-                  </>
-                )}
+                      {onEditOrder && (
+                        <DropdownMenuItem
+                          onSelect={() => onEditOrder(o)}
+                          className="flex items-center gap-2 cursor-pointer"
+                        >
+                          <IconEdit size={14} className="text-primary" />
+                          <span>Edit Order</span>
+                        </DropdownMenuItem>
+                      )}
+
+                      {onDeleteOrder && (
+                        <>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            variant="destructive"
+                            onSelect={() => onDeleteOrder(o)}
+                            className="flex items-center gap-2 cursor-pointer"
+                          >
+                            <IconTrash size={14} />
+                            <span>Delete Order</span>
+                          </DropdownMenuItem>
+                        </>
+                      )}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               </TableCell>
             </TableRow>
           );
