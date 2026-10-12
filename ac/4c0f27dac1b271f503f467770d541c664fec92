@@ -1,0 +1,44 @@
+backend/app/api/shipments.py
+  s_a3ed333f47be2c::t_7eb7c5e5f24d8e 1,12-13,154-180,204,219,221,224-226,233-234,381-382,388-389,396-397,403-404,409-410,423-424,439-440,446-447
+backend/app/services/scanning_service.py
+  s_505a5f9498a49c::t_5ab83971d9db83 55-60
+frontend/src/components/AddShipmentDialog.tsx
+  s_9dd9761bdefbdb::t_1abc48801be795 62-63,75-76,132-134,242-267,275-313
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ac4c0f27dac1b271f503f467770d541c664fec92",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_505a5f9498a49c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f1660b10affe6K0HjqTQhdeQfH",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_9dd9761bdefbdb": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_ef2b86c89ffefeu6xiMGDadbR8",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    },
+    "s_a3ed333f47be2c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0ce3f95fffegqN60DuM6gqc8n",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
