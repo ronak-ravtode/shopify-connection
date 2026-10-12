@@ -105,6 +105,16 @@ app.include_router(rto_router)
 app.include_router(cod_remittance_router)
 
 
+@app.get("/")
+def root():
+    return {
+        "success": True,
+        "message": "Shopify Recon Backend API is live",
+        "docs": "/docs",
+        "health": "/health"
+    }
+
+
 @app.get("/health")
 def health():
     return {"success": True, "data": {"status": "ok"}}
@@ -113,3 +123,4 @@ def health():
 @app.get("/api/v1/health")
 def api_health():
     return {"success": True, "data": {"status": "ok"}}
+
