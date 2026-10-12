@@ -1,0 +1,14 @@
+frontend/vercel.json
+  h_c5a3d01edfee72 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a644fbc9bde0d2b3ad32ad4fa11df561b4b748d8",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
