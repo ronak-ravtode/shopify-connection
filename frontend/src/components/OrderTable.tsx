@@ -229,19 +229,23 @@ export default function OrderTable({
 
               <TableCell className="text-center text-xs tabular-nums">
                 {(() => {
-                  if (!o.cod_mode || o.cod_mode.toUpperCase() !== "COD") {
+                  const isCod = o.cod_mode && String(o.cod_mode).toUpperCase() === "COD";
+                  if (!isCod) {
                     return <span className="text-muted-foreground">{o.cod_mode || "PREPAID"}</span>;
                   }
+                  const codCollectable = Number(o.cod_value ?? o.total_amount ?? 0);
                   const total = Number(o.total_amount || 0);
-                  const collectable = total > 0 ? Math.max(0, total - 300) + 50 : Number(o.cod_value || 0);
+                  const advPaid = total > codCollectable ? Math.round(total - codCollectable) : 0;
                   return (
                     <div className="flex flex-col items-center">
                       <span className="font-semibold text-amber-600 dark:text-amber-400">
-                        COD ₹{collectable.toLocaleString()}
+                        COD ₹{codCollectable.toLocaleString()}
                       </span>
-                      <span className="text-[10px] text-muted-foreground font-normal">
-                        (₹300 adv paid)
-                      </span>
+                      {advPaid > 0 && (
+                        <span className="text-[10px] text-muted-foreground font-normal">
+                          (₹{advPaid.toLocaleString()} adv paid)
+                        </span>
+                      )}
                     </div>
                   );
                 })()}

@@ -116,14 +116,36 @@ def normalize_shopify_order(p: dict) -> dict:
     receiver_email = str(customer.get("email") or p.get("email") or "").strip()
 
     # Determine COD vs PREPAID mode
+    total_val = _to_float(p.get("total_price", 0))
+    note_attrs = {}
+    for attr in (p.get("note_attributes") or []):
+        if isinstance(attr, dict) and "name" in attr:
+            note_attrs[str(attr["name"]).strip().lower()] = str(attr.get("value", "")).strip()
+
     gateways = [str(g).lower() for g in (p.get("payment_gateway_names") or [])]
     if not gateways and p.get("gateway"):
         gateways = [str(p.get("gateway")).lower()]
-    
-    is_cod = any("cod" in g or "cash" in g or "delivery" in g or "manual" in g for g in gateways)
-    cod_mode = "COD" if is_cod else "PREPAID"
-    total_val = _to_float(p.get("total_price", 0))
-    cod_value = total_val if is_cod else 0.0
+
+    cod_due_str = note_attrs.get("cod_due")
+    cod_due_val = _to_float(cod_due_str) if cod_due_str else 0.0
+
+    if cod_due_val > 0:
+        # COD King / partial advance payment: the remaining balance is collected via COD
+        cod_mode = "COD"
+        cod_value = cod_due_val
+    elif financial == "PAID":
+        # Full online payment: 100% prepaid, nothing to collect on delivery
+        cod_mode = "PREPAID"
+        cod_value = 0.0
+    else:
+        # Check if gateway explicitly indicates Cash on Delivery (exclude generic 'manual' used by checkout apps)
+        is_cod_gw = any("cod" in g or "cash" in g or "delivery" in g for g in gateways)
+        if is_cod_gw and financial in ("PENDING", "PARTIALLY_PAID", "AUTHORIZED"):
+            cod_mode = "COD"
+            cod_value = total_val
+        else:
+            cod_mode = "PREPAID"
+            cod_value = 0.0
 
     return {
         "shopify_order_id": shopify_order_id,

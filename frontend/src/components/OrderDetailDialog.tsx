@@ -106,12 +106,13 @@ export default function OrderDetailDialog({
                 if (!isCod) {
                   return <Badge variant="secondary">PREPAID</Badge>;
                 }
+                const codCollectable = Number(order.cod_value ?? order.total_amount ?? 0);
                 const total = Number(order.total_amount || 0);
-                const collectable = total > 0 ? Math.max(0, total - 300) + 50 : Number(order.cod_value || 0);
+                const advPaid = total > codCollectable ? Math.round(total - codCollectable) : 0;
                 return (
                   <Badge variant="destructive" className="bg-amber-600 text-white gap-1.5 font-mono text-xs">
-                    <span>COD Collectable: ₹{collectable.toLocaleString()}</span>
-                    <span className="opacity-90 font-normal text-[10px]">(₹300 Adv Paid)</span>
+                    <span>COD Collectable: ₹{codCollectable.toLocaleString()}</span>
+                    {advPaid > 0 && <span className="opacity-90 font-normal text-[10px]">(₹{advPaid.toLocaleString()} Adv Paid)</span>}
                   </Badge>
                 );
               })()}
@@ -397,10 +398,8 @@ export default function OrderDetailDialog({
             const total = Number(order.total_amount || 0);
 
             if (isCod) {
-              const prepaidAdvance = total >= 300 ? 300 : total;
-              const remainingBalance = Math.max(0, total - prepaidAdvance);
-              const codHandlingFee = total > 0 ? 50 : 0;
-              const codCollectable = total > 0 ? remainingBalance + codHandlingFee : Number(order.cod_value || 0);
+              const codCollectable = Number(order.cod_value ?? total);
+              const prepaidAdvance = total > codCollectable ? Math.round(total - codCollectable) : 0;
 
               return (
                 <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 shadow-2xs space-y-3">
@@ -414,26 +413,14 @@ export default function OrderDetailDialog({
                   </div>
 
                   <div className="space-y-2 text-xs sm:text-sm">
-                    <div className="flex items-center justify-between text-muted-foreground">
-                      <span>Prepaid Amount (Advance Paid Online)</span>
-                      <span className="font-mono font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums">
-                        ₹{prepaidAdvance.toLocaleString()}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center justify-between text-muted-foreground">
-                      <span>Remaining Order Balance</span>
-                      <span className="font-mono font-medium text-foreground tabular-nums">
-                        ₹{remainingBalance.toLocaleString()}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center justify-between text-muted-foreground">
-                      <span>COD Courier Handling Fee</span>
-                      <span className="font-mono font-medium text-foreground tabular-nums">
-                        +₹{codHandlingFee.toLocaleString()}
-                      </span>
-                    </div>
+                    {prepaidAdvance > 0 && (
+                      <div className="flex items-center justify-between text-muted-foreground">
+                        <span>Prepaid Amount (Advance Paid Online)</span>
+                        <span className="font-mono font-semibold text-emerald-600 dark:text-emerald-400 tabular-nums">
+                          ₹{prepaidAdvance.toLocaleString()}
+                        </span>
+                      </div>
+                    )}
 
                     <div className="flex items-center justify-between font-semibold text-amber-700 dark:text-amber-400 bg-amber-500/10 px-3 py-2 rounded-lg border border-amber-500/20 text-xs sm:text-sm">
                       <span>Remaining COD (To Collect on Delivery)</span>
