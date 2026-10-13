@@ -84,6 +84,7 @@ export default function OrdersPage() {
   const [importSummary, setImportSummary] = useState<ImportSummary | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
+  const [syncSuccess, setSyncSuccess] = useState<string | null>(null);
   const [live, setLive] = useState(true);
   const [updatedAt, setUpdatedAt] = useState<string | null>(null);
   const [addShipmentOrder, setAddShipmentOrder] = useState<any | null>(null);
@@ -132,17 +133,19 @@ export default function OrdersPage() {
 
   const fetchOrders = (silent = false) => {
     if (!silent) setLoading(true);
-    setError(null);
-    api<any>(`/api/v1/orders${query}`)
+    if (!silent) setError(null);
+    return api<any>(`/api/v1/orders${query}`)
       .then((data) => {
         const rawItems = Array.isArray(data) ? data : ((data as any)?.items ?? []);
         const total = (data as any)?.total ?? rawItems.length;
         setOrders(rawItems);
         setTotalOrders(total);
         setUpdatedAt(new Date().toLocaleTimeString());
+        return data;
       })
       .catch((err) => {
         if (!silent) setError(err?.message ?? "Failed to load orders from backend server");
+        throw err;
       })
       .finally(() => {
         if (!silent) setLoading(false);
@@ -162,13 +165,22 @@ export default function OrdersPage() {
   const handleSyncShopify = async () => {
     setSyncing(true);
     setError(null);
+    setSyncSuccess(null);
     try {
       const res = await api<any>("/api/v1/shopify/sync?days=0", { method: "POST" });
-      await fetchOrders();
       const data = res?.data ?? res;
       if (data?.error) {
-        setError(`Shopify Sync Warning: ${data.error}. Please update SHOPIFY_ACCESS_TOKEN in .env.`);
+        setError(`Shopify Sync Error: ${data.error}`);
+      } else {
+        const count = Number(data?.synced ?? 0);
+        setSyncSuccess(`Shopify sync complete: ${count} order${count === 1 ? "" : "s"} processed.`);
+        if (datePreset !== "ALL") {
+          setDatePreset("ALL");
+          setDateFrom("");
+          setDateTo("");
+        }
       }
+      await fetchOrders(true);
     } catch (err: any) {
       setError(err?.message ?? "Shopify Sync failed. Check API connection.");
     } finally {
@@ -545,6 +557,19 @@ export default function OrdersPage() {
           </div>
         )}
       </Card>
+
+      {/* Sync Success Alert */}
+      {syncSuccess && (
+        <div role="status" className="flex items-center justify-between gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-600 dark:text-emerald-400">
+          <div className="flex items-center gap-2 font-medium">
+            <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span><strong>Sync Complete:</strong> {syncSuccess}</span>
+          </div>
+          <Button variant="ghost" size="sm" onClick={() => setSyncSuccess(null)} className="h-7 text-xs hover:bg-emerald-500/10">
+            Dismiss
+          </Button>
+        </div>
+      )}
 
       {/* Connection Error Alert */}
       {error && (

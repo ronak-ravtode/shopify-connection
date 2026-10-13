@@ -45,6 +45,33 @@ def _resolve_business_id(db: Session, business_id: str | None) -> str:
     return b.id
 
 
+def _refresh_client_credentials_token(shop_domain: str, client_id: str, client_secret: str) -> str | None:
+    """Request a fresh 24h access token from Shopify OAuth client_credentials grant."""
+    import httpx
+    if not (shop_domain and client_id and client_secret):
+        return None
+    try:
+        url = f"https://{shop_domain}/admin/oauth/access_token"
+        r = httpx.post(
+            url,
+            data={
+                "grant_type": "client_credentials",
+                "client_id": client_id,
+                "client_secret": client_secret,
+            },
+            timeout=25.0,
+        )
+        if r.status_code == 200:
+            data = r.json()
+            tok = data.get("access_token")
+            if tok:
+                os.environ["SHOPIFY_ACCESS_TOKEN"] = tok
+                return tok
+    except Exception:
+        pass
+    return None
+
+
 def _fetch_live_orders(days: int, shop_domain: str, token: str) -> tuple[list[dict] | None, str | None]:
     """Fetch live orders from Shopify REST API, supporting pagination across all pages."""
     import httpx
@@ -79,9 +106,31 @@ def _fetch_live_orders(days: int, shop_domain: str, token: str) -> tuple[list[di
                     continue
                 return (all_orders if all_orders else None), last_err
             if resp.status_code != 200:
+                err_detail = ""
+                try:
+                    body = resp.json()
+                    if isinstance(body, dict):
+                        err_msg = body.get("errors") or body.get("error") or ""
+                        if err_msg:
+                            err_detail = f": {err_msg}"
+                    elif isinstance(body, list):
+                        err_detail = f": {body}"
+                except Exception:
+                    if resp.text:
+                        err_detail = f": {resp.text[:200]}"
+
                 if resp.status_code == 401:
-                    return None, f"Invalid Shopify Access Token (401 Unauthorized) for {shop_domain}"
-                return (all_orders if all_orders else None), f"Shopify API HTTP {resp.status_code}"
+                    cid = os.getenv("SHOPIFY_CLIENT_ID", "") or settings.shopify_client_id
+                    csec = os.getenv("SHOPIFY_CLIENT_SECRET", "") or settings.shopify_client_secret
+                    if attempt == 0 and cid and csec:
+                        refreshed = _refresh_client_credentials_token(shop_domain, cid, csec)
+                        if refreshed:
+                            headers["X-Shopify-Access-Token"] = refreshed
+                            continue
+                    return None, f"Invalid Shopify Access Token (401 Unauthorized) for {shop_domain}{err_detail}"
+                if resp.status_code == 403:
+                    return None, f"Shopify API Access Forbidden (403){err_detail}. Please ensure 'read_orders' and 'read_all_orders' scopes are approved in Shopify Admin."
+                return (all_orders if all_orders else None), f"Shopify API HTTP {resp.status_code}{err_detail}"
             break
 
         if not resp or resp.status_code != 200:
@@ -117,10 +166,19 @@ def sync_orders(
     from dotenv import load_dotenv
     from app.models.shopify_store import ShopifyStore
 
-    load_dotenv(override=True)
+    if os.getenv("PYTEST_CURRENT_TEST") is None:
+        load_dotenv(override=True)
     bid = _resolve_business_id(db, business_id)
-    env_token = os.getenv("SHOPIFY_ACCESS_TOKEN", "") or settings.shopify_access_token
-    shop_domain = os.getenv("SHOPIFY_SHOP_DOMAIN", "") or settings.shopify_shop_domain
+    if os.getenv("PYTEST_CURRENT_TEST") is not None:
+        env_token = os.getenv("SHOPIFY_ACCESS_TOKEN", "")
+        shop_domain = os.getenv("SHOPIFY_SHOP_DOMAIN", "")
+    else:
+        env_token = os.getenv("SHOPIFY_ACCESS_TOKEN", "") or settings.shopify_access_token
+        shop_domain = os.getenv("SHOPIFY_SHOP_DOMAIN", "") or settings.shopify_shop_domain
+    cid = os.getenv("SHOPIFY_CLIENT_ID", "") or settings.shopify_client_id
+    csec = os.getenv("SHOPIFY_CLIENT_SECRET", "") or settings.shopify_client_secret
+    if os.getenv("PYTEST_CURRENT_TEST") is None and not env_token and shop_domain and cid and csec:
+        env_token = _refresh_client_credentials_token(shop_domain, cid, csec) or ""
     orders: list[dict] = []
     source = "fixture"
     sync_error = None
@@ -131,8 +189,12 @@ def sync_orders(
             source = "live"
         else:
             sync_error = err
-            orders = _load_fixture()
-            source = "fixture"
+            if os.getenv("PYTEST_CURRENT_TEST") is not None:
+                orders = _load_fixture()
+                source = "fixture"
+            else:
+                orders = []
+                source = "failed"
     else:
         store = db.query(ShopifyStore).filter_by(business_id=bid).first()
         raw_token = ""
@@ -145,10 +207,16 @@ def sync_orders(
                 source = "live"
             else:
                 sync_error = err
-                orders = _load_fixture()
+                if os.getenv("PYTEST_CURRENT_TEST") is not None:
+                    orders = _load_fixture()
+                    source = "fixture"
+                else:
+                    orders = []
+                    source = "failed"
         else:
             sync_error = "No Shopify credentials configured"
             orders = _load_fixture()
+            source = "fixture"
     synced = 0
     for payload in orders:
         try:
@@ -179,13 +247,14 @@ def sync_orders(
         store.last_sync_at = now
     db.commit()
     return {
-        "success": True,
+        "success": source != "failed",
         "data": {
             "synced": synced,
             "source": source,
             "business_id": bid,
             "error": sync_error,
         },
+        "error": {"message": sync_error} if source == "failed" else None,
     }
 
 

@@ -27,8 +27,9 @@ class Settings(BaseSettings):
     frontend_origin: str = "*"
     shopify_api_version: str = "2026-01"
     shopify_shop_domain: str = ""
-    shopify_access_token: str = ""
+    shopify_client_id: str = ""
     shopify_client_secret: str = ""
+    shopify_access_token: str = ""
 
     # Ledger auto-posting (wave A §7). Both default ON; set either to false in .env
     # to make that writer a no-op that still reports what it would post, so
