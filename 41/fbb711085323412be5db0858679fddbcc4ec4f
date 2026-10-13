@@ -1,0 +1,24 @@
+backend/app/config.py
+  s_a3ed333f47be2c::t_d301a3d980f221 30,32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "41fbb711085323412be5db0858679fddbcc4ec4f",
+  "prompts": {},
+  "humans": {
+    "h_c5a3d01edfee72": {
+      "author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a3ed333f47be2c": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_f0ce3f95fffegqN60DuM6gqc8n",
+        "model": "unknown"
+      },
+      "human_author": "ronak-ravtode <ronakravtode001@gmail.com>"
+    }
+  }
+}
